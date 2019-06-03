@@ -118,8 +118,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 		let statusBarH = UIApplication.shared.statusBarFrame.height
 		let fullHeaderH = statusBarH + headerH
 		let delta = height - headerHmin
-		let alpha = delta / (fullHeaderH - headerHmin)
-		print("alpha: \(alpha)")
+		let alpha = 1 - (delta / (fullHeaderH - headerHmin))
 		headerView.updateAlpha(alpha: alpha)
 	}
 	
