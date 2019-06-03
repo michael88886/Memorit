@@ -27,6 +27,9 @@ class HeaderView: UIView {
 		return canv
 	}()
 	
+	// - Search container
+	private lazy var searchContainer = UIView()
+	
 	// MARK: - Custom init
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -45,6 +48,10 @@ extension HeaderView {
 		DispatchQueue.main.async {
 			self.imageView.image = image
 		}
+	}
+	
+	func updateAlpha(alpha: CGFloat) {
+		self.searchContainer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(alpha)
 	}
 	
 	func updateVertOffset(offset: CGFloat) {
@@ -76,6 +83,15 @@ extension HeaderView {
 		canvas.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
 		canvas.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
 		canvas.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		
+		// Search container
+		searchContainer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).withAlphaComponent(0.0)
+		searchContainer.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(searchContainer)
+		searchContainer.topAnchor.constraint(equalTo: topAnchor).isActive = true
+		searchContainer.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+		searchContainer.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+		searchContainer.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 	}
 }
 

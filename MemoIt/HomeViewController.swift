@@ -109,11 +109,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		// Update header view size
-		let y = headerH - (scrollView.contentOffset.y + headerH)
+		let offsetY = scrollView.contentOffset.y
+		let y = headerH - (offsetY + headerH)
 		let height = min(max(y, headerHmin), headerHmax)
 		headerHCst.constant = height
 		
-		headerView.updateVertOffset(offset: scrollView.contentOffset.y + headerH)
+		// Update search bar container alpha
+		let statusBarH = UIApplication.shared.statusBarFrame.height
+		let fullHeaderH = statusBarH + headerH
+		let delta = height - headerHmin
+		let alpha = delta / (fullHeaderH - headerHmin)
+		print("alpha: \(alpha)")
+		headerView.updateAlpha(alpha: alpha)
 	}
 	
 	
