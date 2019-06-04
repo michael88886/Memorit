@@ -33,6 +33,8 @@ class HomeViewController: UIViewController {
 	
 	private lazy var homeTable: UITableView = {
 		let table = UITableView(frame: .zero, style: .plain)
+		table.keyboardDismissMode = .onDrag
+		
 //		table.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
 //		table.separatorStyle = .none
 		table.showsHorizontalScrollIndicator = false
@@ -76,6 +78,7 @@ extension HomeViewController {
 		homeTable.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 		
 		// Table header view
+		headerView.searchbar.delegate = self
 		headerView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(headerView)
 		headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -120,6 +123,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 		let delta = height - headerHmin
 		let alpha = 1 - (delta / (fullHeaderH - headerHmin))
 		headerView.updateAlpha(alpha: alpha)
+		
+	}
+	
+	
+}
+
+
+// UISearchView delegate
+extension HomeViewController: UISearchBarDelegate {
+	
+	func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+		
+		
+		return true
+	}
+	
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		
+	}
+	
+	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+		<#code#>
 	}
 	
 	
