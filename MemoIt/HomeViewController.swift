@@ -26,6 +26,9 @@ class HomeViewController: UIViewController {
 	
 	private var homeItems = [Any]()
 	
+	// Resume scroll offset (search)
+	private var resumeOffset = CGPoint.zero
+	
 	
 	// MARK: - Views
 	
