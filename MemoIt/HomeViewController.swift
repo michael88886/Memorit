@@ -137,7 +137,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController: UISearchBarDelegate {
 	
 	func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+		// Show edit button
+		searchBar.showsCancelButton = true
 		
+		// Disable home table scroll
+		homeTable.isScrollEnabled = false
+		
+		// Show result table here
+		// FIXME: show result table
+		
+		// Set resume offset
+		resumeOffset = homeTable.contentOffset
+		
+		// Home table scroll up
+		let targetOffset  = headerView.frame.height
+		if homeTable.contentOffset.y < targetOffset {
+			let offsetPoint = CGPoint(x: 0, y: targetOffset)
+			homeTable.setContentOffset(offsetPoint, animated: true)
+		}
 		
 		return true
 	}
@@ -147,7 +164,20 @@ extension HomeViewController: UISearchBarDelegate {
 	}
 	
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-		<#code#>
+		// Hide cancel button
+		searchBar.showsCancelButton = false
+		// Hide keyboard
+		searchBar.resignFirstResponder()
+		// Resume offset
+		homeTable.setContentOffset(resumeOffset, animated: true)
+		// Enable scroll
+		homeTable.isScrollEnabled = true
+		// Empty search bar
+		headerView.searchbar.text = ""
+		
+		
+		// Hide result table
+		// FIXME: hide result table
 	}
 	
 	
