@@ -128,8 +128,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 		headerView.updateAlpha(alpha: alpha)
 		
 	}
-	
-	
 }
 
 
