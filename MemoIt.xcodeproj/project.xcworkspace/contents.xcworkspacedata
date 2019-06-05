@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MemoIt.xcodeproj">
+      location = "group:/Users/mkmk/Desktop/Projects/MemoIt/MemoIt/CoreData">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
