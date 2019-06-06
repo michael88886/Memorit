@@ -11,6 +11,10 @@
 		2F20B3AF22A3947300054053 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3AE22A3947300054053 /* Assets.xcassets */; };
 		2F20B3B222A3947300054053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3B022A3947300054053 /* LaunchScreen.storyboard */; };
 		2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F20B3B922A39F5000054053 /* HomeViewController.swift */; };
+		780E5EF622A9523300B7AFF5 /* PreviewPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EF222A9523200B7AFF5 /* PreviewPageViewController.swift */; };
+		780E5EF722A9523300B7AFF5 /* PreviewImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EF322A9523200B7AFF5 /* PreviewImageController.swift */; };
+		780E5EF822A9523300B7AFF5 /* PreviewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EF422A9523300B7AFF5 /* PreviewItemController.swift */; };
+		780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EF522A9523300B7AFF5 /* PreviewAudioController.swift */; };
 		784507D822A8DF3F009913D1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D722A8DF3F009913D1 /* Helper.swift */; };
 		784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D922A8E288009913D1 /* ListDetailViewController.swift */; };
 		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
@@ -49,6 +53,10 @@
 		2F20B3B122A3947300054053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F20B3B322A3947300054053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F20B3B922A39F5000054053 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		780E5EF222A9523200B7AFF5 /* PreviewPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewPageViewController.swift; sourceTree = "<group>"; };
+		780E5EF322A9523200B7AFF5 /* PreviewImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewImageController.swift; sourceTree = "<group>"; };
+		780E5EF422A9523300B7AFF5 /* PreviewItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewItemController.swift; sourceTree = "<group>"; };
+		780E5EF522A9523300B7AFF5 /* PreviewAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewAudioController.swift; sourceTree = "<group>"; };
 		784507D722A8DF3F009913D1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		784507D922A8E288009913D1 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		784507DB22A8E2FD009913D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -120,11 +128,23 @@
 				784FBA6522A8B71900F1818C /* ListMemo */,
 				784507DD22A8E432009913D1 /* VoiceMemo */,
 				784507E622A8EBB0009913D1 /* WaveView */,
+				780E5EFA22A9523900B7AFF5 /* ImageViewer */,
 				784FBA6822A8DEE600F1818C /* Helpers */,
 				78A7C20E22A3F47D00ADBFBA /* Supporting Files */,
 				784507E222A8EBAB009913D1 /* MemoIt-Bridging-Header.h */,
 			);
 			path = MemoIt;
+			sourceTree = "<group>";
+		};
+		780E5EFA22A9523900B7AFF5 /* ImageViewer */ = {
+			isa = PBXGroup;
+			children = (
+				780E5EF522A9523300B7AFF5 /* PreviewAudioController.swift */,
+				780E5EF322A9523200B7AFF5 /* PreviewImageController.swift */,
+				780E5EF422A9523300B7AFF5 /* PreviewItemController.swift */,
+				780E5EF222A9523200B7AFF5 /* PreviewPageViewController.swift */,
+			);
+			path = ImageViewer;
 			sourceTree = "<group>";
 		};
 		784507DD22A8E432009913D1 /* VoiceMemo */ = {
@@ -276,6 +296,7 @@
 				78A980F322A803EF000E0247 /* ListIem+CoreDataProperties.swift in Sources */,
 				78A980F822A8044A000E0247 /* MemoIt.xcdatamodeld in Sources */,
 				78A980F622A803EF000E0247 /* Memo+CoreDataClass.swift in Sources */,
+				780E5EF722A9523300B7AFF5 /* PreviewImageController.swift in Sources */,
 				784507D822A8DF3F009913D1 /* Helper.swift in Sources */,
 				78A980F022A803EF000E0247 /* MemoLabel+CoreDataClass.swift in Sources */,
 				784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */,
@@ -293,13 +314,16 @@
 				78A980EB22A803EF000E0247 /* VoiceMemo+CoreDataProperties.swift in Sources */,
 				78A980F422A803EF000E0247 /* Category+CoreDataClass.swift in Sources */,
 				2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */,
+				780E5EF822A9523300B7AFF5 /* PreviewItemController.swift in Sources */,
 				784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */,
 				78A9810022A8050E000E0247 /* ListViewController.swift in Sources */,
+				780E5EF622A9523300B7AFF5 /* PreviewPageViewController.swift in Sources */,
 				78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */,
 				78A980EF22A803EF000E0247 /* ListMemo+CoreDataClass.swift in Sources */,
 				78A980EE22A803EF000E0247 /* ListIem+CoreDataClass.swift in Sources */,
 				78A980F122A803EF000E0247 /* MemoLabel+CoreDataProperties.swift in Sources */,
 				78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */,
+				780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */,
 				78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */,
 				784FBA6222A8B60800F1818C /* Padding.swift in Sources */,
 			);
