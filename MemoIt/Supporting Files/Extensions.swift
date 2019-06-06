@@ -11,7 +11,9 @@ import AVFoundation
 
 
 extension Notification.Name {
-	
+	// Norify home table reload edited item
 	static let updateHomeTable = Notification.Name("UpdateHomeTable")
+	// Notify home table new item has been added (reload table)
+	static let newItemHomeTable = Notification.Name("NewItemHomeTable")
 
 }

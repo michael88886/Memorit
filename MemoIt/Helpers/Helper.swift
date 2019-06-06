@@ -193,4 +193,16 @@ class Helper {
 		UIGraphicsEndImageContext()
 		return UIImage(data: imgData!)
 	}
+	
+	// Error prompt
+	static func errorPopup(withTitle: String, msg: String) -> UIAlertController {
+		let alertC = UIAlertController(title: withTitle,
+									   message: msg,
+									   preferredStyle: .alert)
+		alertC.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+			return
+		}))
+		return alertC
+	}
+
 }
