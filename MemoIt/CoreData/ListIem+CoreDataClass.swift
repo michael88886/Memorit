@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(ListIem)
-public class ListIem: NSManagedObject {
+@objc(ListItem)
+public class ListItem: NSManagedObject {
 
 }

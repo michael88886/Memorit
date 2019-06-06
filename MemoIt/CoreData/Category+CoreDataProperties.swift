@@ -17,8 +17,8 @@ extension Category {
         return NSFetchRequest<Category>(entityName: "Category")
     }
 
-    @NSManaged public var name: String?
-    @NSManaged public var color: UIColor?
+    @NSManaged public var name: String!
+    @NSManaged public var color: UIColor!
     @NSManaged public var memo: NSSet?
 
 }

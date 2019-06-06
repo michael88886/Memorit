@@ -11,15 +11,15 @@ import UIKit
 import CoreData
 
 
-extension ListIem {
+extension ListItem {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<ListIem> {
-        return NSFetchRequest<ListIem>(entityName: "ListIem")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ListItem> {
+        return NSFetchRequest<ListItem>(entityName: "ListItem")
     }
 
-    @NSManaged public var color: UIColor?
+    @NSManaged public var color: UIColor!
     @NSManaged public var isDone: Bool
-    @NSManaged public var title: String?
+    @NSManaged public var title: String!
     @NSManaged public var reminder: NSDate?
     @NSManaged public var listMemo: ListMemo?
 

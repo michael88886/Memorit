@@ -17,7 +17,7 @@ extension MemoLabel {
         return NSFetchRequest<MemoLabel>(entityName: "MemoLabel")
     }
 
-    @NSManaged public var name: String?
+    @NSManaged public var name: String!
     @NSManaged public var memo: NSSet?
 
 }

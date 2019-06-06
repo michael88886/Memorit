@@ -17,8 +17,8 @@ extension Attachment {
         return NSFetchRequest<Attachment>(entityName: "Attachment")
     }
 
-    @NSManaged public var attachID: String?
-    @NSManaged public var attachType: String?
+    @NSManaged public var attachID: String!
+    @NSManaged public var attachType: String!
     @NSManaged public var attachmentMemo: AttachmentMemo?
 
 }

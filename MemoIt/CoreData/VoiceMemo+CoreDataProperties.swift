@@ -17,6 +17,6 @@ extension VoiceMemo {
         return NSFetchRequest<VoiceMemo>(entityName: "VoiceMemo")
     }
 
-    @NSManaged public var memoID: String?
+    @NSManaged public var memoID: String!
 
 }

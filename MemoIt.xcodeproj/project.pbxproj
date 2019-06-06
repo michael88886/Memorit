@@ -11,6 +11,14 @@
 		2F20B3AF22A3947300054053 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3AE22A3947300054053 /* Assets.xcassets */; };
 		2F20B3B222A3947300054053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3B022A3947300054053 /* LaunchScreen.storyboard */; };
 		2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F20B3B922A39F5000054053 /* HomeViewController.swift */; };
+		784507D822A8DF3F009913D1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D722A8DF3F009913D1 /* Helper.swift */; };
+		784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D922A8E288009913D1 /* ListDetailViewController.swift */; };
+		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
+		784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */; };
+		784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */; };
+		784FBA6222A8B60800F1818C /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6122A8B60800F1818C /* Padding.swift */; };
+		784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6322A8B71500F1818C /* ListTableCell.swift */; };
+		784FBA6722A8C8FC00F1818C /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6622A8C8FC00F1818C /* UIHelper.swift */; };
 		78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */; };
 		78A980E822A803EF000E0247 /* AttachmentMemo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980DB22A803EE000E0247 /* AttachmentMemo+CoreDataProperties.swift */; };
 		78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980E622A803EE000E0247 /* AttachmentMemo+CoreDataClass.swift */; };
@@ -29,6 +37,9 @@
 		78A980F822A8044A000E0247 /* MemoIt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 78A980E222A803EE000E0247 /* MemoIt.xcdatamodeld */; };
 		78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980F922A804AA000E0247 /* Attachment+CoreDataClass.swift */; };
 		78A980FC22A804AA000E0247 /* Attachment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FA22A804AA000E0247 /* Attachment+CoreDataProperties.swift */; };
+		78A980FE22A80507000E0247 /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FD22A80507000E0247 /* MemoViewController.swift */; };
+		78A9810022A8050E000E0247 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FF22A8050E000E0247 /* ListViewController.swift */; };
+		78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9810122A80515000E0247 /* VoiceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +49,16 @@
 		2F20B3B122A3947300054053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F20B3B322A3947300054053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F20B3B922A39F5000054053 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		784507D722A8DF3F009913D1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		784507D922A8E288009913D1 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
+		784507DB22A8E2FD009913D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MKAudioPlayer.swift; path = "/Users/mkmk/Desktop/Projects/MemoIt/MemoIt/Supporting Files/MKAudioPlayer.swift"; sourceTree = "<absolute>"; };
+		784507E222A8EBAB009913D1 /* MemoIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemoIt-Bridging-Header.h"; sourceTree = "<group>"; };
+		784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
+		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
+		784FBA6122A8B60800F1818C /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = ../Padding.swift; sourceTree = "<group>"; };
+		784FBA6322A8B71500F1818C /* ListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableCell.swift; sourceTree = "<group>"; };
+		784FBA6622A8C8FC00F1818C /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIHelper.swift; path = ../UIHelper.swift; sourceTree = "<group>"; };
 		78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		78A980D822A803ED000E0247 /* ListMemo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListMemo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78A980D922A803ED000E0247 /* ListIem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListIem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -56,6 +77,9 @@
 		78A980E722A803EE000E0247 /* Memo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		78A980F922A804AA000E0247 /* Attachment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		78A980FA22A804AA000E0247 /* Attachment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		78A980FD22A80507000E0247 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
+		78A980FF22A8050E000E0247 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		78A9810122A80515000E0247 /* VoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,9 +116,52 @@
 				2F20B3A422A3947000054053 /* AppDelegate.swift */,
 				2F20B3B922A39F5000054053 /* HomeViewController.swift */,
 				78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */,
+				78A980FD22A80507000E0247 /* MemoViewController.swift */,
+				784FBA6522A8B71900F1818C /* ListMemo */,
+				784507DD22A8E432009913D1 /* VoiceMemo */,
+				784507E622A8EBB0009913D1 /* WaveView */,
+				784FBA6822A8DEE600F1818C /* Helpers */,
 				78A7C20E22A3F47D00ADBFBA /* Supporting Files */,
+				784507E222A8EBAB009913D1 /* MemoIt-Bridging-Header.h */,
 			);
 			path = MemoIt;
+			sourceTree = "<group>";
+		};
+		784507DD22A8E432009913D1 /* VoiceMemo */ = {
+			isa = PBXGroup;
+			children = (
+				78A9810122A80515000E0247 /* VoiceViewController.swift */,
+			);
+			path = VoiceMemo;
+			sourceTree = "<group>";
+		};
+		784507E622A8EBB0009913D1 /* WaveView */ = {
+			isa = PBXGroup;
+			children = (
+				784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */,
+				784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */,
+			);
+			path = WaveView;
+			sourceTree = "<group>";
+		};
+		784FBA6522A8B71900F1818C /* ListMemo */ = {
+			isa = PBXGroup;
+			children = (
+				78A980FF22A8050E000E0247 /* ListViewController.swift */,
+				784FBA6322A8B71500F1818C /* ListTableCell.swift */,
+				784507D922A8E288009913D1 /* ListDetailViewController.swift */,
+			);
+			path = ListMemo;
+			sourceTree = "<group>";
+		};
+		784FBA6822A8DEE600F1818C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				784FBA6122A8B60800F1818C /* Padding.swift */,
+				784FBA6622A8C8FC00F1818C /* UIHelper.swift */,
+				784507D722A8DF3F009913D1 /* Helper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		78A7C20E22A3F47D00ADBFBA /* Supporting Files */ = {
@@ -103,6 +170,8 @@
 				2F20B3AE22A3947300054053 /* Assets.xcassets */,
 				2F20B3B022A3947300054053 /* LaunchScreen.storyboard */,
 				2F20B3B322A3947300054053 /* Info.plist */,
+				784507DB22A8E2FD009913D1 /* Extensions.swift */,
+				784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -163,6 +232,7 @@
 				TargetAttributes = {
 					2F20B3A022A3947000054053 = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -206,21 +276,32 @@
 				78A980F322A803EF000E0247 /* ListIem+CoreDataProperties.swift in Sources */,
 				78A980F822A8044A000E0247 /* MemoIt.xcdatamodeld in Sources */,
 				78A980F622A803EF000E0247 /* Memo+CoreDataClass.swift in Sources */,
+				784507D822A8DF3F009913D1 /* Helper.swift in Sources */,
 				78A980F022A803EF000E0247 /* MemoLabel+CoreDataClass.swift in Sources */,
+				784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */,
 				78A980EA22A803EF000E0247 /* ListMemo+CoreDataProperties.swift in Sources */,
 				78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */,
+				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,
 				2F20B3A522A3947000054053 /* AppDelegate.swift in Sources */,
 				78A980F222A803EF000E0247 /* VoiceMemo+CoreDataClass.swift in Sources */,
 				78A980FC22A804AA000E0247 /* Attachment+CoreDataProperties.swift in Sources */,
+				784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */,
+				78A980FE22A80507000E0247 /* MemoViewController.swift in Sources */,
+				784FBA6722A8C8FC00F1818C /* UIHelper.swift in Sources */,
+				784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */,
 				78A980F522A803EF000E0247 /* Category+CoreDataProperties.swift in Sources */,
 				78A980EB22A803EF000E0247 /* VoiceMemo+CoreDataProperties.swift in Sources */,
 				78A980F422A803EF000E0247 /* Category+CoreDataClass.swift in Sources */,
 				2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */,
+				784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */,
+				78A9810022A8050E000E0247 /* ListViewController.swift in Sources */,
 				78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */,
 				78A980EF22A803EF000E0247 /* ListMemo+CoreDataClass.swift in Sources */,
 				78A980EE22A803EF000E0247 /* ListIem+CoreDataClass.swift in Sources */,
 				78A980F122A803EF000E0247 /* MemoLabel+CoreDataProperties.swift in Sources */,
+				78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */,
 				78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */,
+				784FBA6222A8B60800F1818C /* Padding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYQ5F53YKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/MemoIt/Supporting Files/Info.plist";
@@ -367,6 +449,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mmk.MemoIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MemoIt/MemoIt-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -376,6 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYQ5F53YKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/MemoIt/Supporting Files/Info.plist";
@@ -385,6 +470,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mmk.MemoIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MemoIt/MemoIt-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
