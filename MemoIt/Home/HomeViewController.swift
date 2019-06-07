@@ -19,10 +19,14 @@ class HomeViewController: UIViewController {
 	private let headerHmin: CGFloat = 90
 	// Header maximum stretch height
 	private let headerHmax: CGFloat = UIScreen.main.bounds.height
+	// Function view height
+	private let toolBarH: CGFloat = 44.0
 	
 	// - Variables
 	// Header view height constraint
 	private var headerHCst = NSLayoutConstraint()
+	// Function view height constraint
+	private var funcViewHCst = NSLayoutConstraint()
 	
 	private var homeItems = [Any]()
 	
@@ -31,9 +35,10 @@ class HomeViewController: UIViewController {
 	
 	
 	// MARK: - Views
-	
+	// Header view
 	private lazy var headerView = HeaderView()
 	
+	// Home table view
 	private lazy var homeTable: UITableView = {
 		let table = UITableView(frame: .zero, style: .plain)
 		table.keyboardDismissMode = .onDrag
@@ -48,7 +53,8 @@ class HomeViewController: UIViewController {
 		return table
 	}()
 	
-	
+	// Function view
+	private lazy var functionView = FunctionView()
 }
 
 
@@ -73,10 +79,18 @@ extension HomeViewController {
 		// Hide tool bar
 		navigationController?.isToolbarHidden = true
 		
+		// Function view
+		functionView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(functionView)
+		functionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		functionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		functionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+		funcViewHCst = functionView.heightAnchor.constraint(equalToConstant: toolBarH)
+		funcViewHCst.isActive = true
 		
 		// Table view
 		homeTable.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(homeTable)
+		view.insertSubview(homeTable, belowSubview: functionView)
 		homeTable.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		homeTable.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
 		homeTable.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
