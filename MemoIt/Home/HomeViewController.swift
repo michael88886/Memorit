@@ -40,8 +40,6 @@ class HomeViewController: UIViewController {
 	private lazy var homeTable: UITableView = {
 		let table = UITableView(frame: .zero, style: .plain)
 		table.keyboardDismissMode = .onDrag
-		
-//		table.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
 		table.separatorStyle = .none
 		table.contentInset = UIEdgeInsets(top: headerH, left: 0, bottom: 0, right: 0)
 		table.showsHorizontalScrollIndicator = false
@@ -53,8 +51,36 @@ class HomeViewController: UIViewController {
 	
 	// Function view
 	private lazy var functionView = FunctionView()
+	
+	// Option overlay
+	private lazy var optionOverlay: UIView = {
+		let v = UIView()
+		v.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.3)
+		
+		// Gesture
+		let tap = UITapGestureRecognizer(target: self, action: #selector(cancelOptionAction))
+		tap.numberOfTapsRequired = 1
+		tap.numberOfTouchesRequired = 1
+		v.addGestureRecognizer(tap)
+		return v
+	}()
+	
 }
 
+
+// MARK: - Private functions
+extension HomeViewController {
+	
+}
+
+// MARK: - Actions
+extension HomeViewController {
+	// Cancel option aciton
+	@objc private func cancelOptionAction() {
+		functionView.resetOption(animated: true)
+	}
+	
+}
 
 // MARK: - Override functions
 extension HomeViewController {
@@ -80,6 +106,7 @@ extension HomeViewController {
 		navigationController?.isToolbarHidden = true
 		
 		// Function view
+		functionView.delegate = self
 		functionView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(functionView)
 		functionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -105,16 +132,24 @@ extension HomeViewController {
 		headerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 		headerHCst = headerView.heightAnchor.constraint(equalToConstant: headerH)
 		headerHCst.isActive = true
+		
+		// Option overlay
+		optionOverlay.alpha = 0
+		optionOverlay.isHidden = true
+		optionOverlay.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(optionOverlay)
+		optionOverlay.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+		optionOverlay.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		optionOverlay.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		optionOverlay.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
+		
 	}
 	
 }
 
-// MARK: - Private functions
-extension HomeViewController {
-	
-}
 
 
+// MARK: - Delegates
 // MARK: - UITableView data source / delegate
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,6 +229,69 @@ extension HomeViewController: UISearchBarDelegate {
 		
 		// Hide result table
 		// FIXME: hide result table
+	}
+	
+	
+}
+
+// MARK: - Function view delegate
+extension HomeViewController: FunctionViewDelegate {
+	func menuAction() {
+		print("Menu action")
+	}
+	
+	func moreAction() {
+		print("More action")
+	}
+	
+	func showOption() {
+		funcViewHCst.constant = functionView.originalH + functionView.expandH
+		functionView.showOption()
+		optionOverlay.alpha = 0
+		optionOverlay.isHidden = false
+		UIView.animate(withDuration: 0.2, animations: {
+			self.optionOverlay.alpha = 1
+			self.functionView.showOptionTransition()
+			self.view.layoutIfNeeded()
+			
+		}) { (finished) in
+			self.functionView.showCompleted()
+		}
+	}
+	
+	func hideOption(animated: Bool) {
+		optionOverlay.alpha = 1
+		funcViewHCst.constant = functionView.originalH
+		functionView.hideOption()
+		
+		if animated {
+			UIView.animate(withDuration: 0.2, animations: {
+				self.optionOverlay.alpha = 0
+				self.functionView.hideOptionTransition()
+				self.view.layoutIfNeeded()
+			}) { (finished) in
+				self.optionOverlay.isHidden = true
+				self.functionView.hideCompleted()
+			}
+		}
+		else {
+			optionOverlay.alpha = 0
+			functionView.hideOptionTransition()
+			optionOverlay.isHidden = true
+			functionView.hideCompleted()
+		}
+	}
+	
+	func addMemo() {
+		print("Add memo")
+	}
+	
+	func addVoice() {
+		print("Add voice")
+	}
+	
+	func addTodoList() {
+		print("Add todo")
 	}
 	
 	

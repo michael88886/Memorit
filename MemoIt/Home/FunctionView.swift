@@ -38,9 +38,15 @@ class FunctionView: UIView {
 	// Large button size
 	private let lrgBtnSize: CGFloat = 60
 	// Original height
-	let originalH: CGFloat = 44
+	let originalH: CGFloat = 60
 	// Expand height
 	let expandH: CGFloat = 144
+	
+	// - Add center button width constraint
+	// Original Y
+	private var ctrBtnYOriCst = NSLayoutConstraint()
+	// Expanded Y
+	private var ctrBtnYExpCst = NSLayoutConstraint()
 	
 	// - Add voice button constraints
 	// Origin constriant
@@ -137,10 +143,14 @@ class FunctionView: UIView {
 extension FunctionView {
 	func resetOption(animated: Bool) {
 		isExpanded = false
-//		delegate?.hideOption(animated: animated)
+		delegate?.hideOption(animated: animated)
 	}
 	
 	func showOption() {
+		// Center button
+		ctrBtnYOriCst.isActive = false
+		ctrBtnYExpCst.isActive = true
+		
 		// Add memo button
 		memoBtn.alpha = 0
 		memoBtn.isHidden = false
@@ -163,6 +173,10 @@ extension FunctionView {
 	}
 	
 	func hideOption() {
+		// Center button
+		ctrBtnYExpCst.isActive = false
+		ctrBtnYOriCst.isActive = true
+		
 		// Add memo button
 		memoBtn.alpha = 1
 		
@@ -184,7 +198,9 @@ extension FunctionView {
 	func showOptionTransition() {
 		// Center button
 		addBtn.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-		addBtn.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
+		addBtn.setTitle("Cancel", for: .normal)
+		addBtn.setImage(#imageLiteral(resourceName: "Cross44").withRenderingMode(.alwaysTemplate), for: .normal)
+		addBtn.tintColor = .white
 		
 		// Add memo button
 		memoBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -197,12 +213,17 @@ extension FunctionView {
 		// Add list buttion
 		todoBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
 		todoBtn.alpha = 1
+		
+		// Self
+		layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
 	}
 	
 	func hideOptionTransition() {
 		// Center button
-		addBtn.backgroundColor = btnTint
-		addBtn.transform = CGAffineTransform(rotationAngle: 0)
+		addBtn.backgroundColor = #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1)
+		addBtn.setTitle("Add memo", for: .normal)
+		addBtn.setImage(#imageLiteral(resourceName: "Plus44").withRenderingMode(.alwaysTemplate), for: .normal)
+		addBtn.tintColor = .white
 		
 		// Add memo button
 		memoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -215,15 +236,20 @@ extension FunctionView {
 		// Add list buttion
 		todoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
 		todoBtn.alpha = 0
+		
+		// Self
+		layer.maskedCorners = []
 	}
 	
 	func showCompleted() {
 		// Disable left / right buttons
 		menuBtn.isEnabled = false
-		moreBtn.isEnabled = false
+		moreBtn.isEnabled = false		
 	}
 	
 	func hideCompleted(){
+		
+		
 		// Enable left / right buttons
 		menuBtn.isEnabled = true
 		moreBtn.isEnabled = true
@@ -293,10 +319,12 @@ extension FunctionView {
 		// Center button
 		addBtn.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(addBtn)
+		addBtn.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+		ctrBtnYExpCst = addBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Padding.p20)
+		ctrBtnYOriCst = addBtn.centerYAnchor.constraint(equalTo: topAnchor, constant: Padding.p10)
+		ctrBtnYOriCst.isActive = true
 		addBtn.widthAnchor.constraint(equalToConstant: ctrBtnW).isActive = true
 		addBtn.heightAnchor.constraint(equalToConstant: ctrBtnH).isActive = true
-		addBtn.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		addBtn.centerYAnchor.constraint(equalTo: topAnchor, constant: Padding.p10).isActive = true
 		
 		// Menu button
 		menuBtn.translatesAutoresizingMaskIntoConstraints = false
