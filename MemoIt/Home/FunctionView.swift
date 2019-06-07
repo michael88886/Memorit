@@ -68,7 +68,7 @@ class FunctionView: UIView {
 	
 	// Edit button
 	private lazy var moreBtn: UIButton = {
-		let btn = UIHelper.button(icon: #imageLiteral(resourceName: "Dots44"), tint: .btnTint)
+		let btn = UIHelper.button(icon: #imageLiteral(resourceName: "Dots44"), tint: btnTint)
 		btn.addTarget(self, action: #selector(moreAction), for: .touchUpInside)
 		return btn
 	}()
@@ -112,25 +112,25 @@ class FunctionView: UIView {
 extension FunctionView {
 	func resetOption(animated: Bool) {
 		isExpanded = false
-		delegate?.hideOption(animated: animated)
+//		delegate?.hideOption(animated: animated)
 	}
 	
 	func showOption() {
 		// Add memo button
-		addMemoBtn.alpha = 0
-		addMemoBtn.isHidden = false
+		memoBtn.alpha = 0
+		memoBtn.isHidden = false
 		
 		// Add voice button
-		addVoiceBtn.alpha = 0
-		addVoiceBtn.isHidden = false
+		voiceBtn.alpha = 0
+		voiceBtn.isHidden = false
 		addVoiceOriginX.isActive = false
 		addVoiceOriginY.isActive = false
 		addVoiceDestX.isActive = true
 		addVoiceDestY.isActive = true
 		
 		// Add list button
-		addListBtn.alpha = 0
-		addListBtn.isHidden = false
+		todoBtn.alpha = 0
+		todoBtn.isHidden = false
 		addListOriginX.isActive = false
 		addListOriginY.isActive = false
 		addListDestX.isActive = true
@@ -139,17 +139,17 @@ extension FunctionView {
 	
 	func hideOption() {
 		// Add memo button
-		addMemoBtn.alpha = 1
+		memoBtn.alpha = 1
 		
 		// Add voice button
-		addVoiceBtn.alpha = 1
+		voiceBtn.alpha = 1
 		addVoiceDestX.isActive = false
 		addVoiceDestY.isActive = false
 		addVoiceOriginX.isActive = true
 		addVoiceOriginY.isActive = true
 		
 		// Add list button
-		addListBtn.alpha = 1
+		todoBtn.alpha = 1
 		addListDestX.isActive = false
 		addListDestY.isActive = false
 		addListOriginX.isActive = true
@@ -158,55 +158,55 @@ extension FunctionView {
 	
 	func showOptionTransition() {
 		// Center button
-		centerBtn.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-		centerBtn.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
+		addBtn.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+		addBtn.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
 		
 		// Add memo button
-		addMemoBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
-		addMemoBtn.alpha = 1
+		memoBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
+		memoBtn.alpha = 1
 		
 		// Add voice button
-		addVoiceBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
-		addVoiceBtn.alpha = 1
+		voiceBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
+		voiceBtn.alpha = 1
 		
 		// Add list buttion
-		addListBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
-		addListBtn.alpha = 1
+		todoBtn.transform = CGAffineTransform(scaleX: 1, y: 1)
+		todoBtn.alpha = 1
 	}
 	
 	func hideOptionTransition() {
 		// Center button
-		centerBtn.backgroundColor = btnTint
-		centerBtn.transform = CGAffineTransform(rotationAngle: 0)
+		addBtn.backgroundColor = btnTint
+		addBtn.transform = CGAffineTransform(rotationAngle: 0)
 		
 		// Add memo button
-		addMemoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-		addMemoBtn.alpha = 0
+		memoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+		memoBtn.alpha = 0
 		
 		// Add voice button
-		addVoiceBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-		addVoiceBtn.alpha = 0
+		voiceBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+		voiceBtn.alpha = 0
 		
 		// Add list buttion
-		addListBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-		addListBtn.alpha = 0
+		todoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+		todoBtn.alpha = 0
 	}
 	
 	func showCompleted() {
 		// Disable left / right buttons
-		leftBtn.isEnabled = false
-		rightBtn.isEnabled = false
+		menuBtn.isEnabled = false
+		moreBtn.isEnabled = false
 	}
 	
 	func hideCompleted(){
 		// Enable left / right buttons
-		leftBtn.isEnabled = true
-		rightBtn.isEnabled = true
+		menuBtn.isEnabled = true
+		moreBtn.isEnabled = true
 		
 		// Hide function buttons
-		addMemoBtn.isHidden = true
-		addVoiceBtn.isHidden = true
-		addListBtn.isHidden = true
+		memoBtn.isHidden = true
+		voiceBtn.isHidden = true
+		todoBtn.isHidden = true
 	}
 }
 
@@ -259,74 +259,74 @@ extension FunctionView {
 		layer.shadowOffset = CGSize(width: 0, height: -1)
 		
 		// Center button
-		centerBtn.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(centerBtn)
-		centerBtn.widthAnchor.constraint(equalToConstant: ctrBtnSize).isActive = true
-		centerBtn.heightAnchor.constraint(equalToConstant: ctrBtnSize).isActive = true
-		centerBtn.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		centerBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -UIHelper.Padding.p5).isActive = true
+		addBtn.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(addBtn)
+		addBtn.widthAnchor.constraint(equalToConstant: ctrBtnW).isActive = true
+		addBtn.heightAnchor.constraint(equalToConstant: ctrBtnH).isActive = true
+		addBtn.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+		addBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Padding.p5).isActive = true
 		
 		// Left button
-		leftBtn.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(leftBtn)
-		leftBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
-		leftBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
-		leftBtn.leftAnchor.constraint(equalTo: leftAnchor, constant: UIHelper.Padding.p40).isActive = true
-		leftBtn.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		menuBtn.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(menuBtn)
+		menuBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
+		menuBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
+		menuBtn.leftAnchor.constraint(equalTo: leftAnchor, constant: Padding.p40).isActive = true
+		menuBtn.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		
 		// Right button
-		rightBtn.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(rightBtn)
-		rightBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
-		rightBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
-		rightBtn.rightAnchor.constraint(equalTo: rightAnchor, constant: -UIHelper.Padding.p40).isActive = true
-		rightBtn.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		moreBtn.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(moreBtn)
+		moreBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
+		moreBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
+		moreBtn.rightAnchor.constraint(equalTo: rightAnchor, constant: Padding.p40).isActive = true
+		moreBtn.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		
 		
 		// Add memo button
-		addMemoBtn.translatesAutoresizingMaskIntoConstraints = false
+		memoBtn.translatesAutoresizingMaskIntoConstraints = false
 		//        addMemoBtn.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-		insertSubview(addMemoBtn, belowSubview: centerBtn)
-		addMemoBtn.widthAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
-		addMemoBtn.heightAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
-		addMemoBtn.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		addMemoBtn.topAnchor.constraint(equalTo: topAnchor, constant: UIHelper.Padding.p20).isActive = true
-		addMemoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-		addMemoBtn.isHidden = true
+		insertSubview(memoBtn, belowSubview: addBtn)
+		memoBtn.widthAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
+		memoBtn.heightAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
+		memoBtn.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+		memoBtn.topAnchor.constraint(equalTo: topAnchor, constant: Padding.p20).isActive = true
+		memoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+		memoBtn.isHidden = true
 		
 		// Add voice button
-		addVoiceBtn.translatesAutoresizingMaskIntoConstraints = false
+		voiceBtn.translatesAutoresizingMaskIntoConstraints = false
 		//        addVoiceBtn.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
-		insertSubview(addVoiceBtn, belowSubview: centerBtn)
-		addVoiceBtn.widthAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
-		addVoiceBtn.heightAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
-		addVoiceOriginX = addVoiceBtn.centerXAnchor.constraint(equalTo: centerBtn.centerXAnchor)
-		addVoiceOriginY = addVoiceBtn.centerYAnchor.constraint(equalTo: centerBtn.centerYAnchor)
-		addVoiceDestX = addVoiceBtn.leftAnchor.constraint(equalTo: leftBtn.leftAnchor)
-		addVoiceDestY = addVoiceBtn.centerYAnchor.constraint(equalTo: addMemoBtn.bottomAnchor)
+		insertSubview(voiceBtn, belowSubview: addBtn)
+		voiceBtn.widthAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
+		voiceBtn.heightAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
+		addVoiceOriginX = voiceBtn.centerXAnchor.constraint(equalTo: addBtn.centerXAnchor)
+		addVoiceOriginY = voiceBtn.centerYAnchor.constraint(equalTo: addBtn.centerYAnchor)
+		addVoiceDestX = voiceBtn.leftAnchor.constraint(equalTo: menuBtn.leftAnchor)
+		addVoiceDestY = voiceBtn.centerYAnchor.constraint(equalTo: memoBtn.bottomAnchor)
 		addVoiceOriginX.isActive = true
 		addVoiceOriginY.isActive = true
 		addVoiceDestX.isActive = false
 		addVoiceDestY.isActive = false
-		addVoiceBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-		addVoiceBtn.isHidden = true
+		voiceBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+		voiceBtn.isHidden = true
 		
 		// Add check list button
-		addListBtn.translatesAutoresizingMaskIntoConstraints = false
+		todoBtn.translatesAutoresizingMaskIntoConstraints = false
 		//        addListBtn.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-		insertSubview(addListBtn, belowSubview: centerBtn)
-		addListBtn.widthAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
-		addListBtn.heightAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
-		addListOriginX = addListBtn.centerXAnchor.constraint(equalTo: centerBtn.centerXAnchor)
-		addListOriginY = addListBtn.centerYAnchor.constraint(equalTo: centerBtn.centerYAnchor)
-		addListDestX = addListBtn.rightAnchor.constraint(equalTo: rightBtn.rightAnchor)
-		addListDestY = addListBtn.centerYAnchor.constraint(equalTo: addMemoBtn.bottomAnchor)
+		insertSubview(todoBtn, belowSubview: addBtn)
+		todoBtn.widthAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
+		todoBtn.heightAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
+		addListOriginX = todoBtn.centerXAnchor.constraint(equalTo: addBtn.centerXAnchor)
+		addListOriginY = todoBtn.centerYAnchor.constraint(equalTo: addBtn.centerYAnchor)
+		addListDestX = todoBtn.rightAnchor.constraint(equalTo: moreBtn.rightAnchor)
+		addListDestY = todoBtn.centerYAnchor.constraint(equalTo: memoBtn.bottomAnchor)
 		addListOriginX.isActive = true
 		addListOriginY.isActive = true
 		addListDestX.isActive = false
 		addListDestY.isActive = false
-		addListBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-		addListBtn.isHidden = true
+		todoBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+		todoBtn.isHidden = true
 	}
 	
 	// MARK: - Misc functions
