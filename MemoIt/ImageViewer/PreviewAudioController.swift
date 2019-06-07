@@ -91,22 +91,22 @@ final class PreviewAudioController: PreviewItemController {
         // Time label
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timeLabel)
-        timeLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -UIHelper.Padding.p5).isActive = true
-        timeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -UIHelper.Padding.p5).isActive = true
+        timeLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -Padding.p5).isActive = true
+        timeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -Padding.p5).isActive = true
         
         // Progress bar
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(progressBar)
-        progressBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: UIHelper.Padding.p10).isActive = true
-        progressBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -UIHelper.Padding.p10).isActive = true
-        progressBar.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: -UIHelper.Padding.p5).isActive = true
+        progressBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p10).isActive = true
+        progressBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p10).isActive = true
+        progressBar.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: -Padding.p5).isActive = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Setup duration label
-        let durationStr: String = CommonHelper.convertTimeToString(time: audioPlayer.duration)
+        let durationStr: String = Helper.convertTimeToString(time: audioPlayer.duration)
         timeLabel.text = String(format: "00:00:00 / %@", durationStr)
     }
 }
@@ -123,8 +123,8 @@ extension PreviewAudioController {
     private func progress(player: AVAudioPlayer) {
         let duration = player.duration
         let currTime = player.currentTime
-        let duraStr = CommonHelper.convertTimeToString(time: duration)
-        let currTmStr = CommonHelper.convertTimeToString(time: currTime)
+        let duraStr = Helper.convertTimeToString(time: duration)
+        let currTmStr = Helper.convertTimeToString(time: currTime)
         timeLabel.text = String(format: "%@ / %@", currTmStr, duraStr)
         
         let progress = Float(currTime / duration)
@@ -145,7 +145,7 @@ extension PreviewAudioController: MKAudioPlayerDelegate {
     func stop(player: AVAudioPlayer) {
         controlBtn.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
         // Last update UI
-        let duraStr = CommonHelper.convertTimeToString(time: player.duration)
+        let duraStr = Helper.convertTimeToString(time: player.duration)
         timeLabel.text = String(format: "%@ / %@", duraStr, duraStr)
         progressBar.progress = 1.0
     }

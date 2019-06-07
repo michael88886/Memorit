@@ -58,8 +58,24 @@ class MemoViewController: UIViewController {
 	// Attachment function container top constraint
 	private var acTopCst = NSLayoutConstraint()
 
+	// - Attachment collection view
+	// Preview cell ID
+	private let previewCellID: String = "PreviewCell"
+	// Attach collection showing flag
+	private var isACShown: Bool = false
+	// Attach collection edit mode
+	private var isACEditing = false
+	
+	// - Data collcation
+	// Attachments
+	private var attachments: [MemoAttachment] = []
+	// Editing indexpath
+	private var editingIndexes: [IndexPath] = []
+	// Deleting attachments
+	private var deletingAttachments: [MemoAttachment] = []
 
-
+	
+	
 	
 	
 	// MARK: - Views

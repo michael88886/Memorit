@@ -39,9 +39,12 @@ class HomeViewController: UIViewController {
 		table.keyboardDismissMode = .onDrag
 		
 //		table.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-//		table.separatorStyle = .none
+		table.separatorStyle = .none
+		table.contentInset = UIEdgeInsets(top: headerH, left: 0, bottom: 0, right: 0)
 		table.showsHorizontalScrollIndicator = false
-		
+		table.delegate = self
+		table.dataSource = self
+		table.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
 		return table
 	}()
 	
@@ -67,13 +70,12 @@ extension HomeViewController {
 		// Hide navigation bar
 		navigationController?.isNavigationBarHidden = true
 		
+		// Hide tool bar
+		navigationController?.isToolbarHidden = true
+		
 		
 		// Table view
-		homeTable.contentInset = UIEdgeInsets(top: headerH, left: 0, bottom: 0, right: 0)
 		homeTable.translatesAutoresizingMaskIntoConstraints = false
-		homeTable.delegate = self
-		homeTable.dataSource = self
-		homeTable.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
 		view.addSubview(homeTable)
 		homeTable.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		homeTable.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

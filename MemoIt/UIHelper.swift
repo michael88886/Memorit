@@ -31,4 +31,12 @@ class UIHelper {
 		label.minimumScaleFactor = 0.1
 		return label
 	}
+	
+	// Button
+	static func button(icon: UIImage, tint: UIColor) -> UIButton {
+		let btn = UIButton(type: .custom)
+		btn.setImage(icon.withRenderingMode(.alwaysTemplate), for: .normal)
+		btn.tintColor = tint
+		return btn
+	}
 }
