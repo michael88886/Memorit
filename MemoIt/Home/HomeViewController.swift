@@ -19,8 +19,6 @@ class HomeViewController: UIViewController {
 	private let headerHmin: CGFloat = 90
 	// Header maximum stretch height
 	private let headerHmax: CGFloat = UIScreen.main.bounds.height
-	// Function view height
-	private let toolBarH: CGFloat = 44.0
 	
 	// - Variables
 	// Header view height constraint
@@ -73,6 +71,8 @@ extension HomeViewController {
 	override func loadView() {
 		super.loadView()
 		
+		view.backgroundColor = .white
+		
 		// Hide navigation bar
 		navigationController?.isNavigationBarHidden = true
 		
@@ -85,7 +85,7 @@ extension HomeViewController {
 		functionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
 		functionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 		functionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-		funcViewHCst = functionView.heightAnchor.constraint(equalToConstant: toolBarH)
+		funcViewHCst = functionView.heightAnchor.constraint(equalToConstant: functionView.originalH)
 		funcViewHCst.isActive = true
 		
 		// Table view
@@ -94,7 +94,7 @@ extension HomeViewController {
 		homeTable.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		homeTable.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
 		homeTable.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		homeTable.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+		homeTable.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
 		
 		// Table header view
 		headerView.searchbar.delegate = self

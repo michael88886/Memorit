@@ -8,8 +8,23 @@
 
 import UIKit
 
-class FunctionView: UIView {
+// MARK:- FuntionView delegate
+protocol FunctionViewDelegate: class {
+	// Function actions
+	func menuAction()
+	func moreAction()
+	
+	func showOption()
+	func hideOption(animated: Bool)
+	
+	// Editing actions
+	func addMemo()
+	func addVoice()
+	func addTodoList()
+}
 
+
+class FunctionView: UIView {
 	// MARK: - Properties
 	// - Constant
 	// Button tint size
@@ -17,13 +32,13 @@ class FunctionView: UIView {
 	// Center button width
 	private let ctrBtnW: CGFloat = 144
 	// Center button height
-	private let ctrBtnH: CGFloat = 56
+	private let ctrBtnH: CGFloat = 44
 	// Button size
 	private let btnSize: CGFloat = 40
 	// Large button size
 	private let lrgBtnSize: CGFloat = 60
-	// Expand flag
-	private(set) var isExpanded = false
+	// Original height
+	let originalH: CGFloat = 44
 	// Expand height
 	let expandH: CGFloat = 144
 	
@@ -43,6 +58,11 @@ class FunctionView: UIView {
 	private var addListDestX = NSLayoutConstraint()
 	private var addListDestY = NSLayoutConstraint()
 	
+	// - Variables
+	// Expand flag
+	private(set) var isExpanded = false
+	// Delegate
+	weak var delegate: FunctionViewDelegate?
 	
 	// MARK: - Views
 	// Add button
@@ -50,7 +70,12 @@ class FunctionView: UIView {
 		let btn = UIHelper.button(icon: #imageLiteral(resourceName: "Plus44"), tint: btnTint)
 		btn.addTarget(self, action: #selector(centerAction), for: .touchUpInside)
 		btn.backgroundColor = #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1)
-		btn.layer.cornerRadius = ctrBtnW / 2.0
+		btn.tintColor = .white
+		btn.imageEdgeInsets.left = -15
+		btn.titleEdgeInsets.right = 10
+		btn.setTitle("Add memo", for: .normal)
+		btn.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .medium)
+		btn.layer.cornerRadius = ctrBtnH / 2.0
 		// Drop shadow
 		btn.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
 		btn.layer.shadowOpacity = 0.2
@@ -214,34 +239,41 @@ extension FunctionView {
 extension FunctionView {
 	// Center action
 	@objc private func centerAction() {
-		
+		if isExpanded {
+			// Hide optiom
+			delegate?.hideOption(animated: true)
+		}
+		else {
+			// Show option
+			delegate?.showOption()
+		}
+		isExpanded = !isExpanded
 	}
 	
 	// Menu action
 	@objc private func menuAction() {
-		
+		delegate?.menuAction()
 	}
 	
 	// More action
 	@objc private func moreAction() {
-		
+		delegate?.moreAction()
 	}
 	
 	// Add voice action
 	@objc private func addVoiceAction() {
-		
+		delegate?.addVoice()
 	}
 	
 	// Add todo action
 	@objc private func addTodoAction() {
-		
+		delegate?.addTodoList()
 	}
 	
 	// Add memo action
 	@objc private func addMemoAction() {
-		
+		delegate?.addMemo()
 	}
-	
 }
 
 // MARK: - Private functions
@@ -264,28 +296,27 @@ extension FunctionView {
 		addBtn.widthAnchor.constraint(equalToConstant: ctrBtnW).isActive = true
 		addBtn.heightAnchor.constraint(equalToConstant: ctrBtnH).isActive = true
 		addBtn.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		addBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Padding.p5).isActive = true
+		addBtn.centerYAnchor.constraint(equalTo: topAnchor, constant: Padding.p10).isActive = true
 		
-		// Left button
+		// Menu button
 		menuBtn.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(menuBtn)
 		menuBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
 		menuBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
-		menuBtn.leftAnchor.constraint(equalTo: leftAnchor, constant: Padding.p40).isActive = true
+		menuBtn.leftAnchor.constraint(equalTo: leftAnchor, constant: Padding.p20).isActive = true
 		menuBtn.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		
-		// Right button
+		// More button
 		moreBtn.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(moreBtn)
 		moreBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
 		moreBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
-		moreBtn.rightAnchor.constraint(equalTo: rightAnchor, constant: Padding.p40).isActive = true
+		moreBtn.rightAnchor.constraint(equalTo: rightAnchor, constant: -Padding.p20).isActive = true
 		moreBtn.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		
 		
 		// Add memo button
 		memoBtn.translatesAutoresizingMaskIntoConstraints = false
-		//        addMemoBtn.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
 		insertSubview(memoBtn, belowSubview: addBtn)
 		memoBtn.widthAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true
 		memoBtn.heightAnchor.constraint(equalToConstant: lrgBtnSize).isActive = true

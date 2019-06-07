@@ -26,7 +26,7 @@ class HeaderView: UIView {
 	// - Canvas view
 	private lazy var canvas: UIView = {
 		let canv = UIView()
-		canv.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2)
+		canv.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.15)
 		canv.isUserInteractionEnabled = false
 		return canv
 	}()
