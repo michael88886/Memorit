@@ -134,7 +134,6 @@
 				780E5EFA22A9523900B7AFF5 /* ImageViewer */,
 				784FBA6822A8DEE600F1818C /* Helpers */,
 				78A7C20E22A3F47D00ADBFBA /* Supporting Files */,
-				784507E222A8EBAB009913D1 /* MemoIt-Bridging-Header.h */,
 			);
 			path = MemoIt;
 			sourceTree = "<group>";
@@ -214,6 +213,7 @@
 				2F20B3B322A3947300054053 /* Info.plist */,
 				784507DB22A8E2FD009913D1 /* Extensions.swift */,
 				784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */,
+				784507E222A8EBAB009913D1 /* MemoIt-Bridging-Header.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
