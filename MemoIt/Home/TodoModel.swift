@@ -6,4 +6,13 @@
 //  Copyright © 2019 MC2. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class TodoModel: MemoModel {
+	// MARK: - Properties
+	// Maximum items
+	let maxItem: Int = 3
+	
+	// Preview list items
+	var listItems = [String]()
+}

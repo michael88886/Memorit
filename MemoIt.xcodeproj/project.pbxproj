@@ -75,14 +75,14 @@
 		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
 		784FBA6322A8B71500F1818C /* ListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableCell.swift; sourceTree = "<group>"; };
 		7887162922AA9843008BE38A /* MemoIt-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MemoIt-Bridging-Header.h"; sourceTree = "<group>"; };
-		7887162A22ABD9E6008BE38A /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
+		7887162A22ABD9E6008BE38A /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemoModel.swift; path = ../MemoModel.swift; sourceTree = "<group>"; };
 		7887162C22AD443A008BE38A /* CalendarHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		7887162E22AD445A008BE38A /* UIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		7887162F22AD445B008BE38A /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
 		7887163222AE5BEC008BE38A /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
-		7887163422AE78C8008BE38A /* AttachModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachModel.swift; sourceTree = "<group>"; };
-		7887163622AE78D0008BE38A /* VoiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceModel.swift; sourceTree = "<group>"; };
-		7887163822AE792E008BE38A /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
+		7887163422AE78C8008BE38A /* AttachModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttachModel.swift; path = ../AttachModel.swift; sourceTree = "<group>"; };
+		7887163622AE78D0008BE38A /* VoiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceModel.swift; path = ../VoiceModel.swift; sourceTree = "<group>"; };
+		7887163822AE792E008BE38A /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TodoModel.swift; path = ../TodoModel.swift; sourceTree = "<group>"; };
 		78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		78A980D822A803ED000E0247 /* ListMemo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListMemo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78A980D922A803ED000E0247 /* ListIem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListIem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -177,10 +177,7 @@
 				78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */,
 				780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */,
 				780E5EFD22AA54FD00B7AFF5 /* HomeTableCell.swift */,
-				7887162A22ABD9E6008BE38A /* MemoModel.swift */,
-				7887163422AE78C8008BE38A /* AttachModel.swift */,
-				7887163622AE78D0008BE38A /* VoiceModel.swift */,
-				7887163822AE792E008BE38A /* TodoModel.swift */,
+				7887163A22AE7FB6008BE38A /* New Group */,
 				7887163222AE5BEC008BE38A /* MemoViewModel.swift */,
 			);
 			path = Home;
@@ -222,6 +219,17 @@
 				784507D722A8DF3F009913D1 /* Helper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		7887163A22AE7FB6008BE38A /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				7887162A22ABD9E6008BE38A /* MemoModel.swift */,
+				7887163422AE78C8008BE38A /* AttachModel.swift */,
+				7887163622AE78D0008BE38A /* VoiceModel.swift */,
+				7887163822AE792E008BE38A /* TodoModel.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		78A7C20E22A3F47D00ADBFBA /* Supporting Files */ = {
