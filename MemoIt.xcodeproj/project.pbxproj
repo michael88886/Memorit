@@ -22,9 +22,15 @@
 		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
 		784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */; };
 		784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */; };
-		784FBA6222A8B60800F1818C /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6122A8B60800F1818C /* Padding.swift */; };
 		784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6322A8B71500F1818C /* ListTableCell.swift */; };
-		784FBA6722A8C8FC00F1818C /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6622A8C8FC00F1818C /* UIHelper.swift */; };
+		7887162B22ABD9E6008BE38A /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162A22ABD9E6008BE38A /* MemoModel.swift */; };
+		7887162D22AD443A008BE38A /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162C22AD443A008BE38A /* CalendarHelper.swift */; };
+		7887163022AD445B008BE38A /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162E22AD445A008BE38A /* UIHelper.swift */; };
+		7887163122AD445B008BE38A /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162F22AD445B008BE38A /* Padding.swift */; };
+		7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887163222AE5BEC008BE38A /* MemoViewModel.swift */; };
+		7887163522AE78C8008BE38A /* AttachModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887163422AE78C8008BE38A /* AttachModel.swift */; };
+		7887163722AE78D0008BE38A /* VoiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887163622AE78D0008BE38A /* VoiceModel.swift */; };
+		7887163922AE792E008BE38A /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887163822AE792E008BE38A /* TodoModel.swift */; };
 		78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */; };
 		78A980E822A803EF000E0247 /* AttachmentMemo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980DB22A803EE000E0247 /* AttachmentMemo+CoreDataProperties.swift */; };
 		78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980E622A803EE000E0247 /* AttachmentMemo+CoreDataClass.swift */; };
@@ -67,10 +73,16 @@
 		784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MKAudioPlayer.swift; path = "/Users/mkmk/Desktop/Projects/MemoIt/MemoIt/Supporting Files/MKAudioPlayer.swift"; sourceTree = "<absolute>"; };
 		784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
-		784FBA6122A8B60800F1818C /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = ../Padding.swift; sourceTree = "<group>"; };
 		784FBA6322A8B71500F1818C /* ListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableCell.swift; sourceTree = "<group>"; };
-		784FBA6622A8C8FC00F1818C /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIHelper.swift; path = ../UIHelper.swift; sourceTree = "<group>"; };
 		7887162922AA9843008BE38A /* MemoIt-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MemoIt-Bridging-Header.h"; sourceTree = "<group>"; };
+		7887162A22ABD9E6008BE38A /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
+		7887162C22AD443A008BE38A /* CalendarHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
+		7887162E22AD445A008BE38A /* UIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		7887162F22AD445B008BE38A /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
+		7887163222AE5BEC008BE38A /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
+		7887163422AE78C8008BE38A /* AttachModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachModel.swift; sourceTree = "<group>"; };
+		7887163622AE78D0008BE38A /* VoiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceModel.swift; sourceTree = "<group>"; };
+		7887163822AE792E008BE38A /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		78A980D822A803ED000E0247 /* ListMemo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListMemo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78A980D922A803ED000E0247 /* ListIem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListIem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -124,8 +136,8 @@
 		2F20B3A322A3947000054053 /* MemoIt */ = {
 			isa = PBXGroup;
 			children = (
-				78A980F722A803FB000E0247 /* CoreData */,
 				2F20B3A422A3947000054053 /* AppDelegate.swift */,
+				78A980F722A803FB000E0247 /* CoreData */,
 				780E5EFC22AA549D00B7AFF5 /* Home */,
 				780E5EFB22AA549200B7AFF5 /* AttachmentMemo */,
 				784FBA6522A8B71900F1818C /* ListMemo */,
@@ -165,6 +177,11 @@
 				78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */,
 				780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */,
 				780E5EFD22AA54FD00B7AFF5 /* HomeTableCell.swift */,
+				7887162A22ABD9E6008BE38A /* MemoModel.swift */,
+				7887163422AE78C8008BE38A /* AttachModel.swift */,
+				7887163622AE78D0008BE38A /* VoiceModel.swift */,
+				7887163822AE792E008BE38A /* TodoModel.swift */,
+				7887163222AE5BEC008BE38A /* MemoViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -199,8 +216,9 @@
 		784FBA6822A8DEE600F1818C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				784FBA6122A8B60800F1818C /* Padding.swift */,
-				784FBA6622A8C8FC00F1818C /* UIHelper.swift */,
+				7887162F22AD445B008BE38A /* Padding.swift */,
+				7887162E22AD445A008BE38A /* UIHelper.swift */,
+				7887162C22AD443A008BE38A /* CalendarHelper.swift */,
 				784507D722A8DF3F009913D1 /* Helper.swift */,
 			);
 			path = Helpers;
@@ -320,6 +338,8 @@
 				78A980F622A803EF000E0247 /* Memo+CoreDataClass.swift in Sources */,
 				780E5EF722A9523300B7AFF5 /* PreviewImageController.swift in Sources */,
 				784507D822A8DF3F009913D1 /* Helper.swift in Sources */,
+				7887162D22AD443A008BE38A /* CalendarHelper.swift in Sources */,
+				7887163722AE78D0008BE38A /* VoiceModel.swift in Sources */,
 				78A980F022A803EF000E0247 /* MemoLabel+CoreDataClass.swift in Sources */,
 				784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */,
 				78A980EA22A803EF000E0247 /* ListMemo+CoreDataProperties.swift in Sources */,
@@ -327,14 +347,16 @@
 				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,
 				2F20B3A522A3947000054053 /* AppDelegate.swift in Sources */,
 				78A980F222A803EF000E0247 /* VoiceMemo+CoreDataClass.swift in Sources */,
+				7887163022AD445B008BE38A /* UIHelper.swift in Sources */,
 				78A980FC22A804AA000E0247 /* Attachment+CoreDataProperties.swift in Sources */,
 				784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */,
 				78A980FE22A80507000E0247 /* MemoViewController.swift in Sources */,
 				780E5F0022AA588F00B7AFF5 /* FunctionView.swift in Sources */,
-				784FBA6722A8C8FC00F1818C /* UIHelper.swift in Sources */,
+				7887162B22ABD9E6008BE38A /* MemoModel.swift in Sources */,
 				784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */,
 				78A980F522A803EF000E0247 /* Category+CoreDataProperties.swift in Sources */,
 				78A980EB22A803EF000E0247 /* VoiceMemo+CoreDataProperties.swift in Sources */,
+				7887163522AE78C8008BE38A /* AttachModel.swift in Sources */,
 				78A980F422A803EF000E0247 /* Category+CoreDataClass.swift in Sources */,
 				2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */,
 				780E5EF822A9523300B7AFF5 /* PreviewItemController.swift in Sources */,
@@ -343,13 +365,15 @@
 				780E5EF622A9523300B7AFF5 /* PreviewPageViewController.swift in Sources */,
 				78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */,
 				78A980EF22A803EF000E0247 /* ListMemo+CoreDataClass.swift in Sources */,
+				7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */,
+				7887163122AD445B008BE38A /* Padding.swift in Sources */,
 				78A980EE22A803EF000E0247 /* ListIem+CoreDataClass.swift in Sources */,
 				78A980F122A803EF000E0247 /* MemoLabel+CoreDataProperties.swift in Sources */,
 				78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */,
 				780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */,
 				78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */,
-				784FBA6222A8B60800F1818C /* Padding.swift in Sources */,
 				780E5EFE22AA54FE00B7AFF5 /* HomeTableCell.swift in Sources */,
+				7887163922AE792E008BE38A /* TodoModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,7 +26,7 @@ class HomeViewController: UIViewController {
 	// Function view height constraint
 	private var funcViewHCst = NSLayoutConstraint()
 	
-	private var homeItems = [Any]()
+	private var homeItems = [MemoProtocol]()
 	
 	// Resume scroll offset (search)
 	private var resumeOffset = CGPoint.zero
@@ -40,7 +40,8 @@ class HomeViewController: UIViewController {
 	private lazy var homeTable: UITableView = {
 		let table = UITableView(frame: .zero, style: .plain)
 		table.keyboardDismissMode = .onDrag
-		table.separatorStyle = .none
+//		table.separatorStyle = .none
+		table.rowHeight = 160
 		table.contentInset = UIEdgeInsets(top: headerH, left: 0, bottom: 0, right: 0)
 		table.showsHorizontalScrollIndicator = false
 		table.delegate = self
@@ -71,6 +72,26 @@ class HomeViewController: UIViewController {
 // MARK: - Private functions
 extension HomeViewController {
 	
+	// MARK: Present VC
+	// - Attachment memo
+	private func presentAttachmentVC(memo: AttachmentMemo?) {
+		
+		
+	}
+	
+	// - Voice memo
+	private func presentVoiceVC() {
+		let voiceVC = VoiceViewController(type: .voiceMemo)
+		let naviVC = UINavigationController(rootViewController: voiceVC)
+		present(naviVC, animated: true, completion: nil)
+	}
+	
+	
+	// - Todo memo
+	private func presentTodoVC(memo: ListMemo?) {
+		
+	}
+	
 }
 
 // MARK: - Actions
@@ -84,7 +105,6 @@ extension HomeViewController {
 
 // MARK: - Override functions
 extension HomeViewController {
-	
 	// MARK: - Override functions
 	override func viewDidLoad() {
 		super.viewDidLoad()
