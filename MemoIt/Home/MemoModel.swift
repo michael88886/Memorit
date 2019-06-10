@@ -8,19 +8,6 @@
 
 import UIKit
 
-// MARK: - Memo protocol
-protocol MemoProtocol {
-	// Memo title
-	var title: String { get }
-	// Date string
-	var dateStr: String { get }
-	// Memo color
-	var color: UIColor { get }
-	// Memo label
-	var label: String { get } 
-}
-
-
 class MemoModel {
 	// MARK: - Properties
 	// Memo title

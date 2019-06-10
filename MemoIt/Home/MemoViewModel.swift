@@ -9,13 +9,29 @@
 import UIKit
 import CoreData
 
+protocol HomeCellProtocol {
+	func feedCell(model: MemoModel)
+}
 
+// MARK: - Memo type
+@objc enum MemoType: Int {
+	case attach
+	case voice
+	case todo
+}
+
+// MARK: - Memo view model
 class MemoViewModel {
 	// MARK: - Properties
+	// - Constants
+	let attachID = "AttachCell"
+	let todoID = "TodoCell"
+	let voiceID = "VoiceID"
+	
 	// Memo list
-	var memoList: [Memo]
+	var memoList = [Memo]()
 	// Cache list
-	var cacheList: NSCache<NSNumber, MemoModel>
+	var cacheList = NSCache<NSNumber, MemoModel>()
 	
 	
 	// Fetch result
@@ -24,14 +40,49 @@ class MemoViewModel {
 	var isFetching: Bool = false
 	
 	
-	// MARK: - Initialise
-	init() {
-		self.memoList = [Memo]()
-		self.cacheList = NSCache<NSNumber, MemoModel>()
+	
+	
+	
+	func updateCell(cell: UITableViewCell, indexpath: IndexPath) {
+		let model = memoList[indexpath.row]
+		let type = Helper.memoType(memo: model)
+		switch type {
+		case .attach:
+			if let cell = cell as? HomeAttachCell {
+				
+			}
+			
+		case .todo:
+			if let cell = cell as? HomeTodoCell {
+				
+			}
+			
+		case .voice:
+			if let cell = cell as? HomeVoiceCell {
+				
+			}
+		}
 	}
 	
-	// MARK: - Public functions
-	// Fetch data from database
+	// Cell ID
+	func cellId(atIndex: IndexPath) -> String {
+		let model = memoList[atIndex.row]
+		let type = Helper.memoType(memo: model)
+		switch type {
+		case .attach:
+			return attachID
+		case .todo:
+			return todoID
+		case .voice:
+			return voiceID
+		}
+	}
+	
+}
+
+// MARK: - Public functions
+extension MemoViewModel {
+	// MARK: - Fetch functions
 	func fetchData() {
 		// Data context
 		let context = Helper.dataContext()
@@ -68,9 +119,4 @@ class MemoViewModel {
 	func cancelFetch() {
 		fetchResult?.cancel()
 	}
-	
-	func updateCell() {
-		
-	}
-	
 }

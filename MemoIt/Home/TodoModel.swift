@@ -14,5 +14,5 @@ class TodoModel: MemoModel {
 	let maxItem: Int = 3
 	
 	// Preview list items
-	var listItems = [String]()
+	lazy var listItems = [String]()
 }

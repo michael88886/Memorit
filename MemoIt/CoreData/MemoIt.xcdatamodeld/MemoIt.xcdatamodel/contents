@@ -30,6 +30,7 @@
         <attribute name="color" attributeType="Transformable" customClassName="UIColor" syncable="YES"/>
         <attribute name="timeModified" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="memo" inverseEntity="Category" syncable="YES"/>
         <relationship name="label" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MemoLabel" inverseName="memo" inverseEntity="MemoLabel" syncable="YES"/>
     </entity>
@@ -46,7 +47,7 @@
         <element name="Category" positionX="-279.796875" positionY="92.828125" width="128" height="90"/>
         <element name="ListItem" positionX="405.0546875" positionY="98.296875" width="128" height="120"/>
         <element name="ListMemo" positionX="170.05859375" positionY="99.33984375" width="128" height="58"/>
-        <element name="Memo" positionX="-52.50390625" positionY="80.55078125" width="128" height="135"/>
+        <element name="Memo" positionX="-52.50390625" positionY="80.55078125" width="128" height="150"/>
         <element name="MemoLabel" positionX="-69.92578125" positionY="266.5" width="128" height="75"/>
         <element name="VoiceMemo" positionX="167.79296875" positionY="248.484375" width="128" height="60"/>
     </elements>

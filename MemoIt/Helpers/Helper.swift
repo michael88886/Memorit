@@ -63,6 +63,12 @@ class Helper {
 		}
 	}
 	
+	// MARK: - Misc funcitons
+	// Memo type
+	static func memoType(memo: Memo) -> MemoType {
+		return MemoType(rawValue: memo.type)!
+	}
+	
 	// Unique name
 	static func uniqueName() -> String {
 		let accFactor: Double = 100 // Accuracy factor - avoid same unique ID from time interval

@@ -11,8 +11,6 @@ import UIKit
 class HomeViewController: UIViewController {
 	// MARK: - Properties
 	// - Constants
-	// Cell ID
-	private let cellId = "HomeCell"
 	// Header height
 	private let headerH: CGFloat = 240
 	// Header minimum stretch height
@@ -25,12 +23,11 @@ class HomeViewController: UIViewController {
 	private var headerHCst = NSLayoutConstraint()
 	// Function view height constraint
 	private var funcViewHCst = NSLayoutConstraint()
-	
-	private var homeItems = [MemoProtocol]()
-	
 	// Resume scroll offset (search)
 	private var resumeOffset = CGPoint.zero
 	
+	// View model
+	let viewModel = MemoViewModel()
 	
 	// MARK: - Views
 	// Header view
@@ -46,7 +43,7 @@ class HomeViewController: UIViewController {
 		table.showsHorizontalScrollIndicator = false
 		table.delegate = self
 		table.dataSource = self
-		table.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+//		table.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
 		return table
 	}()
 	
@@ -73,25 +70,10 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
 	
 	// MARK: Present VC
-	// - Attachment memo
-	private func presentAttachmentVC(memo: AttachmentMemo?) {
-		
-		
-	}
-	
-	// - Voice memo
-	private func presentVoiceVC() {
-		let voiceVC = VoiceViewController(type: .voiceMemo)
-		let naviVC = UINavigationController(rootViewController: voiceVC)
+	private func presentVC(vc: UIViewController) {
+		let naviVC = UINavigationController(rootViewController: vc)
 		present(naviVC, animated: true, completion: nil)
 	}
-	
-	
-	// - Todo memo
-	private func presentTodoVC(memo: ListMemo?) {
-		
-	}
-	
 }
 
 // MARK: - Actions
@@ -112,6 +94,9 @@ extension HomeViewController {
 		// Scroll to top
 		let index = IndexPath(row: 0, section: 0)
 		homeTable.scrollToRow(at: index, at: .middle, animated: false)
+		
+		// Fetch data
+		viewModel.fetchData()
 	}
 	
 	override func loadView() {
@@ -164,7 +149,6 @@ extension HomeViewController {
 		optionOverlay.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
 		
 	}
-	
 }
 
 
@@ -173,17 +157,31 @@ extension HomeViewController {
 // MARK: - UITableView data source / delegate
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 20
+		return viewModel.memoList.count
 		//		return homeItems.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+		let cellID = viewModel.cellId(atIndex: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+		
+		if let model = viewModel.cacheList.object(forKey: NSNumber(integerLiteral: indexPath.row)) {
+			// Cached
+			viewModel.updateCell(cell: cell, indexpath: indexPath)
+		}
+		else {
+			// New
+			
+		}
+		
+		
+		
 		cell.textLabel?.text = String(describing: indexPath.row)
 		return cell
 	}
 	
 	
+	// Scroll view delegate
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		// Update header view size
 		let offsetY = scrollView.contentOffset.y
@@ -197,7 +195,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 		let delta = height - headerHmin
 		let alpha = 1 - (delta / (fullHeaderH - headerHmin))
 		headerView.updateAlpha(alpha: alpha)
-		
 	}
 	
 	
@@ -250,8 +247,6 @@ extension HomeViewController: UISearchBarDelegate {
 		// Hide result table
 		// FIXME: hide result table
 	}
-	
-	
 }
 
 // MARK: - Function view delegate
@@ -304,14 +299,20 @@ extension HomeViewController: FunctionViewDelegate {
 	
 	func addMemo() {
 		print("Add memo")
+		let attachVC = MemoViewController()
+		presentVC(vc: attachVC)
 	}
 	
 	func addVoice() {
 		print("Add voice")
+		let voiceVC = VoiceViewController(type: .voiceMemo)
+		presentVC(vc: voiceVC)
 	}
 	
 	func addTodoList() {
 		print("Add todo")
+		let todoVC = ListViewController()
+		presentVC(vc: todoVC)
 	}
 	
 	

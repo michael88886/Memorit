@@ -8,7 +8,11 @@
 
 import UIKit
 
-class HomeTableCell: UITableViewCell {
+class HomeAttachCell: UITableViewCell, HomeCellProtocol {
+	func feedCell(model: MemoModel) {
+		
+	}
+	
 
     
 }

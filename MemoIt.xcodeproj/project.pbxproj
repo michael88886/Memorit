@@ -52,6 +52,9 @@
 		78A980FE22A80507000E0247 /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FD22A80507000E0247 /* MemoViewController.swift */; };
 		78A9810022A8050E000E0247 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FF22A8050E000E0247 /* ListViewController.swift */; };
 		78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9810122A80515000E0247 /* VoiceViewController.swift */; };
+		78ADC93F22AEAC9F004295F8 /* HomeTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADC93E22AEAC9F004295F8 /* HomeTodoCell.swift */; };
+		78ADC94122AEACB0004295F8 /* HomeVoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADC94022AEACB0004295F8 /* HomeVoiceCell.swift */; };
+		78ADC94422AEAF67004295F8 /* HomeModelOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADC94322AEAF67004295F8 /* HomeModelOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +68,7 @@
 		780E5EF322A9523200B7AFF5 /* PreviewImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewImageController.swift; sourceTree = "<group>"; };
 		780E5EF422A9523300B7AFF5 /* PreviewItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewItemController.swift; sourceTree = "<group>"; };
 		780E5EF522A9523300B7AFF5 /* PreviewAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewAudioController.swift; sourceTree = "<group>"; };
-		780E5EFD22AA54FD00B7AFF5 /* HomeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCell.swift; sourceTree = "<group>"; };
+		780E5EFD22AA54FD00B7AFF5 /* HomeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeTableCell.swift; path = ../HomeTableCell.swift; sourceTree = "<group>"; };
 		780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionView.swift; sourceTree = "<group>"; };
 		784507D722A8DF3F009913D1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		784507D922A8E288009913D1 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +107,9 @@
 		78A980FD22A80507000E0247 /* MemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
 		78A980FF22A8050E000E0247 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		78A9810122A80515000E0247 /* VoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceViewController.swift; sourceTree = "<group>"; };
+		78ADC93E22AEAC9F004295F8 /* HomeTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeTodoCell.swift; path = ../HomeTodoCell.swift; sourceTree = "<group>"; };
+		78ADC94022AEACB0004295F8 /* HomeVoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVoiceCell.swift; path = ../HomeVoiceCell.swift; sourceTree = "<group>"; };
+		78ADC94322AEAF67004295F8 /* HomeModelOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModelOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,11 +180,12 @@
 			isa = PBXGroup;
 			children = (
 				2F20B3B922A39F5000054053 /* HomeViewController.swift */,
+				78ADC94222AEACBC004295F8 /* New Group */,
 				78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */,
 				780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */,
-				780E5EFD22AA54FD00B7AFF5 /* HomeTableCell.swift */,
-				7887163A22AE7FB6008BE38A /* New Group */,
+				7887163A22AE7FB6008BE38A /* PreviewModels */,
 				7887163222AE5BEC008BE38A /* MemoViewModel.swift */,
+				78ADC94322AEAF67004295F8 /* HomeModelOperation.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -221,7 +228,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		7887163A22AE7FB6008BE38A /* New Group */ = {
+		7887163A22AE7FB6008BE38A /* PreviewModels */ = {
 			isa = PBXGroup;
 			children = (
 				7887162A22ABD9E6008BE38A /* MemoModel.swift */,
@@ -229,7 +236,7 @@
 				7887163622AE78D0008BE38A /* VoiceModel.swift */,
 				7887163822AE792E008BE38A /* TodoModel.swift */,
 			);
-			path = "New Group";
+			path = PreviewModels;
 			sourceTree = "<group>";
 		};
 		78A7C20E22A3F47D00ADBFBA /* Supporting Files */ = {
@@ -266,6 +273,16 @@
 				78A980E522A803EE000E0247 /* VoiceMemo+CoreDataProperties.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		78ADC94222AEACBC004295F8 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				780E5EFD22AA54FD00B7AFF5 /* HomeTableCell.swift */,
+				78ADC93E22AEAC9F004295F8 /* HomeTodoCell.swift */,
+				78ADC94022AEACB0004295F8 /* HomeVoiceCell.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,6 +372,7 @@
 				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,
 				2F20B3A522A3947000054053 /* AppDelegate.swift in Sources */,
 				78A980F222A803EF000E0247 /* VoiceMemo+CoreDataClass.swift in Sources */,
+				78ADC94422AEAF67004295F8 /* HomeModelOperation.swift in Sources */,
 				7887163022AD445B008BE38A /* UIHelper.swift in Sources */,
 				78A980FC22A804AA000E0247 /* Attachment+CoreDataProperties.swift in Sources */,
 				784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */,
@@ -362,6 +380,7 @@
 				780E5F0022AA588F00B7AFF5 /* FunctionView.swift in Sources */,
 				7887162B22ABD9E6008BE38A /* MemoModel.swift in Sources */,
 				784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */,
+				78ADC94122AEACB0004295F8 /* HomeVoiceCell.swift in Sources */,
 				78A980F522A803EF000E0247 /* Category+CoreDataProperties.swift in Sources */,
 				78A980EB22A803EF000E0247 /* VoiceMemo+CoreDataProperties.swift in Sources */,
 				7887163522AE78C8008BE38A /* AttachModel.swift in Sources */,
@@ -375,6 +394,7 @@
 				78A980EF22A803EF000E0247 /* ListMemo+CoreDataClass.swift in Sources */,
 				7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */,
 				7887163122AD445B008BE38A /* Padding.swift in Sources */,
+				78ADC93F22AEAC9F004295F8 /* HomeTodoCell.swift in Sources */,
 				78A980EE22A803EF000E0247 /* ListIem+CoreDataClass.swift in Sources */,
 				78A980F122A803EF000E0247 /* MemoLabel+CoreDataProperties.swift in Sources */,
 				78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */,

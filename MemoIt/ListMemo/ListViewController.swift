@@ -26,7 +26,7 @@ struct ListModel {
 }
 
 // MARK: - List controller
-class ListlViewController: UIViewController {
+class ListViewController: UIViewController {
 
 	// MARK: - Properties
 	// - Constants
@@ -117,7 +117,7 @@ class ListlViewController: UIViewController {
 }
 
 // MARK: - Private function
-extension ListlViewController {
+extension ListViewController {
 	// MARK: - Save & Load (💾 / 🚚)
 	private func saveList() {
 		print("Save list")
@@ -255,7 +255,7 @@ extension ListlViewController {
 }
 
 // MARK: - Closure functions
-extension ListlViewController {
+extension ListViewController {
 	// - Cell start editng
 	private func startEditing(_ cell: ListTableCell) {
 		// Show "Done" button
@@ -313,7 +313,7 @@ extension ListlViewController {
 }
 
 // MARK: - Actions
-extension ListlViewController {
+extension ListViewController {
 	// Back button action
 	@objc private func backAction() {
 		// Save function
@@ -337,7 +337,7 @@ extension ListlViewController {
 }
 
 // MARK: - Override functions
-extension ListlViewController {
+extension ListViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Keyboard show / hide notification
@@ -421,7 +421,7 @@ extension ListlViewController {
 }
 
 // MARK: - UITableView delegate / data source
-extension ListlViewController: UITableViewDataSource, UITableViewDelegate {
+extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 	// Number of item
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return listItems.count + 1
