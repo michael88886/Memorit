@@ -22,21 +22,19 @@ enum RecorderType {
 	case voiceMemo
 }
 
-class VoiceViewController: UIViewController {
+final class VoiceViewController: UIViewController {
 	// MARK: - Properties
 	// - Constants
 	// Temperary file name
-	let tempFileName = "temp.m4a"
+	private let tempFileName = "temp.m4a"
 	// State label height
-	let stateLbH: CGFloat = 24
+	private let stateLbH: CGFloat = 24
 	// Timer label height
-	let timerLbH: CGFloat = 50
+	private let timerLbH: CGFloat = 50
 	// Record button width multiplier
-	let recordBtn_W: CGFloat = 1/3
+	private let recordBtn_W: CGFloat = 1/3
 	// Play button size
-	let playBtnSize: CGFloat = 80
-	// Title height
-	let titleH: CGFloat = 44
+	private let playBtnSize: CGFloat = 80
 	
 	// - Audio recorder / player state
 	// Voice recorder type
@@ -48,24 +46,22 @@ class VoiceViewController: UIViewController {
 	
 	// - AVFoundation variables
 	// Audio session
-	private var session: AVAudioSession!
+	private var session = AVAudioSession.sharedInstance()
 	// Recorder
 	private var recorder: AVAudioRecorder?
 	// Player
 	private var player: MKAudioPlayer?
 	// TImer
-	private var timer: Timer?
+	private var timer: CADisplayLink?
 	
 	// Closure
 	var saveAudio: ((URL) -> Void)?
 	
 
 	// MARK: - Views
-	// Top content view
-	private lazy var topContentView = UIView()
 	
 	// Save button
-	private lazy var saveBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Save"), style: .plain, target: self, action: #selector(saveAction))
+	private lazy var saveBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Save44"), style: .plain, target: self, action: #selector(saveAction))
 	
 	// Title field
 	private lazy var titleField: UITextField = {
@@ -120,7 +116,7 @@ class VoiceViewController: UIViewController {
 	// Record button
 	private lazy var recordBtn: UIButton = {
 		let btn = UIButton(type: .custom)
-		btn.setImage(#imageLiteral(resourceName: "Record").withRenderingMode(.alwaysTemplate), for: .normal)
+		btn.setImage(#imageLiteral(resourceName: "Record96").withRenderingMode(.alwaysTemplate), for: .normal)
 		btn.tintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
 		// Long press gesture
 		let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(sender:)))
@@ -150,6 +146,20 @@ class VoiceViewController: UIViewController {
 extension VoiceViewController {
 	
 	// MARK: - Setup functions
+	private func setupSession() {
+		// Activate session
+		do {
+			try session.setCategory(.playAndRecord, options: .defaultToSpeaker)
+			try session.setActive(true, options: [])
+		}
+		catch {
+			print("\(self): Failed to activate session")
+		}
+		
+		// Setup recorder
+		setupRecorder()
+	}
+	
 	// Setup recorder
 	private func setupRecorder() {
 		// Recorder setting
@@ -170,7 +180,10 @@ extension VoiceViewController {
 			recorder.isMeteringEnabled = true
 //			recorder.delegate = self
 			recorder.prepareToRecord()
-			recordBtn.isEnabled = true
+			DispatchQueue.main.async {
+				self.recordBtn.isEnabled = true
+			}
+			
 		}
 	}
 	
@@ -195,13 +208,10 @@ extension VoiceViewController {
 		// Recorder 
 		guard let recorder = self.recorder else { return }
 		recorderMode = .recording
-		timer = Timer.scheduledTimer(timeInterval: 0.03,
-									 target: self,
-									 selector: #selector(updateAudioMeter(timer:)),
-									 userInfo: nil,
-									 repeats: true)
 		recorder.record()
-		recordBtn.setImage(#imageLiteral(resourceName: "Recording"), for: .normal)
+		timer = CADisplayLink(target: self, selector: #selector(updateAudioMeter))
+		timer?.add(to: .current, forMode: .common)
+		recordBtn.setImage(#imageLiteral(resourceName: "Recording96"), for: .normal)
 		recordBtn.tintColor = #colorLiteral(red: 1, green: 0.4352941176, blue: 0.4196078431, alpha: 1)
 		
 		saveBtn.isEnabled = false
@@ -217,12 +227,13 @@ extension VoiceViewController {
 		guard let recorder = self.recorder else { return }
 		recorder.stop()
 		
-		recordBtn.setImage(#imageLiteral(resourceName: "Record"), for: .normal)
+		recordBtn.setImage(#imageLiteral(resourceName: "Record96"), for: .normal)
 		recordBtn.tintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
 		
 		// Timer
 		if let timer = self.timer {
-			timer.invalidate()
+			timer.remove(from: .current, forMode: .common)
+			self.timer = nil
 		}
 		
 		// Wave view
@@ -270,6 +281,10 @@ extension VoiceViewController {
 		memoObject?.setValue(false, forKey: "archived")
 		// Set Memo ID
 		memoObject?.setValue(fileName, forKey: "memoID")
+		// Set Color
+		memoObject?.setValue(UIColor.white, forKey: "color")
+		// Set type
+		memoObject?.setValue(MemoType.voice.rawValue, forKey: "type")
 		
 		// Save object
 		do {
@@ -292,37 +307,16 @@ extension VoiceViewController {
 		return tmpPath.appendingPathComponent(tempFileName)
 	}
 	
-	// Microphone permission
-	private func micPermission() -> Bool {
-		guard session != nil else { return false }
-		var permit = false
-		switch session.recordPermission {
-		case .granted:
-			permit = true
-		case .denied:
-			permit = false
-		case .undetermined:
-			session.requestRecordPermission { (granted) in
-				if granted {
-					permit = true
-				}
-				else {
-					permit = false
-				}
-			}
-		@unknown default:
-			permit = false
-		}
-		return permit
-	}
-	
 	// No permission popup
-	private func noPermissionAlert() {
-		let alert = Helper.errorPopup(withTitle: "No permission",
-											msg: "Please allow microphone access in \"Privacy\" setting.")
-		self.present(alert, animated: true) {
-			self.dismissController()
-		}
+	private func noPermission() {
+		let alert = UIAlertController(title: "No microphone permission",
+									  message: "Please allow microphone access in \"Privacy\" setting.",
+									  preferredStyle: .alert) 
+		
+		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+			return
+		}))
+		self.present(alert, animated: true, completion: nil)
 	}
 	
 	// Update text label
@@ -353,12 +347,12 @@ extension VoiceViewController {
 		
 		// Reset timer
 		if timer != nil {
-			timer!.invalidate()
+			timer!.remove(from: .current, forMode: .common)
 			timer = nil
 		}
 		
 		// Dismiss controller
-		dismiss(animated: true, completion: nil)
+		navigationController?.popViewController(animated: true)
 	}
 	
 	// Save action
@@ -389,6 +383,11 @@ extension VoiceViewController {
 	
 	// Play action
 	@objc private func playAction() {
+		if self.player == nil {
+			setupPlayer()
+			self.timerLabel.text = "00:00.00"
+		}
+		
 		guard let player = self.player else { return }
 		player.playAction()
 	}
@@ -407,7 +406,7 @@ extension VoiceViewController {
 	}
 	
 	// Update audio meter
-	@objc private func updateAudioMeter(timer: Timer) {
+	@objc private func updateAudioMeter() {
 		
 		guard let recorder = self.recorder else { return }
 		let currentTime: TimeInterval = recorder.currentTime
@@ -432,67 +431,68 @@ extension VoiceViewController {
 		playBtn.isEnabled = false
 		titleField.isHidden = true
 		
-		// Recorder type - (Default state: voice memo)
-		if recorderType == .attachment {
-			// Attachment type title
-			title = ""
-		}
-		else {
-			// Recorder type title 
-			title = "Voice memo"
-			titleField.isHidden = false
-		}
-		
-		// Check microphone permission
-		if micPermission() == false {
-			// No permission, show alert
-			noPermissionAlert()
-		}
-		else {
-			// Activate session
-			session = AVAudioSession.sharedInstance()
-			do {
-				try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-				try session.setActive(true, options: [])
-			} catch {
-				print("Error: ", error.localizedDescription)
-				print(String(describing: self) + " Failed to start session")
-				noPermissionAlert()
+		// Get microphone permission
+		switch session.recordPermission {
+		case .granted:
+			setupSession()
+			
+		case .denied:
+			noPermission()
+			
+		case .undetermined:
+			session.requestRecordPermission { (granted) in
+				if granted {
+					self.setupSession()
+				}
+				else {
+					self.noPermission()
+				}
 			}
-			setupRecorder()
+			
+		default:
+			noPermission()
 		}
 	}
 	
 	override func loadView() {
 		super.loadView()
 		// Navigation bar
+		navigationController?.setNavigationBarHidden(false, animated: false)
+		
 		// - Left button
-		let leftBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack"), style: .plain, target: self, action: #selector(dismissController))
-		navigationController?.navigationItem.leftBarButtonItem = leftBtn
+		let leftBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack44"), style: .plain, target: self, action: #selector(dismissController))
+		navigationItem.leftBarButtonItem = leftBtn
 		// Right button
-		navigationController?.navigationItem.rightBarButtonItem = saveBtn
+		navigationItem.rightBarButtonItem = saveBtn
 		
 		// Tint color for navigation bar
 		navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
-		navigationController?.navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1) 
-		navigationController?.navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
+		navigationItem.leftBarButtonItem?.tintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1) 
+		navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
 		
 		// Background color
 		view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 		
-		// Content view
-		topContentView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-		topContentView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(topContentView)
-		topContentView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-		topContentView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-		topContentView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		topContentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+		// Setup by type
+		switch recorderType {
+		case .attachment:
+			title = ""
+		case .voiceMemo:
+			title = "Voice memo"		
+		}
+		
+		// Title field
+		titleField.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(titleField)
+		titleField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Padding.p5).isActive = true
+		titleField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p20).isActive = true
+		titleField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p20).isActive = true
+		titleField.heightAnchor.constraint(equalToConstant: UIHelper.defaultH).isActive = true
 		
 		// Timer label
 		timerLabel.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(timerLabel)
-		timerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Padding.p20).isActive = true
+		timerLabel.topAnchor.constraint(equalTo: titleField.bottomAnchor, constant: Padding.p40).isActive = true
 		timerLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p10).isActive = true
 		timerLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p10).isActive = true
 		timerLabel.heightAnchor.constraint(equalToConstant: timerLbH).isActive = true
@@ -513,21 +513,13 @@ extension VoiceViewController {
 		waveView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 		waveView.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 		
-		// Title field
-		titleField.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(titleField)
-		titleField.topAnchor.constraint(equalTo: waveView.bottomAnchor, constant: Padding.p20).isActive = true
-		titleField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: Padding.p20).isActive = true
-		titleField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -Padding.p20).isActive = true
-		titleField.heightAnchor.constraint(equalToConstant: titleH).isActive = true
-		
-		// Hints label
-		let hint = UIHelper.label(font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin), textColor: #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1))
-		hint.text = "Press and hold to start record"
-		hint.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(hint)
-		hint.topAnchor.constraint(equalTo: titleField.bottomAnchor, constant: Padding.p20).isActive = true
-		hint.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		// Play button
+		playBtn.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(playBtn)
+		playBtn.widthAnchor.constraint(equalToConstant: playBtnSize).isActive = true
+		playBtn.heightAnchor.constraint(equalToConstant: playBtnSize).isActive = true
+		playBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		playBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Padding.p100).isActive = true
 		
 		// Record button
 		recordBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -535,15 +527,15 @@ extension VoiceViewController {
 		recordBtn.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: recordBtn_W).isActive = true
 		recordBtn.heightAnchor.constraint(equalTo: recordBtn.widthAnchor).isActive = true
 		recordBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-		recordBtn.topAnchor.constraint(equalTo: hint.bottomAnchor, constant: Padding.p10).isActive = true
+		recordBtn.bottomAnchor.constraint(equalTo: playBtn.topAnchor, constant: -Padding.p10).isActive = true
 		
-		// Play button
-		playBtn.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(playBtn)
-		playBtn.widthAnchor.constraint(equalToConstant: playBtnSize).isActive = true
-		playBtn.heightAnchor.constraint(equalToConstant: playBtnSize).isActive = true
-		playBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-		playBtn.topAnchor.constraint(equalTo: recordBtn.bottomAnchor, constant: Padding.p20).isActive = true
+		// Hints label
+		let hint = UIHelper.label(font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin), textColor: #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1))
+		hint.text = "Press and hold to start record"
+		hint.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(hint)
+		hint.bottomAnchor.constraint(equalTo: recordBtn.topAnchor, constant: -Padding.p20).isActive = true
+		hint.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 	}
 }
 
@@ -581,6 +573,7 @@ extension VoiceViewController: MKAudioPlayerDelegate {
 		recordBtn.isEnabled = true
 		saveBtn.isEnabled = true
 		titleField.isEnabled = true
+		waveView.update(withLevel: 0)
 	}
 	
 	func update(player: AVAudioPlayer) {

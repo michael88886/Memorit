@@ -63,12 +63,7 @@ class Helper {
 		}
 	}
 	
-	// MARK: - Misc funcitons
-	// Memo type
-	static func memoType(memo: Memo) -> MemoType {
-		return MemoType(rawValue: memo.type)!
-	}
-	
+	// MARK: - Misc funcitons	
 	// Unique name
 	static func uniqueName() -> String {
 		let accFactor: Double = 100 // Accuracy factor - avoid same unique ID from time interval
@@ -195,7 +190,7 @@ class Helper {
 		image.draw(in: CGRect(origin: CGPoint.zero, size: targetSize))
 		let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
 		guard scaledImage != nil else { return nil }
-		let imgData = scaledImage?.jpegData(compressionQuality: 0.5)
+		let imgData = scaledImage?.jpegData(compressionQuality: quality)
 		UIGraphicsEndImageContext()
 		return UIImage(data: imgData!)
 	}

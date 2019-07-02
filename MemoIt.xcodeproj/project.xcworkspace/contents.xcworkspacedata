@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/mkmk/Desktop/Projects/MemoIt/MemoIt/Supporting Files/MKAudioPlayer.swift">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

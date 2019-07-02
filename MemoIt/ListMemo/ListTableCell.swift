@@ -62,7 +62,7 @@ class ListTableCell: UITableViewCell {
 	// Right button
 	private lazy var rightBtn: UIButton = {
 		let btn = UIButton(type: .custom)
-		btn.setImage(#imageLiteral(resourceName: "Plus").withRenderingMode(.alwaysTemplate), for: .normal)
+		btn.setImage(#imageLiteral(resourceName: "Plus44").withRenderingMode(.alwaysTemplate), for: .normal)
 		btn.tintColor = #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1)
 		btn.addTarget(self, action: #selector(rightAction), for: .touchUpInside)
 		return btn
@@ -90,11 +90,11 @@ extension ListTableCell {
 		// State
 		if data.isDone {
 			currType = .completed
-			rightBtn.setImage(#imageLiteral(resourceName: "Selected_list"), for: .normal)
+			rightBtn.setImage(#imageLiteral(resourceName: "Selected_list").withRenderingMode(.alwaysTemplate), for: .normal)
 		}
 		else {
 			currType = .pending
-			rightBtn.setImage(#imageLiteral(resourceName: "Select_list"), for: .normal)
+			rightBtn.setImage(#imageLiteral(resourceName: "Select_list").withRenderingMode(.alwaysTemplate), for: .normal)
 		}
 	}
 	
@@ -122,12 +122,12 @@ extension ListTableCell {
 		case .pending:
 			// Pending -> Complete
 			currType = .completed
-			rightBtn.setImage(#imageLiteral(resourceName: "Selected_list"), for: .normal)
+			rightBtn.setImage(#imageLiteral(resourceName: "Selected_list").withRenderingMode(.alwaysTemplate), for: .normal)
 			taskCompleted?(self, true)
 		case .completed:
 			// Complete -> Pending
 			currType = .pending
-			rightBtn.setImage(#imageLiteral(resourceName: "Select_list"), for: .normal)
+			rightBtn.setImage(#imageLiteral(resourceName: "Select_list").withRenderingMode(.alwaysTemplate), for: .normal)
 			taskCompleted?(self, false)
 		}
 	}
@@ -184,7 +184,7 @@ extension ListTableCell {
 		// Reset type
 		currType = .add
 		// Reset button
-		rightBtn.setImage(#imageLiteral(resourceName: "Plus"), for: .normal)
+		rightBtn.setImage(#imageLiteral(resourceName: "Plus44"), for: .normal)
 		// Reset Text view
 		textView.text = ""
 	}

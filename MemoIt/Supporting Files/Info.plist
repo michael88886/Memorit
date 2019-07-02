@@ -22,6 +22,14 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Request access microphone</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Request access camera</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Request access location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Request access photo album</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -33,9 +41,6 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>

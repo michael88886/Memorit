@@ -120,7 +120,7 @@ class FunctionView: UIView {
 	
 	// Memo button
 	private lazy var memoBtn: UIButton = {
-		let btn = scaledButton(icon: #imageLiteral(resourceName: "Memo44"), tint: #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1))
+		let btn = scaledButton(icon: #imageLiteral(resourceName: "Text44"), tint: #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1))
 		btn.addTarget(self, action: #selector(addMemoAction), for: .touchUpInside)
 		return btn
 	}()
@@ -289,6 +289,7 @@ extension FunctionView {
 	// Add voice action
 	@objc private func addVoiceAction() {
 		delegate?.addVoice()
+		hideOption()
 	}
 	
 	// Add todo action

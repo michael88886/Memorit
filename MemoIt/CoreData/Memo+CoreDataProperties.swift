@@ -17,7 +17,7 @@ extension Memo {
         return NSFetchRequest<Memo>(entityName: "Memo")
     }
 
-	@NSManaged public var type: Int
+	@NSManaged public var type: MemoType
 	@NSManaged public var archived: Bool
     @NSManaged public var color: UIColor!
     @NSManaged public var timeModified: NSDate!

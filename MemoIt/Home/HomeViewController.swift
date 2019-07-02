@@ -26,6 +26,8 @@ class HomeViewController: UIViewController {
 	// Resume scroll offset (search)
 	private var resumeOffset = CGPoint.zero
 	
+	
+	
 	// View model
 	let viewModel = MemoViewModel()
 	
@@ -37,13 +39,16 @@ class HomeViewController: UIViewController {
 	private lazy var homeTable: UITableView = {
 		let table = UITableView(frame: .zero, style: .plain)
 		table.keyboardDismissMode = .onDrag
-//		table.separatorStyle = .none
+		table.separatorStyle = .none
 		table.rowHeight = 160
 		table.contentInset = UIEdgeInsets(top: headerH, left: 0, bottom: 0, right: 0)
 		table.showsHorizontalScrollIndicator = false
 		table.delegate = self
 		table.dataSource = self
-//		table.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+		table.prefetchDataSource = self
+		table.register(HomeAttachCell.self, forCellReuseIdentifier: viewModel.attachID)
+		table.register(HomeTodoCell.self, forCellReuseIdentifier: viewModel.todoID)
+		table.register(HomeVoiceCell.self, forCellReuseIdentifier: viewModel.voiceID)
 		return table
 	}()
 	
@@ -68,11 +73,9 @@ class HomeViewController: UIViewController {
 
 // MARK: - Private functions
 extension HomeViewController {
-	
-	// MARK: Present VC
-	private func presentVC(vc: UIViewController) {
-		let naviVC = UINavigationController(rootViewController: vc)
-		present(naviVC, animated: true, completion: nil)
+	// Reload table
+	private func reloadTable() {
+		homeTable.reloadData()
 	}
 }
 
@@ -83,6 +86,10 @@ extension HomeViewController {
 		functionView.resetOption(animated: true)
 	}
 	
+	// Reload
+	@objc private func refreshTable() {
+		viewModel.fetchData()
+	}
 }
 
 // MARK: - Override functions
@@ -91,24 +98,43 @@ extension HomeViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// Setup view model
+		viewModel.reloadData = reloadTable
+		
+		// Notification observer
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: .newItemHomeTable, object: nil)
+		
+		// Register cells
+		homeTable.register(HomeAttachCell.self, forCellReuseIdentifier: viewModel.attachID)
+		homeTable.register(HomeTodoCell.self, forCellReuseIdentifier: viewModel.todoID)
+		homeTable.register(HomeVoiceCell.self, forCellReuseIdentifier: viewModel.voiceID)
+		
 		// Scroll to top
-		let index = IndexPath(row: 0, section: 0)
-		homeTable.scrollToRow(at: index, at: .middle, animated: false)
+//		let index = IndexPath(row: 0, section: 0)
+//		homeTable.scrollToRow(at: index, at: .middle, animated: false)
 		
 		// Fetch data
 		viewModel.fetchData()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		// Hide navigation bar
+		navigationController?.isNavigationBarHidden = true
+		
+		// Hide tool bar
+		navigationController?.isToolbarHidden = true
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		viewModel.cancelFetch()
 	}
 	
 	override func loadView() {
 		super.loadView()
 		
 		view.backgroundColor = .white
-		
-		// Hide navigation bar
-		navigationController?.isNavigationBarHidden = true
-		
-		// Hide tool bar
-		navigationController?.isToolbarHidden = true
 		
 		// Function view
 		functionView.delegate = self
@@ -154,8 +180,8 @@ extension HomeViewController {
 
 
 // MARK: - Delegates
-// MARK: - UITableView data source / delegate
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: - UITableView data source / delegate / prefetch
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.memoList.count
 		//		return homeItems.count
@@ -163,20 +189,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cellID = viewModel.cellId(atIndex: indexPath)
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-		
-		if let model = viewModel.cacheList.object(forKey: NSNumber(integerLiteral: indexPath.row)) {
-			// Cached
-			viewModel.updateCell(cell: cell, indexpath: indexPath)
-		}
-		else {
-			// New
-			
-		}
-		
-		
-		
-		cell.textLabel?.text = String(describing: indexPath.row)
+		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! HomeCell
+		viewModel.updateCell(cell, indexPath)
 		return cell
 	}
 	
@@ -197,7 +211,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 		headerView.updateAlpha(alpha: alpha)
 	}
 	
+	// Prefetch
+	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+		viewModel.prefetchData(indexPaths)
+	}
 	
+	// Cancel prefetch
+	func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+		viewModel.cancelPrefetch(indexPaths)
+	}
 }
 
 
@@ -300,19 +322,20 @@ extension HomeViewController: FunctionViewDelegate {
 	func addMemo() {
 		print("Add memo")
 		let attachVC = MemoViewController()
-		presentVC(vc: attachVC)
+//		presentVC(vc: attachVC)
 	}
 	
 	func addVoice() {
 		print("Add voice")
-		let voiceVC = VoiceViewController(type: .voiceMemo)
-		presentVC(vc: voiceVC)
+		navigationController?.pushViewController(VoiceViewController(type: .voiceMemo), animated: true)
+		functionView.resetOption(animated: false)
 	}
 	
 	func addTodoList() {
 		print("Add todo")
-		let todoVC = ListViewController()
-		presentVC(vc: todoVC)
+		navigationController?.pushViewController(ListViewController(memo: nil), animated: true)
+		functionView.resetOption(animated: false)
+//		presentVC(vc: todoVC)
 	}
 	
 	

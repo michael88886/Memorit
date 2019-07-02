@@ -62,9 +62,7 @@ final class MKAudioPlayer: NSObject {
         switch state {
         case .play:
             pause()
-        case .pause:
-            play()
-        case .stop:
+        case .pause, .stop:
             play()
         }
     }
