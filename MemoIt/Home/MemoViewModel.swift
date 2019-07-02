@@ -51,6 +51,7 @@ class MemoViewModel {
 			// Data avaliable, feed cell
 			self.feedCell(cell, model: model)
 			
+			
 		}
 		else {
 			print("Not in cache")
