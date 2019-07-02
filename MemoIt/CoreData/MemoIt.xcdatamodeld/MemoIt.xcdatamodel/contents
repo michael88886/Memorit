@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
+    <entity name="Attachment" representedClassName="Attachment" syncable="YES">
+        <attribute name="attachID" attributeType="String" syncable="YES"/>
+        <attribute name="attachType" attributeType="String" syncable="YES"/>
+        <relationship name="attachmentMemo" maxCount="1" deletionRule="Nullify" destinationEntity="AttachmentMemo" inverseName="attachments" inverseEntity="AttachmentMemo" syncable="YES"/>
+    </entity>
+    <entity name="AttachmentMemo" representedClassName="AttachmentMemo" parentEntity="Memo" syncable="YES">
+        <attribute name="attributedString" attributeType="Transformable" customClassName="NSAttributedString" syncable="YES"/>
+        <attribute name="memoID" attributeType="String" syncable="YES"/>
+        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Attachment" inverseName="attachmentMemo" inverseEntity="Attachment" syncable="YES"/>
+    </entity>
+    <entity name="Category" representedClassName="Category" syncable="YES">
+        <attribute name="color" attributeType="Transformable" customClassName="UIColor" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="memo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Memo" inverseName="category" inverseEntity="Memo" syncable="YES"/>
+    </entity>
+    <entity name="ListItem" representedClassName="ListItem" syncable="YES">
+        <attribute name="color" attributeType="Transformable" customClassName="UIColor" syncable="YES"/>
+        <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reminder" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="listMemo" maxCount="1" deletionRule="Nullify" destinationEntity="ListMemo" inverseName="listItem" inverseEntity="ListMemo" syncable="YES"/>
+    </entity>
+    <entity name="ListMemo" representedClassName="ListMemo" parentEntity="Memo" syncable="YES">
+        <relationship name="listItem" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ListItem" inverseName="listMemo" inverseEntity="ListItem" syncable="YES"/>
+    </entity>
+    <entity name="Memo" representedClassName="Memo" isAbstract="YES" syncable="YES">
+        <attribute name="archived" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="color" attributeType="Transformable" customClassName="UIColor" syncable="YES"/>
+        <attribute name="timeModified" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="memo" inverseEntity="Category" syncable="YES"/>
+        <relationship name="label" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MemoLabel" inverseName="memo" inverseEntity="MemoLabel" syncable="YES"/>
+    </entity>
+    <entity name="MemoLabel" representedClassName="MemoLabel" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="memo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Memo" inverseName="label" inverseEntity="Memo" syncable="YES"/>
+    </entity>
+    <entity name="VoiceMemo" representedClassName="VoiceMemo" parentEntity="Memo" syncable="YES">
+        <attribute name="memoID" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Attachment" positionX="368.8984375" positionY="-107.58203125" width="128" height="90"/>
+        <element name="AttachmentMemo" positionX="166.52734375" positionY="-80.640625" width="128" height="90"/>
+        <element name="Category" positionX="-279.796875" positionY="92.828125" width="128" height="90"/>
+        <element name="ListItem" positionX="405.0546875" positionY="98.296875" width="128" height="120"/>
+        <element name="ListMemo" positionX="170.05859375" positionY="99.33984375" width="128" height="58"/>
+        <element name="Memo" positionX="-52.50390625" positionY="80.55078125" width="128" height="150"/>
+        <element name="MemoLabel" positionX="-69.92578125" positionY="266.5" width="128" height="75"/>
+        <element name="VoiceMemo" positionX="167.79296875" positionY="248.484375" width="128" height="60"/>
+    </elements>
+</model>
