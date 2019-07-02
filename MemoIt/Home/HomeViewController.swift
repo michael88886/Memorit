@@ -188,10 +188,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITabl
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cellID = viewModel.cellId(atIndex: indexPath)
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! HomeCell
-		viewModel.updateCell(cell, indexPath)
-		return cell
+		return viewModel.updateCell(tableView, indexPath)
 	}
 	
 	
@@ -321,7 +318,7 @@ extension HomeViewController: FunctionViewDelegate {
 	
 	func addMemo() {
 		print("Add memo")
-		let attachVC = MemoViewController()
+//        let attachVC = MemoViewController()
 //		presentVC(vc: attachVC)
 	}
 	

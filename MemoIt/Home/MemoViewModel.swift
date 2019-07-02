@@ -45,7 +45,11 @@ class MemoViewModel {
 	
 	
 	// MARK: - Feed table cell functions
-	func updateCell(_ cell: HomeCell, _ indexpath: IndexPath) {
+	func updateCell(_ tableview: UITableView, _ indexpath: IndexPath) -> UITableViewCell {
+        // Get correct cell
+        let cell = cellById(tableview, indexpath)
+//        let cellID = cellId(atIndex: indexpath)
+        
 		if let model = cacheList.object(forKey: NSNumber(integerLiteral: indexpath.row)) {
 			print("in cache")
 			// Data avaliable, feed cell
@@ -93,48 +97,42 @@ class MemoViewModel {
 				loadingOperations[indexpath] = newOP
 			}
 		}
+        
+        return cell
 	}
 	
 	// Feed data to cell
-	func feedCell(_ cell: HomeCell, model: MemoModel) {
-		print("Model feed cell")
+	func feedCell(_ cell: UITableViewCell, model: MemoModel) {
 		let type: MemoType = MemoType(rawValue: model.type!.rawValue)!
-		print("Model type: \(type.rawValue)")
-		print("cell: \(cell)")
 		switch type {
 		case .attach:
-			if let cell = cell as? HomeAttachCell, 
-			let model = model as? AttachModel {
-				cell.feedCell(model: model)
-			}
+            guard let cell = cell as? HomeAttachCell,
+                let model = model as? AttachModel else { return }
+            cell.feedCell(model: model)
 			
 		case .todo:
-			if let cell = cell as? HomeTodoCell,
-				let model = model as? TodoModel {
-				cell.feedCell(model: model)
-			}
+			guard let cell = cell as? HomeTodoCell,
+                let model = model as? TodoModel else { return }
+            cell.feedCell(model: model)
 			
 		case .voice:
-			if let cell = cell as? HomeVoiceCell,
-			let model = model as? VoiceModel {
-				cell.feedCell(model: model)
-			}
+			guard let cell = cell as? HomeVoiceCell,
+                let model = model as? VoiceModel else { return }
+            cell.feedCell(model: model)
 		}			
 	}
 	
 	// Cell ID
-	func cellId(atIndex: IndexPath) -> String {
-		print("Cell id")
-		let model = memoList[atIndex.row]
+    func cellById(_ tableview: UITableView, _ index: IndexPath) -> HomeCell {
+		let model = memoList[index.row]
 		let type: MemoType = model.type
-		print("type: \(type.rawValue)")
 		switch type {
 		case .attach:
-			return attachID
+			return tableview.dequeueReusableCell(withIdentifier: attachID, for: index) as! HomeAttachCell
 		case .todo:
-			return todoID
+			return tableview.dequeueReusableCell(withIdentifier: todoID, for: index) as! HomeTodoCell
 		case .voice:
-			return voiceID
+			return tableview.dequeueReusableCell(withIdentifier: voiceID, for: index) as! HomeVoiceCell
 		}
 	}
 	
@@ -170,6 +168,9 @@ class MemoViewModel {
 extension MemoViewModel {
 	// MARK: - Fetch functions
 	@objc func fetchData() {
+        // Clear cache
+        cacheList.removeAllObjects()
+        
 		// Data context
 		let context = Helper.dataContext()
 		// Fetch request

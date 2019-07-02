@@ -60,7 +60,6 @@ class HomeVoiceCell: HomeCell {
 	
 	override func feedCell(model: MemoModel) {
 		super.feedCell(model: model)
-		print("feed voice cell: \(model)")
 		// Voice model
 		guard let voiceModel = model as? VoiceModel else { return }
 		// File URL, Player

@@ -11,6 +11,7 @@
 		2F20B3AF22A3947300054053 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3AE22A3947300054053 /* Assets.xcassets */; };
 		2F20B3B222A3947300054053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3B022A3947300054053 /* LaunchScreen.storyboard */; };
 		2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F20B3B922A39F5000054053 /* HomeViewController.swift */; };
+		2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */; };
 		780983ED22BA88EA00A8E851 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EB22BA88EA00A8E851 /* BadgeButton.swift */; };
 		780983EE22BA88EA00A8E851 /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EC22BA88EA00A8E851 /* MKButton.swift */; };
 		780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EF22BA891500A8E851 /* PaddingLabel.swift */; };
@@ -22,7 +23,6 @@
 		784507D822A8DF3F009913D1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D722A8DF3F009913D1 /* Helper.swift */; };
 		784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D922A8E288009913D1 /* ListDetailViewController.swift */; };
 		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
-		784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */; };
 		784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */; };
 		7849C54622B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7849C54522B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift */; };
 		784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6322A8B71500F1818C /* ListTableCell.swift */; };
@@ -72,6 +72,7 @@
 		2F20B3B122A3947300054053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F20B3B322A3947300054053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F20B3B922A39F5000054053 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAudioPlayer.swift; sourceTree = "<group>"; };
 		780983EB22BA88EA00A8E851 /* BadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		780983EC22BA88EA00A8E851 /* MKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKButton.swift; sourceTree = "<group>"; };
 		780983EF22BA891500A8E851 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -83,7 +84,6 @@
 		784507D722A8DF3F009913D1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		784507D922A8E288009913D1 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		784507DB22A8E2FD009913D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MKAudioPlayer.swift; path = "/Users/mkmk/Desktop/Projects/MemoIt/MemoIt/Supporting Files/MKAudioPlayer.swift"; sourceTree = "<absolute>"; };
 		784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
 		7849C54522B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPreviewAttachmentOpeartion.swift; sourceTree = "<group>"; };
@@ -263,11 +263,11 @@
 				2F20B3B022A3947300054053 /* LaunchScreen.storyboard */,
 				2F20B3B322A3947300054053 /* Info.plist */,
 				2F20B3AE22A3947300054053 /* Assets.xcassets */,
+				2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */,
 				780983EC22BA88EA00A8E851 /* MKButton.swift */,
 				780983EF22BA891500A8E851 /* PaddingLabel.swift */,
 				780983EB22BA88EA00A8E851 /* BadgeButton.swift */,
 				784507DB22A8E2FD009913D1 /* Extensions.swift */,
-				784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */,
 				786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */,
 			);
 			path = "Supporting Files";
@@ -419,7 +419,6 @@
 				78A980F422A803EF000E0247 /* Category+CoreDataClass.swift in Sources */,
 				2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */,
 				780E5EF822A9523300B7AFF5 /* PreviewItemController.swift in Sources */,
-				784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */,
 				78A9810022A8050E000E0247 /* ListViewController.swift in Sources */,
 				780E5EF622A9523300B7AFF5 /* PreviewPageViewController.swift in Sources */,
 				780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */,
@@ -432,6 +431,7 @@
 				78A980F122A803EF000E0247 /* MemoLabel+CoreDataProperties.swift in Sources */,
 				786B3FFF22C4EFFE0020A5E3 /* HomeCellTitleView.swift in Sources */,
 				78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */,
+				2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */,
 				780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */,
 				78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */,
 			);

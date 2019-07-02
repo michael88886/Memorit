@@ -62,14 +62,10 @@ class HomeTodoCell: HomeCell {
 	
 	override func feedCell(model: MemoModel) {
 		super.feedCell(model: model)
-		print("Feed todo cell:  \(model)")
 		// Todo model
 		guard let todoModel = model as? TodoModel else { return }
 		itemList = todoModel.listItems
 		progressView.setProgress(value: todoModel.percent)
-//		listTable.reloadData()
-//		progressView.setProgress(value: 0.6)
-//		progressView.animationProgress(progress: todoModel.percent)
 	}
 	
 }
