@@ -148,13 +148,13 @@ extension ListTableCell {
 		topContainer.layer.cornerRadius = cornerRadius
 		topContainer.layer.shadowColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
 		topContainer.layer.shadowOpacity = 0.2
-		topContainer.layer.shadowRadius = 3.0
+		topContainer.layer.shadowRadius = 2.0
 		topContainer.layer.shadowOffset = CGSize.zero
 		contentView.addSubview(topContainer)
-		topContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Padding.p10).isActive = true
+		topContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Padding.p5).isActive = true
 		topContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Padding.p10).isActive = true
 		topContainer.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Padding.p10).isActive = true
-		contentView.bottomAnchor.constraint(equalTo: topContainer.bottomAnchor, constant: Padding.p10).isActive = true
+		contentView.bottomAnchor.constraint(equalTo: topContainer.bottomAnchor, constant: Padding.p5).isActive = true
 		
 		// Right icon
 		rightBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -169,7 +169,7 @@ extension ListTableCell {
 		topContainer.addSubview(textView)
 		textView.topAnchor.constraint(equalTo: topContainer.topAnchor, constant: Padding.p5).isActive = true
 		textView.leftAnchor.constraint(equalTo: topContainer.leftAnchor, constant: Padding.p5).isActive = true
-		textView.rightAnchor.constraint(equalTo: rightBtn.leftAnchor, constant: -Padding.p5).isActive = true
+		textView.rightAnchor.constraint(equalTo: rightBtn.leftAnchor, constant: -Padding.p20).isActive = true
 		topContainer.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: Padding.p5).isActive = true
 		textView.delegate = self
 	}

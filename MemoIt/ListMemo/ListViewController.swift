@@ -61,13 +61,6 @@ class ListViewController: UIViewController {
 	
 
 	// MARK: - Views
-	// - Done button
-	private lazy var doneBtn: UIBarButtonItem = {
-		let btn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneAction))
-		btn.tintColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
-		return btn
-	}()
-	
 	// - Title field
 	private lazy var titleField: UITextField = {
 		let tf = UITextField()
@@ -100,6 +93,13 @@ class ListViewController: UIViewController {
 	// Progress state (Complete percentage)
 	private lazy var progressState = StatusView(title: "Progress")
 	
+    // - Refresh control
+    private lazy var refreshControl: UIRefreshControl = {
+        let rf = UIRefreshControl()
+        
+        return rf
+    }()
+    
 	// - List table
 	private lazy var listTable: UITableView = {
 		let table = UITableView(frame: CGRect.zero, style: .plain)
@@ -274,8 +274,6 @@ extension ListViewController {
 extension ListViewController {
 	// - Cell start editng
 	private func startEditing(_ cell: ListTableCell) {
-		// Show "Done" button
-		navigationItem.rightBarButtonItem = doneBtn
 		// Assign editing cell
 		editingCell = cell
 	}
@@ -344,13 +342,6 @@ extension ListViewController {
 		// Dismiss VC
 		navigationController?.popViewController(animated: true)
 	}
-	
-	// Done button action
-	@objc private func doneAction() {
-		print("Done action")		
-		editingCell?.hideKeyboard()
-		navigationItem.rightBarButtonItem = nil
-	}
 }
 
 // MARK: - Override functions
@@ -401,7 +392,7 @@ extension ListViewController {
 		titleField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p40).isActive = true
 		titleField.heightAnchor.constraint(equalToConstant: titleH).isActive = true
 		
-		// Summary separator
+		// Title separator
 		let titleSep = UIHelper.separator(withColor: #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
 		titleSep.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(titleSep)
@@ -410,6 +401,16 @@ extension ListViewController {
 		titleSep.rightAnchor.constraint(equalTo: titleField.rightAnchor, constant: Padding.p20).isActive = true
 		titleSep.heightAnchor.constraint(equalToConstant: 1).isActive = true
 		
+        // Hint label
+        let hintLabel = UILabel()
+        hintLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        hintLabel.textColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
+        hintLabel.text = "Pull down to add new task"
+        hintLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hintLabel)
+        hintLabel.topAnchor.constraint(equalTo: titleSep.bottomAnchor, constant: Padding.p5).isActive = true
+        hintLabel.centerXAnchor.constraint(equalTo: titleSep.centerXAnchor).isActive = true
+        
 		// Summary view
 		summaryView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(summaryView)
@@ -445,7 +446,7 @@ extension ListViewController {
 		// List table
 		listTable.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(listTable)
-		listTable.topAnchor.constraint(equalTo: titleSep.bottomAnchor, constant: Padding.p10).isActive = true
+		listTable.topAnchor.constraint(equalTo: hintLabel.bottomAnchor, constant: Padding.p10).isActive = true
 		listTable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p10).isActive = true
 		listTable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p10).isActive = true
 		listBottomCst = listTable.bottomAnchor.constraint(equalTo: summaryView.topAnchor)
@@ -467,7 +468,7 @@ extension ListViewController: UITextFieldDelegate {
 extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 	// Number of item
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return listItems.count + 1
+		return listItems.count
 	}
 	
 	// Setup cell
