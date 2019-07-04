@@ -140,7 +140,7 @@ extension ListTableCell {
 		// Selection style
 		selectionStyle = .none
 		// Setup background color
-		backgroundColor = .clear
+//        backgroundColor = .clear
 		
 		// Top container
 		topContainer.backgroundColor = .white

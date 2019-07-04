@@ -330,7 +330,7 @@ extension HomeViewController: FunctionViewDelegate {
 	
 	func addTodoList() {
 		print("Add todo")
-		navigationController?.pushViewController(ListViewController(memo: nil), animated: true)
+		navigationController?.pushViewController(ListViewController(), animated: true)
 		functionView.resetOption(animated: false)
 //		presentVC(vc: todoVC)
 	}

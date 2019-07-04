@@ -11,6 +11,9 @@
 		2F20B3AF22A3947300054053 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3AE22A3947300054053 /* Assets.xcassets */; };
 		2F20B3B222A3947300054053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3B022A3947300054053 /* LaunchScreen.storyboard */; };
 		2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F20B3B922A39F5000054053 /* HomeViewController.swift */; };
+		2F24A94F22CCDEF60002FACE /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A94E22CCDEF60002FACE /* ListViewModel.swift */; };
+		2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */; };
+		2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95322CE2D850002FACE /* MKPresentationController.swift */; };
 		2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */; };
 		780983ED22BA88EA00A8E851 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EB22BA88EA00A8E851 /* BadgeButton.swift */; };
 		780983EE22BA88EA00A8E851 /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EC22BA88EA00A8E851 /* MKButton.swift */; };
@@ -72,6 +75,9 @@
 		2F20B3B122A3947300054053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F20B3B322A3947300054053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F20B3B922A39F5000054053 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		2F24A94E22CCDEF60002FACE /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentBottomController.swift; sourceTree = "<group>"; };
+		2F24A95322CE2D850002FACE /* MKPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentationController.swift; sourceTree = "<group>"; };
 		2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAudioPlayer.swift; sourceTree = "<group>"; };
 		780983EB22BA88EA00A8E851 /* BadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		780983EC22BA88EA00A8E851 /* MKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKButton.swift; sourceTree = "<group>"; };
@@ -231,6 +237,7 @@
 				786B401C22C7AA0A0020A5E3 /* StatusView.swift */,
 				784FBA6322A8B71500F1818C /* ListTableCell.swift */,
 				784507D922A8E288009913D1 /* ListDetailViewController.swift */,
+				2F24A94E22CCDEF60002FACE /* ListViewModel.swift */,
 			);
 			path = ListMemo;
 			sourceTree = "<group>";
@@ -269,6 +276,8 @@
 				780983EB22BA88EA00A8E851 /* BadgeButton.swift */,
 				784507DB22A8E2FD009913D1 /* Extensions.swift */,
 				786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */,
+				2F24A95322CE2D850002FACE /* MKPresentationController.swift */,
+				2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -388,8 +397,10 @@
 				78A980F322A803EF000E0247 /* ListIem+CoreDataProperties.swift in Sources */,
 				78A980F822A8044A000E0247 /* MemoIt.xcdatamodeld in Sources */,
 				786B401822C711F30020A5E3 /* TodoModel.swift in Sources */,
+				2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */,
 				78A980F622A803EF000E0247 /* Memo+CoreDataClass.swift in Sources */,
 				780E5EF722A9523300B7AFF5 /* PreviewImageController.swift in Sources */,
+				2F24A94F22CCDEF60002FACE /* ListViewModel.swift in Sources */,
 				786B400D22C711620020A5E3 /* HomeCell.swift in Sources */,
 				784507D822A8DF3F009913D1 /* Helper.swift in Sources */,
 				7887162D22AD443A008BE38A /* CalendarHelper.swift in Sources */,
@@ -434,6 +445,7 @@
 				2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */,
 				780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */,
 				78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */,
+				2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

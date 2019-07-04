@@ -15,5 +15,8 @@ extension Notification.Name {
 	static let updateHomeTable = Notification.Name("UpdateHomeTable")
 	// Notify home table new item has been added (reload table)
 	static let newItemHomeTable = Notification.Name("NewItemHomeTable")
-
+    // Notify dismiss MKPreseentationBottom controller
+    static let dismissMKPresentationBottomVC = Notification.Name("dismissMKPresentationBottomVC")
+    
+    
 }

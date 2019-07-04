@@ -40,11 +40,20 @@ class ListViewController: UIViewController {
 	private let stateBlkH: CGFloat = 72
 	
 	// - Data collection
+    // View model
+    private var viewModel = ListViewModel()
+    // Editing index
+    private var editingIndex: IndexPath?
+    
+    
 	// List items
 	private var listItems: [ListModel] = []
 	// List memo object reference
 	private var memoData: ListMemo?
 	
+    
+    
+    
 	// - Variables
 	// Table bottom constraint
 	private var listBottomCst = NSLayoutConstraint()
@@ -77,7 +86,7 @@ class ListViewController: UIViewController {
 		sv.backgroundColor = .white
 		
 		// Shadow
-		sv.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+		sv.layer.shadowColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
 		sv.layer.shadowOpacity = 0.1
 		sv.layer.shadowRadius = 2.0
 		sv.layer.shadowOffset = CGSize(width: 0, height: -2)
@@ -96,7 +105,8 @@ class ListViewController: UIViewController {
     // - Refresh control
     private lazy var refreshControl: UIRefreshControl = {
         let rf = UIRefreshControl()
-        
+        rf.attributedTitle = NSAttributedString(string: "Add new task", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)])
+        rf.addTarget(self, action: #selector(refreshControlAction(_:)), for: .valueChanged)
         return rf
     }()
     
@@ -120,10 +130,34 @@ class ListViewController: UIViewController {
 	
 	
 	// MARK: - Convenience init
-	convenience init(memo: ListMemo?) {
+	convenience init(memo: ListMemo) {
 		self.init()
-		self.memoData = memo
+        self.viewModel.loadTask(list: memo)
+        
+        
+//        self.memoData = memo
 	}
+}
+
+// MARK: - Override functions
+extension ListViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Setup view model
+        viewModel.reloadTable = reloadTable
+        
+        // Keyboard show / hide notification
+        // - Keyboard will show
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(notification:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        // - Keyboard will hide
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(notification:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
 }
 
 // MARK: - Private function
@@ -272,6 +306,17 @@ extension ListViewController {
 
 // MARK: - Closure functions
 extension ListViewController {
+    
+    
+    // Reload table
+    private func reloadTable() {
+        listTable.reloadData()
+    }
+    
+    
+    
+    
+    
 	// - Cell start editng
 	private func startEditing(_ cell: ListTableCell) {
 		// Assign editing cell
@@ -342,117 +387,17 @@ extension ListViewController {
 		// Dismiss VC
 		navigationController?.popViewController(animated: true)
 	}
+    
+    // Refresh control action
+    @objc private func refreshControlAction(_ refresher: UIRefreshControl) {
+        print("Refresh control action")
+        presentMKBottom(ListDetailViewController()) {
+            refresher.endRefreshing()
+        }
+    }
 }
 
-// MARK: - Override functions
-extension ListViewController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		// Keyboard show / hide notification
-		// - Keyboard will show
-		NotificationCenter.default.addObserver(self,
-											   selector: #selector(keyboardWillShow(notification:)),
-											   name: UIResponder.keyboardWillShowNotification, object: nil)
-		// - Keyboard will hide
-		NotificationCenter.default.addObserver(self,
-											   selector: #selector(keyboardWillHide(notification:)),
-											   name: UIResponder.keyboardWillHideNotification, object: nil)
-	}
-	
-	override func loadView() {
-		super.loadView()
-		
-		// Background color
-		view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-		
-		// Navigation bar
-		navigationController?.setNavigationBarHidden(false, animated: false)
-		navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1),
-																   NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)]
-		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//		navigationController?.navigationBar.shadowImage = UIImage()
-		
-		// Navigation button
-		// - Left button
-		let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack44"), style: .plain, target: self, action: #selector(backAction))
-		backBtn.tintColor = UIHelper.defaultTint
-		navigationItem.leftBarButtonItem = backBtn
-		
-		// Title
-		title = "TODO"
-		
-		// Hide tool bar
-		navigationController?.isToolbarHidden = true
-		
-		// Ttile field
-		titleField.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(titleField)
-		titleField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Padding.p5).isActive = true
-		titleField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p40).isActive = true
-		titleField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p40).isActive = true
-		titleField.heightAnchor.constraint(equalToConstant: titleH).isActive = true
-		
-		// Title separator
-		let titleSep = UIHelper.separator(withColor: #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
-		titleSep.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(titleSep)
-		titleSep.topAnchor.constraint(equalTo: titleField.bottomAnchor).isActive = true
-		titleSep.leftAnchor.constraint(equalTo: titleField.leftAnchor, constant: -Padding.p20).isActive = true
-		titleSep.rightAnchor.constraint(equalTo: titleField.rightAnchor, constant: Padding.p20).isActive = true
-		titleSep.heightAnchor.constraint(equalToConstant: 1).isActive = true
-		
-        // Hint label
-        let hintLabel = UILabel()
-        hintLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
-        hintLabel.textColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
-        hintLabel.text = "Pull down to add new task"
-        hintLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(hintLabel)
-        hintLabel.topAnchor.constraint(equalTo: titleSep.bottomAnchor, constant: Padding.p5).isActive = true
-        hintLabel.centerXAnchor.constraint(equalTo: titleSep.centerXAnchor).isActive = true
-        
-		// Summary view
-		summaryView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(summaryView)
-		summaryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-		summaryView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-		summaryView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		summaryView.heightAnchor.constraint(equalToConstant: summaryVH).isActive = true
-		
-		// Finish state
-		finishState.translatesAutoresizingMaskIntoConstraints = false
-		summaryView.addSubview(finishState)
-		finishState.widthAnchor.constraint(equalToConstant: stateBlkH).isActive = true
-		finishState.heightAnchor.constraint(equalToConstant: stateBlkH).isActive = true
-		finishState.centerXAnchor.constraint(equalTo: summaryView.centerXAnchor).isActive = true
-		finishState.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor).isActive = true
-		
-		// Total state
-		totalState.translatesAutoresizingMaskIntoConstraints = false
-		summaryView.addSubview(totalState)
-		totalState.widthAnchor.constraint(equalToConstant: stateBlkH).isActive = true
-		totalState.heightAnchor.constraint(equalToConstant: stateBlkH).isActive = true
-		totalState.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor).isActive = true
-		totalState.rightAnchor.constraint(equalTo: finishState.leftAnchor, constant: -Padding.p40).isActive = true
-		
-		// Progress state
-		progressState.translatesAutoresizingMaskIntoConstraints = false
-		summaryView.addSubview(progressState)
-		progressState.widthAnchor.constraint(equalToConstant: stateBlkH).isActive = true
-		progressState.heightAnchor.constraint(equalToConstant: stateBlkH).isActive = true
-		progressState.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor).isActive = true
-		progressState.leftAnchor.constraint(equalTo: finishState.rightAnchor, constant: Padding.p40).isActive = true
-		
-		// List table
-		listTable.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(listTable)
-		listTable.topAnchor.constraint(equalTo: hintLabel.bottomAnchor, constant: Padding.p10).isActive = true
-		listTable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p10).isActive = true
-		listTable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p10).isActive = true
-		listBottomCst = listTable.bottomAnchor.constraint(equalTo: summaryView.topAnchor)
-		listBottomCst.isActive = true
-	}
-}
+
 
 // MARK: - Delegates
 // UITextField delegate
@@ -468,7 +413,7 @@ extension ListViewController: UITextFieldDelegate {
 extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 	// Number of item
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return listItems.count
+		return viewModel.numberOfItems()
 	}
 	
 	// Setup cell
@@ -561,4 +506,106 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 		}
 		return true
 	}
+}
+
+
+// MARK: - Setup UI
+extension ListViewController {
+    
+    override func loadView() {
+        super.loadView()
+        
+        // Background color
+        view.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+        
+        // Navigation bar
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1),
+                                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)]
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        //        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        // Navigation button
+        // - Left button
+        let backBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack44"), style: .plain, target: self, action: #selector(backAction))
+        backBtn.tintColor = UIHelper.defaultTint
+        navigationItem.leftBarButtonItem = backBtn
+        
+        // Title
+        title = "TODO"
+        
+        // Hide tool bar
+        navigationController?.isToolbarHidden = true
+        
+        // Ttile field
+        titleField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleField)
+        titleField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Padding.p5).isActive = true
+        titleField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p40).isActive = true
+        titleField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p40).isActive = true
+        titleField.heightAnchor.constraint(equalToConstant: titleH).isActive = true
+        
+        // Title separator
+        let titleSep = UIHelper.separator(withColor: #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
+        titleSep.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleSep)
+        titleSep.topAnchor.constraint(equalTo: titleField.bottomAnchor).isActive = true
+        titleSep.leftAnchor.constraint(equalTo: titleField.leftAnchor, constant: -Padding.p20).isActive = true
+        titleSep.rightAnchor.constraint(equalTo: titleField.rightAnchor, constant: Padding.p20).isActive = true
+        titleSep.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        // Hint label
+        let hintLabel = UILabel()
+        hintLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        hintLabel.textColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
+        hintLabel.text = "Pull down to add new task"
+        hintLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hintLabel)
+        hintLabel.topAnchor.constraint(equalTo: titleSep.bottomAnchor, constant: Padding.p5).isActive = true
+        hintLabel.centerXAnchor.constraint(equalTo: titleSep.centerXAnchor).isActive = true
+        
+        // Summary view
+        summaryView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(summaryView)
+        summaryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        summaryView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        summaryView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        summaryView.heightAnchor.constraint(equalToConstant: summaryVH).isActive = true
+        
+        // Finish state
+        finishState.translatesAutoresizingMaskIntoConstraints = false
+        summaryView.addSubview(finishState)
+        finishState.widthAnchor.constraint(equalToConstant: stateBlkH).isActive = true
+        finishState.heightAnchor.constraint(equalToConstant: stateBlkH).isActive = true
+        finishState.centerXAnchor.constraint(equalTo: summaryView.centerXAnchor).isActive = true
+        finishState.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor).isActive = true
+        
+        // Total state
+        totalState.translatesAutoresizingMaskIntoConstraints = false
+        summaryView.addSubview(totalState)
+        totalState.widthAnchor.constraint(equalToConstant: stateBlkH).isActive = true
+        totalState.heightAnchor.constraint(equalToConstant: stateBlkH).isActive = true
+        totalState.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor).isActive = true
+        totalState.rightAnchor.constraint(equalTo: finishState.leftAnchor, constant: -Padding.p40).isActive = true
+        
+        // Progress state
+        progressState.translatesAutoresizingMaskIntoConstraints = false
+        summaryView.addSubview(progressState)
+        progressState.widthAnchor.constraint(equalToConstant: stateBlkH).isActive = true
+        progressState.heightAnchor.constraint(equalToConstant: stateBlkH).isActive = true
+        progressState.centerYAnchor.constraint(equalTo: summaryView.centerYAnchor).isActive = true
+        progressState.leftAnchor.constraint(equalTo: finishState.rightAnchor, constant: Padding.p40).isActive = true
+        
+        // List table
+        //        listTable.backgroundColor = .orange
+        listTable.refreshControl = refreshControl
+        refreshControl.layer.zPosition = -1
+        listTable.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(listTable, belowSubview: summaryView)
+        listTable.topAnchor.constraint(equalTo: hintLabel.bottomAnchor, constant: Padding.p5).isActive = true
+        listTable.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p10).isActive = true
+        listTable.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p10).isActive = true
+        listBottomCst = listTable.bottomAnchor.constraint(equalTo: summaryView.topAnchor)
+        listBottomCst.isActive = true
+    }
 }
