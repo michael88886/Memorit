@@ -15,6 +15,7 @@
 		2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */; };
 		2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95322CE2D850002FACE /* MKPresentationController.swift */; };
 		2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */; };
+		7809736122CF601F00D8368B /* ListAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7809736022CF601F00D8368B /* ListAddCell.swift */; };
 		780983ED22BA88EA00A8E851 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EB22BA88EA00A8E851 /* BadgeButton.swift */; };
 		780983EE22BA88EA00A8E851 /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EC22BA88EA00A8E851 /* MKButton.swift */; };
 		780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EF22BA891500A8E851 /* PaddingLabel.swift */; };
@@ -79,6 +80,7 @@
 		2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentBottomController.swift; sourceTree = "<group>"; };
 		2F24A95322CE2D850002FACE /* MKPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentationController.swift; sourceTree = "<group>"; };
 		2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAudioPlayer.swift; sourceTree = "<group>"; };
+		7809736022CF601F00D8368B /* ListAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddCell.swift; sourceTree = "<group>"; };
 		780983EB22BA88EA00A8E851 /* BadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		780983EC22BA88EA00A8E851 /* MKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKButton.swift; sourceTree = "<group>"; };
 		780983EF22BA891500A8E851 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				78A980FF22A8050E000E0247 /* ListViewController.swift */,
 				786B401C22C7AA0A0020A5E3 /* StatusView.swift */,
 				784FBA6322A8B71500F1818C /* ListTableCell.swift */,
+				7809736022CF601F00D8368B /* ListAddCell.swift */,
 				784507D922A8E288009913D1 /* ListDetailViewController.swift */,
 				2F24A94E22CCDEF60002FACE /* ListViewModel.swift */,
 			);
@@ -410,6 +413,7 @@
 				78A980EA22A803EF000E0247 /* ListMemo+CoreDataProperties.swift in Sources */,
 				78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */,
 				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,
+				7809736122CF601F00D8368B /* ListAddCell.swift in Sources */,
 				2F20B3A522A3947000054053 /* AppDelegate.swift in Sources */,
 				78A980F222A803EF000E0247 /* VoiceMemo+CoreDataClass.swift in Sources */,
 				78ADC94422AEAF67004295F8 /* LoadMemoOperation.swift in Sources */,

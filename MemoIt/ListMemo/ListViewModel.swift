@@ -27,22 +27,34 @@ private struct ListItemModel {
     }
 }
 
-class ListViewModel {
+class ListViewModel: NSObject {
     
     
     // MARK: Properties
-    
-    
+	// - Constants
+	// New cell id
+	static let newCellID = "ListNewCell"
+	// List cell id
+    static let listCellID = "ListCell"
+    // New cell height
+	private let newCellH: CGFloat = 200
+	// Cell height
+	private let cellH: CGFloat = 44
+	
     // - Variables
     // Task list
     private var taskList = [ListItemModel]()
     // New list item model reference
     private var newTask: ListItemModel?
     
+	
     
     // - Closure
+	// Reload table
     var reloadTable: (() -> Void)?
-    
+    // Editing text view
+	var editingTextView: ((UITextView) -> Void)?
+	
 }
 
 // MARK: - Public function
@@ -82,9 +94,51 @@ extension ListViewModel {
         // Refresh table
         self.reloadTable?()
     }
+	
+	// Update cell
+	func updateCell(_ tableview: UITableView, _ indexpath: IndexPath) -> UITableViewCell{
+		// Get correct cell
+		let cell = cellByType(tableview, indexpath)
+		let model = taskList[indexpath.row]
+		
+		if model.isNew {
+			// New
+			let cell = cell as! ListAddCell
+			self.editingTextView?(cell.titleTextView)
+		}
+		else {
+			// Normal
+			
+		}
+		
+		
+		return cell
+	}
+	
+	// Cell height
+	func cellHeight(_ indexpath: IndexPath) -> CGFloat {
+		let model = taskList[indexpath.row]
+		if model.isNew {
+			return newCellH
+		}
+		return cellH
+	}
 }
 
 // MARK: - Private function
 extension ListViewModel {
-    
+    // Cell by type
+	private func cellByType(_ tableview: UITableView, _ indexpath: IndexPath) -> UITableViewCell {
+		
+		let model = taskList[indexpath.row]
+		if model.isNew {
+			// New cell
+			return tableview.dequeueReusableCell(withIdentifier: ListViewModel.newCellID, for: indexpath) as! ListAddCell
+		}
+		else {
+			// List cellr
+			return tableview.dequeueReusableCell(withIdentifier: ListViewModel.listCellID, for: indexpath) as! ListTableCell
+		}
+		
+	}
 }

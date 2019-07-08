@@ -144,12 +144,12 @@ extension ListTableCell {
 		
 		// Top container
 		topContainer.backgroundColor = .white
-		topContainer.translatesAutoresizingMaskIntoConstraints = false
 		topContainer.layer.cornerRadius = cornerRadius
 		topContainer.layer.shadowColor = #colorLiteral(red: 0.2605174184, green: 0.2605243921, blue: 0.260520637, alpha: 1)
 		topContainer.layer.shadowOpacity = 0.2
 		topContainer.layer.shadowRadius = 2.0
 		topContainer.layer.shadowOffset = CGSize.zero
+		topContainer.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(topContainer)
 		topContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Padding.p5).isActive = true
 		topContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Padding.p10).isActive = true

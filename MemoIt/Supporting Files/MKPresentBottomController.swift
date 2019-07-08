@@ -30,7 +30,7 @@ class MKPresentBottomController: UIViewController, MKPresentBottomProtocol {
     }
     
     // Deinitialize
-    deinit {
+    deinit {	
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.dismissMKPresentationBottomVC, object: nil)
     }
 }

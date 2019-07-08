@@ -11,9 +11,10 @@ import UIKit
 class UIHelper {
 	// Default height
 	static let defaultH: CGFloat = 44
-	
 	// Default tint
 	static let defaultTint: UIColor = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+	// Default placeholder alpha
+	static let placeholderAlpha: CGFloat = 0.4
 	
 	// Separator
 	static func separator(withColor: UIColor) -> UIView {

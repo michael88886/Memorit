@@ -30,8 +30,6 @@ class ListViewController: UIViewController {
 
 	// MARK: - Properties
 	// - Constants
-	// Cell ID
-	private let cellID = "ListCell"
 	// Title field height
 	private let titleH: CGFloat = 44
 	// Summary view height
@@ -67,6 +65,8 @@ class ListViewController: UIViewController {
 	private var editingCell: ListTableCell?
 	// Data object reference
 	private var listData: ListMemo?
+	// Editing text view reference
+	private var editingTxView: UITextView?
 	
 
 	// MARK: - Views
@@ -118,13 +118,12 @@ class ListViewController: UIViewController {
 		table.allowsMultipleSelection = false
 		table.isMultipleTouchEnabled = false
 		table.separatorStyle = .none
-		table.keyboardDismissMode = .interactive
 		table.rowHeight = UITableView.automaticDimension
-		table.estimatedRowHeight = 96
-		
+//		table.estimatedRowHeight = 96
 		table.dataSource = self
 		table.delegate = self
-		table.register(ListTableCell.self, forCellReuseIdentifier: cellID)
+		table.register(ListAddCell.self, forCellReuseIdentifier: ListViewModel.newCellID)
+		table.register(ListTableCell.self, forCellReuseIdentifier: ListViewModel.listCellID)
 		return table
 	}()
 	
@@ -133,7 +132,6 @@ class ListViewController: UIViewController {
 	convenience init(memo: ListMemo) {
 		self.init()
         self.viewModel.loadTask(list: memo)
-        
         
 //        self.memoData = memo
 	}
@@ -146,7 +144,8 @@ extension ListViewController {
         
         // Setup view model
         viewModel.reloadTable = reloadTable
-        
+        viewModel.editingTextView = editingTextView
+		
         // Keyboard show / hide notification
         // - Keyboard will show
         NotificationCenter.default.addObserver(self,
@@ -305,14 +304,18 @@ extension ListViewController {
 }
 
 // MARK: - Closure functions
-extension ListViewController {
-    
-    
+extension ListViewController {    
     // Reload table
     private func reloadTable() {
         listTable.reloadData()
     }
     
+	// Editing text view
+	private func editingTextView (textview: UITextView) {
+		self.editingTxView = textview
+		self.editingTxView?.delegate = self
+		self.editingTxView?.becomeFirstResponder()
+	}
     
     
     
@@ -388,12 +391,18 @@ extension ListViewController {
 		navigationController?.popViewController(animated: true)
 	}
     
+	// Hide keyboard
+	
+	
     // Refresh control action
     @objc private func refreshControlAction(_ refresher: UIRefreshControl) {
         print("Refresh control action")
-        presentMKBottom(ListDetailViewController()) {
-            refresher.endRefreshing()
-        }
+		self.viewModel.addNewTask()
+		refresher.endRefreshing()
+		
+//        presentMKBottom(ListDetailViewController()) {
+//            refresher.endRefreshing()
+//        }
     }
 }
 
@@ -418,21 +427,11 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 	
 	// Setup cell
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! ListTableCell
-		// Assign cell closure
-		cell.startEditing = startEditing
-		cell.editingText = editintCelltext
-		cell.endEditing = endEditing
-		cell.refreshCell = refreshCell
-		cell.addItem = addItem
-		cell.taskCompleted = taskCompleted
-		
-		if indexPath.row < listItems.count {
-			// Load data
-			let data = listItems[indexPath.row]
-			cell.feedData(data: data)
-		}		
-		return cell
+		return viewModel.updateCell(tableView, indexPath)
+	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return viewModel.cellHeight(indexPath)
 	}
 	
 	// Customize swipe edit buttons
@@ -505,6 +504,25 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 			return false
 		}
 		return true
+	}
+}
+
+
+// MARK: - UITextView delegate
+extension ListViewController: UITextViewDelegate {
+	func textViewDidBeginEditing(_ textView: UITextView) {
+		if textView.textColor?.cgColor.alpha == UIHelper.placeholderAlpha {
+			textView.textColor? = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1).withAlphaComponent(1.0)
+			textView.text = ""
+		}
+	}
+	
+	
+	func textViewDidEndEditing(_ textView: UITextView) {
+		if textView.text.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+			textView.textColor? = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1).withAlphaComponent(UIHelper.placeholderAlpha)
+			textView.text = "Add task"
+		}
 	}
 }
 
