@@ -25,7 +25,8 @@ class HomeViewController: UIViewController {
 	private var funcViewHCst = NSLayoutConstraint()
 	// Resume scroll offset (search)
 	private var resumeOffset = CGPoint.zero
-	
+	// Editing indexpath reference
+	private var editingIndex: IndexPath?
 	
 	
 	// View model
@@ -40,7 +41,7 @@ class HomeViewController: UIViewController {
 		let table = UITableView(frame: .zero, style: .plain)
 		table.keyboardDismissMode = .onDrag
 		table.separatorStyle = .none
-		table.rowHeight = 160
+		table.rowHeight = 140
 		table.contentInset = UIEdgeInsets(top: headerH, left: 0, bottom: 0, right: 0)
 		table.showsHorizontalScrollIndicator = false
 		table.delegate = self
@@ -66,30 +67,7 @@ class HomeViewController: UIViewController {
 		tap.numberOfTouchesRequired = 1
 		v.addGestureRecognizer(tap)
 		return v
-	}()
-	
-}
-
-
-// MARK: - Private functions
-extension HomeViewController {
-	// Reload table
-	private func reloadTable() {
-		homeTable.reloadData()
-	}
-}
-
-// MARK: - Actions
-extension HomeViewController {
-	// Cancel option aciton
-	@objc private func cancelOptionAction() {
-		functionView.resetOption(animated: true)
-	}
-	
-	// Reload
-	@objc private func refreshTable() {
-		viewModel.fetchData()
-	}
+	}()	
 }
 
 // MARK: - Override functions
@@ -102,16 +80,13 @@ extension HomeViewController {
 		viewModel.reloadData = reloadTable
 		
 		// Notification observer
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: .newItemHomeTable, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshTable), name: .reloadHomeList, object: nil)
 		
-		// Register cells
-		homeTable.register(HomeAttachCell.self, forCellReuseIdentifier: viewModel.attachID)
-		homeTable.register(HomeTodoCell.self, forCellReuseIdentifier: viewModel.todoID)
-		homeTable.register(HomeVoiceCell.self, forCellReuseIdentifier: viewModel.voiceID)
+		
 		
 		// Scroll to top
-//		let index = IndexPath(row: 0, section: 0)
-//		homeTable.scrollToRow(at: index, at: .middle, animated: false)
+		//		let index = IndexPath(row: 0, section: 0)
+		//		homeTable.scrollToRow(at: index, at: .middle, animated: false)
 		
 		// Fetch data
 		viewModel.fetchData()
@@ -131,66 +106,72 @@ extension HomeViewController {
 		viewModel.cancelFetch()
 	}
 	
-	override func loadView() {
-		super.loadView()
+}
+
+// MARK: - Private functions
+extension HomeViewController {
+	// Reload table
+	private func reloadTable() {
+		if let editingIndex = self.editingIndex {
+			viewModel.refreshData(editingIndex)
+		}
 		
-		view.backgroundColor = .white
-		
-		// Function view
-		functionView.delegate = self
-		functionView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(functionView)
-		functionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-		functionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		functionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-		funcViewHCst = functionView.heightAnchor.constraint(equalToConstant: functionView.originalH)
-		funcViewHCst.isActive = true
-		
-		// Table view
-		homeTable.translatesAutoresizingMaskIntoConstraints = false
-		view.insertSubview(homeTable, belowSubview: functionView)
-		homeTable.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-		homeTable.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-		homeTable.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		homeTable.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
-		
-		// Table header view
-		headerView.searchbar.delegate = self
-		headerView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(headerView)
-		headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-		headerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-		headerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		headerHCst = headerView.heightAnchor.constraint(equalToConstant: headerH)
-		headerHCst.isActive = true
-		
-		// Option overlay
-		optionOverlay.alpha = 0
-		optionOverlay.isHidden = true
-		optionOverlay.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(optionOverlay)
-		optionOverlay.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-		optionOverlay.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-		optionOverlay.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		optionOverlay.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
-		
+		homeTable.reloadData()
 	}
 }
 
-
+// MARK: - Actions
+extension HomeViewController {
+	// Cancel option aciton
+	@objc private func cancelOptionAction() {
+		functionView.resetOption(animated: true)
+	}
+	
+	// Reload
+	@objc private func refreshTable() {
+		viewModel.fetchData()
+	}
+}
 
 // MARK: - Delegates
 // MARK: - UITableView data source / delegate / prefetch
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
+	// Number of rows
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.memoList.count
 		//		return homeItems.count
 	}
 	
+	// Setup cell
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		return viewModel.updateCell(tableView, indexPath)
 	}
 	
+	// Select cell
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		self.editingIndex = indexPath
+		let data = viewModel.dataFromIndex(indexpath: indexPath)
+		switch data.type {
+		case .attach:
+			()
+		case .todo:
+			guard let listData = data as? ListMemo else {  return }
+			navigationController?.pushViewController(ListViewController(memo: listData), animated: true)
+		default:
+			self.editingIndex = nil
+		}
+	}
+	
+	
+	// Prefetch
+	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+		viewModel.prefetchData(indexPaths)
+	}
+	
+	// Cancel prefetch
+	func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+		viewModel.cancelPrefetch(indexPaths)
+	}
 	
 	// Scroll view delegate
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -207,25 +188,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITabl
 		let alpha = 1 - (delta / (fullHeaderH - headerHmin))
 		headerView.updateAlpha(alpha: alpha)
 	}
-	
-	// Prefetch
-	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-		viewModel.prefetchData(indexPaths)
-	}
-	
-	// Cancel prefetch
-	func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-		viewModel.cancelPrefetch(indexPaths)
-	}
 }
-
 
 // UISearchView delegate
 extension HomeViewController: UISearchBarDelegate {
 	
 	func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
 		// Show edit button
-		searchBar.showsCancelButton = true
+		searchBar.setShowsCancelButton(true, animated: true)
 		
 		// Disable home table scroll
 		homeTable.isScrollEnabled = false
@@ -243,7 +213,7 @@ extension HomeViewController: UISearchBarDelegate {
 			homeTable.setContentOffset(offsetPoint, animated: true)
 		}
 		
-		return true
+		return true 
 	}
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -252,7 +222,8 @@ extension HomeViewController: UISearchBarDelegate {
 	
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		// Hide cancel button
-		searchBar.showsCancelButton = false
+		searchBar.setShowsCancelButton(false, animated: true)
+		
 		// Hide keyboard
 		searchBar.resignFirstResponder()
 		// Resume offset
@@ -330,10 +301,60 @@ extension HomeViewController: FunctionViewDelegate {
 	
 	func addTodoList() {
 		print("Add todo")
-		navigationController?.pushViewController(ListViewController(), animated: true)
+		navigationController?.pushViewController(ListViewController(memo: nil), animated: true)
 		functionView.resetOption(animated: false)
-//		presentVC(vc: todoVC)
 	}
+}
+
+// MARK: - Setup UI
+extension HomeViewController {
 	
-	
+	override func loadView() {
+		super.loadView()
+		
+		view.backgroundColor = .white
+		
+		// Function view
+		functionView.delegate = self
+		functionView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(functionView)
+		functionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		functionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		functionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+		funcViewHCst = functionView.heightAnchor.constraint(equalToConstant: functionView.originalH)
+		funcViewHCst.isActive = true
+		
+		// Table view
+		homeTable.translatesAutoresizingMaskIntoConstraints = false
+		// Register cells
+		homeTable.register(HomeAttachCell.self, forCellReuseIdentifier: viewModel.attachID)
+		homeTable.register(HomeTodoCell.self, forCellReuseIdentifier: viewModel.todoID)
+		homeTable.register(HomeVoiceCell.self, forCellReuseIdentifier: viewModel.voiceID)
+		view.insertSubview(homeTable, belowSubview: functionView)
+		homeTable.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+		homeTable.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		homeTable.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		homeTable.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
+		
+		// Table header view
+		headerView.searchbar.delegate = self
+		headerView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(headerView)
+		headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+		headerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		headerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		headerHCst = headerView.heightAnchor.constraint(equalToConstant: headerH)
+		headerHCst.isActive = true
+		
+		// Option overlay
+		optionOverlay.alpha = 0
+		optionOverlay.isHidden = true
+		optionOverlay.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(optionOverlay)
+		optionOverlay.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+		optionOverlay.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		optionOverlay.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		optionOverlay.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
+		
+	}
 }

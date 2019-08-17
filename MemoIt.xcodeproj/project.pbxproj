@@ -15,7 +15,8 @@
 		2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */; };
 		2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95322CE2D850002FACE /* MKPresentationController.swift */; };
 		2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */; };
-		7809736122CF601F00D8368B /* ListAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7809736022CF601F00D8368B /* ListAddCell.swift */; };
+		7807C7D222F8362100387353 /* MKCalendarView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7807C7D122F8361700387353 /* MKCalendarView.framework */; };
+		7807C7D322F8362100387353 /* MKCalendarView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7807C7D122F8361700387353 /* MKCalendarView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		780983ED22BA88EA00A8E851 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EB22BA88EA00A8E851 /* BadgeButton.swift */; };
 		780983EE22BA88EA00A8E851 /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EC22BA88EA00A8E851 /* MKButton.swift */; };
 		780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EF22BA891500A8E851 /* PaddingLabel.swift */; };
@@ -29,6 +30,7 @@
 		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
 		784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */; };
 		7849C54622B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7849C54522B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift */; };
+		784D630D22E4A10400D55C0E /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784D630C22E4A10400D55C0E /* AddTaskView.swift */; };
 		784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6322A8B71500F1818C /* ListTableCell.swift */; };
 		786B3FFF22C4EFFE0020A5E3 /* HomeCellTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */; };
 		786B400D22C711620020A5E3 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B400C22C711620020A5E3 /* HomeCell.swift */; };
@@ -45,6 +47,8 @@
 		7887163022AD445B008BE38A /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162E22AD445A008BE38A /* UIHelper.swift */; };
 		7887163122AD445B008BE38A /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162F22AD445B008BE38A /* Padding.swift */; };
 		7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887163222AE5BEC008BE38A /* MemoViewModel.swift */; };
+		789F8EA522D317D80067200A /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F8EA422D317D80067200A /* ColorPickerCell.swift */; };
+		789F8EC722D56E5E0067200A /* UnfocusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */; };
 		78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */; };
 		78A980E822A803EF000E0247 /* AttachmentMemo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980DB22A803EE000E0247 /* AttachmentMemo+CoreDataProperties.swift */; };
 		78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980E622A803EE000E0247 /* AttachmentMemo+CoreDataClass.swift */; };
@@ -67,7 +71,40 @@
 		78A9810022A8050E000E0247 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FF22A8050E000E0247 /* ListViewController.swift */; };
 		78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9810122A80515000E0247 /* VoiceViewController.swift */; };
 		78ADC94422AEAF67004295F8 /* LoadMemoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADC94322AEAF67004295F8 /* LoadMemoOperation.swift */; };
+		78C7B04F22F72D0B0016BFBA /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */; };
+		78E2889B22F4673600634EEF /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E2889A22F4673600634EEF /* ColorPickerView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7807C7D022F8361700387353 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 78C7B05F22F7A8F80016BFBA;
+			remoteInfo = MKCalendarView;
+		};
+		7807C7D422F8362100387353 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 78C7B05E22F7A8F80016BFBA;
+			remoteInfo = MKCalendarView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7811EA5022F7C42700966957 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7807C7D322F8362100387353 /* MKCalendarView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2F20B3A122A3947000054053 /* MemoIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +117,7 @@
 		2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentBottomController.swift; sourceTree = "<group>"; };
 		2F24A95322CE2D850002FACE /* MKPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentationController.swift; sourceTree = "<group>"; };
 		2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAudioPlayer.swift; sourceTree = "<group>"; };
-		7809736022CF601F00D8368B /* ListAddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddCell.swift; sourceTree = "<group>"; };
+		7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MKCalendarView.xcodeproj; path = MKCalendarView/MKCalendarView.xcodeproj; sourceTree = "<group>"; };
 		780983EB22BA88EA00A8E851 /* BadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		780983EC22BA88EA00A8E851 /* MKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKButton.swift; sourceTree = "<group>"; };
 		780983EF22BA891500A8E851 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -95,6 +132,7 @@
 		784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
 		7849C54522B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPreviewAttachmentOpeartion.swift; sourceTree = "<group>"; };
+		784D630C22E4A10400D55C0E /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		784FBA6322A8B71500F1818C /* ListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableCell.swift; sourceTree = "<group>"; };
 		786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellTitleView.swift; sourceTree = "<group>"; };
 		786B400C22C711620020A5E3 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
@@ -112,6 +150,8 @@
 		7887162E22AD445A008BE38A /* UIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		7887162F22AD445B008BE38A /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
 		7887163222AE5BEC008BE38A /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
+		789F8EA422D317D80067200A /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
+		789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfocusableTextField.swift; sourceTree = "<group>"; };
 		78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		78A980D822A803ED000E0247 /* ListMemo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListMemo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78A980D922A803ED000E0247 /* ListIem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListIem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -134,6 +174,8 @@
 		78A980FF22A8050E000E0247 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		78A9810122A80515000E0247 /* VoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceViewController.swift; sourceTree = "<group>"; };
 		78ADC94322AEAF67004295F8 /* LoadMemoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMemoOperation.swift; sourceTree = "<group>"; };
+		78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		78E2889A22F4673600634EEF /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7807C7D222F8362100387353 /* MKCalendarView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +209,7 @@
 		2F20B3A322A3947000054053 /* MemoIt */ = {
 			isa = PBXGroup;
 			children = (
+				7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */,
 				2F20B3A422A3947000054053 /* AppDelegate.swift */,
 				78A980F722A803FB000E0247 /* CoreData */,
 				780E5EFC22AA549D00B7AFF5 /* Home */,
@@ -179,6 +223,14 @@
 				7887162922AA9843008BE38A /* MemoIt-Bridging-Header.h */,
 			);
 			path = MemoIt;
+			sourceTree = "<group>";
+		};
+		7807C7CD22F8361600387353 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7807C7D122F8361700387353 /* MKCalendarView.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		780E5EFA22A9523900B7AFF5 /* ImageViewer */ = {
@@ -236,11 +288,13 @@
 			isa = PBXGroup;
 			children = (
 				78A980FF22A8050E000E0247 /* ListViewController.swift */,
+				784D630C22E4A10400D55C0E /* AddTaskView.swift */,
 				786B401C22C7AA0A0020A5E3 /* StatusView.swift */,
 				784FBA6322A8B71500F1818C /* ListTableCell.swift */,
-				7809736022CF601F00D8368B /* ListAddCell.swift */,
 				784507D922A8E288009913D1 /* ListDetailViewController.swift */,
 				2F24A94E22CCDEF60002FACE /* ListViewModel.swift */,
+				78E2889A22F4673600634EEF /* ColorPickerView.swift */,
+				78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */,
 			);
 			path = ListMemo;
 			sourceTree = "<group>";
@@ -281,6 +335,8 @@
 				786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */,
 				2F24A95322CE2D850002FACE /* MKPresentationController.swift */,
 				2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */,
+				789F8EA422D317D80067200A /* ColorPickerCell.swift */,
+				789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -331,10 +387,12 @@
 				2F20B39D22A3947000054053 /* Sources */,
 				2F20B39E22A3947000054053 /* Frameworks */,
 				2F20B39F22A3947000054053 /* Resources */,
+				7811EA5022F7C42700966957 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7807C7D522F8362100387353 /* PBXTargetDependency */,
 			);
 			name = MemoIt;
 			productName = MemoIt;
@@ -368,12 +426,28 @@
 			mainGroup = 2F20B39822A3947000054053;
 			productRefGroup = 2F20B3A222A3947000054053 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7807C7CD22F8361600387353 /* Products */;
+					ProjectRef = 7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				2F20B3A022A3947000054053 /* MemoIt */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7807C7D122F8361700387353 /* MKCalendarView.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MKCalendarView.framework;
+			remoteRef = 7807C7D022F8361700387353 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2F20B39F22A3947000054053 /* Resources */ = {
@@ -413,7 +487,6 @@
 				78A980EA22A803EF000E0247 /* ListMemo+CoreDataProperties.swift in Sources */,
 				78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */,
 				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,
-				7809736122CF601F00D8368B /* ListAddCell.swift in Sources */,
 				2F20B3A522A3947000054053 /* AppDelegate.swift in Sources */,
 				78A980F222A803EF000E0247 /* VoiceMemo+CoreDataClass.swift in Sources */,
 				78ADC94422AEAF67004295F8 /* LoadMemoOperation.swift in Sources */,
@@ -430,10 +503,13 @@
 				78A980F522A803EF000E0247 /* Category+CoreDataProperties.swift in Sources */,
 				780983ED22BA88EA00A8E851 /* BadgeButton.swift in Sources */,
 				786B401922C711F30020A5E3 /* AttachModel.swift in Sources */,
+				78C7B04F22F72D0B0016BFBA /* DatePickerView.swift in Sources */,
+				789F8EC722D56E5E0067200A /* UnfocusableTextField.swift in Sources */,
 				78A980EB22A803EF000E0247 /* VoiceMemo+CoreDataProperties.swift in Sources */,
 				78A980F422A803EF000E0247 /* Category+CoreDataClass.swift in Sources */,
 				2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */,
 				780E5EF822A9523300B7AFF5 /* PreviewItemController.swift in Sources */,
+				789F8EA522D317D80067200A /* ColorPickerCell.swift in Sources */,
 				78A9810022A8050E000E0247 /* ListViewController.swift in Sources */,
 				780E5EF622A9523300B7AFF5 /* PreviewPageViewController.swift in Sources */,
 				780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */,
@@ -448,12 +524,22 @@
 				78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */,
 				2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */,
 				780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */,
+				78E2889B22F4673600634EEF /* ColorPickerView.swift in Sources */,
 				78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */,
 				2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */,
+				784D630D22E4A10400D55C0E /* AddTaskView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7807C7D522F8362100387353 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MKCalendarView;
+			targetProxy = 7807C7D422F8362100387353 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2F20B3B022A3947300054053 /* LaunchScreen.storyboard */ = {
@@ -586,6 +672,7 @@
 		2F20B3B722A3947300054053 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -608,6 +695,7 @@
 		2F20B3B822A3947300054053 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;

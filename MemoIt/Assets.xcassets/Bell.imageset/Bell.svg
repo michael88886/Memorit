@@ -1,1 +1,17 @@
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44"><defs><style>.cls-1{fill:#666;}.cls-1,.cls-2{stroke:#666;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style></defs><title>Bell</title><path class="cls-1" d="M18.8,36.36a3.26,3.26,0,0,0,6.4,0Z"/><path id="_1" data-name="1" class="cls-2" d="M32.13,33.72H11.87c-4.74,0,1-2,1-7V19.15c0-5.06,3.88-9.2,8.62-9.2h1c4.74,0,8.62,4.14,8.62,9.2v7.53C31.11,31.74,36.87,33.72,32.13,33.72Z"/><ellipse class="cls-2" cx="22" cy="6.98" rx="2" ry="1.98"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2_1_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 44 44" style="enable-background:new 0 0 44 44;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#666666;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#666666;stroke-width:2;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#666666;stroke-width:3;stroke-miterlimit:10;}
+</style>
+<title>Bell</title>
+<path class="st0" d="M19.2,34.7c0.3,1.6,1.8,2.6,3.4,2.3c1.2-0.2,2.1-1.1,2.3-2.3H19.2z"/>
+<path id="_1" class="st1" d="M30.9,32.3H13.1c-4.2,0,0.9-1.8,0.9-6.2v-6.7c-0.1-4.3,3.3-8,7.6-8.1h0.9c4.3,0.2,7.7,3.8,7.6,8.1V26
+	C30,30.6,35.1,32.3,30.9,32.3z"/>
+<ellipse class="st1" cx="22" cy="8.8" rx="1.8" ry="1.8"/>
+<path class="st2" d="M35.7,15.8c3.4,3.4,3.4,9,0,12.5l0,0"/>
+<path class="st2" d="M8.3,15.8c-3.4,3.4-3.4,9,0,12.5l0,0"/>
+</svg>

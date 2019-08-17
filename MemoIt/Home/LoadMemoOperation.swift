@@ -96,24 +96,14 @@ extension LoadMemoOperation {
 		guard let model = self.memoModel as? TodoModel else { return }
 		if let items = memo.listItem, 
 			items.count > 0 {
-			// Finished item
-			var cmptItem: Int = 0
 			for item in items {
 				guard let listItm = item as? ListItem else { return }
 				if model.listItems.count < model.maxItem {
-					let itm: (color: UIColor, title: String) = (listItm.color, listItm.title)
+					let itm: (color: UIColor, title: String, isDone: Bool) = (listItm.color, listItm.title, listItm.isDone)
 					model.listItems.append(itm)
 				}
-				
-				// Get all completed item
-				if listItm.isDone == true {
-					cmptItem += 1
-				}
 			}
-			
-			
-			print("cmp: \(cmptItem)")
-			model.percent = CGFloat(cmptItem / items.count)
+			model.totalTasks = items.count
 		}
 		
 		// Completion

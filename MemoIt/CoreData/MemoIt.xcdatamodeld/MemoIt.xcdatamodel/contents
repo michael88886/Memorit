@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18G87" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
     <entity name="Attachment" representedClassName="Attachment" syncable="YES">
         <attribute name="attachID" attributeType="String" syncable="YES"/>
         <attribute name="attachType" attributeType="String" syncable="YES"/>
@@ -20,7 +20,7 @@
         <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="reminder" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
-        <relationship name="listMemo" maxCount="1" deletionRule="Nullify" destinationEntity="ListMemo" inverseName="listItem" inverseEntity="ListMemo" syncable="YES"/>
+        <relationship name="listMemo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListMemo" inverseName="listItem" inverseEntity="ListMemo" syncable="YES"/>
     </entity>
     <entity name="ListMemo" representedClassName="ListMemo" parentEntity="Memo" syncable="YES">
         <relationship name="listItem" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ListItem" inverseName="listMemo" inverseEntity="ListItem" syncable="YES"/>

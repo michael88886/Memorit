@@ -48,7 +48,6 @@ class HomeCell: UITableViewCell {
 // MARK: - Setup Cell
 extension HomeCell {
 	@objc func setup() {
-		
 		self.selectionStyle = .none
 		
 		// Shadow view
@@ -57,7 +56,7 @@ extension HomeCell {
 		shadowView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
 		shadowView.layer.shadowOpacity = 0.2
 		shadowView.layer.shadowOffset = CGSize.zero
-		shadowView.layer.shadowRadius = 4.0
+		shadowView.layer.shadowRadius = 2.0
 		shadowView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(shadowView)
 		shadowView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Padding.p10).isActive = true

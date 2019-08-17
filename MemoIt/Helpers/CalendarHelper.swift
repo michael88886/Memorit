@@ -22,7 +22,8 @@ enum DateFormat: String {
     case event = "d MMM, yyyy    hh:mm"
     case full = "EEE d MMMM yyyy"
     case memoTime = "d/MMM/yyyy"
-    
+    case listReminder = "yyyy/MMM/d E HH:mm"
+	
     var stringValue: String {
         return self.rawValue
     }

@@ -9,10 +9,10 @@
 import UIKit
 import AVFoundation
 
-
+// Notification.Name
 extension Notification.Name {
-	// Norify home table reload edited item
-	static let updateHomeTable = Notification.Name("UpdateHomeTable")
+	// Norify reload home list
+	static let reloadHomeList = Notification.Name("ReloadHomeList")
 	// Notify home table new item has been added (reload table)
 	static let newItemHomeTable = Notification.Name("NewItemHomeTable")
     // Notify dismiss MKPreseentationBottom controller
