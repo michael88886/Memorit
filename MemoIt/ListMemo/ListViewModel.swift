@@ -105,10 +105,6 @@ extension ListViewModel {
 		// Refresh table
 		self.reloadTable?()
 	}
-	
-	
-	
-    
     
     // Load task for list object
     func loadTask(list: ListMemo) {
@@ -250,18 +246,6 @@ extension ListViewModel {
 
 // MARK: - Closure function
 extension ListViewModel {
-	// MARK: - Add task method
-//	// Cancel new task
-//	private func cancelNewTask() {
-//		print("List model cancel task")
-//		taskList.removeAll { $0.isNew == true }
-//		self.newTask = nil
-//		// Refresh table
-//		self.reloadTable?()
-//	}
-	
-	
-	
 	// Update task title
 	private func updateTaskTitle(_ cell: UITableViewCell, _ text: String) {
 		guard let indexpath = indexpathOfCell(cell: cell) else { return }

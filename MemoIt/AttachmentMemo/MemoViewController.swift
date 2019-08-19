@@ -10,38 +10,6 @@ import UIKit
 import AVFoundation
 import CoreData
 
-// Memo attachment type
-enum AttachmentType: String {
-	case image
-	case audio
-	
-	var id: String {
-		return self.rawValue
-	}
-}
-
-struct MemoAttachment {
-	var id: String
-	var url: URL
-	var type: AttachmentType
-}
-
-class AttachmentModel {
-	// Cover image
-	var image: UIImage
-	init(image: UIImage) {
-		self.image = image
-	}
-}
-
-class VoiceAttachmentModel: AttachmentModel {	
-	// Duration string
-	var duration: String
-	init(image: UIImage, duration: String) {
-		self.duration = duration
-		super.init(image: image)
-	}
-}
 
 private enum TableRow: Int {
 	case timeRow = 0
@@ -50,7 +18,6 @@ private enum TableRow: Int {
 }
 
 class MemoViewController: UIViewController {
-
 	// MARK: - Properties
 	// - Constants
 	// Preview cell ID
@@ -64,6 +31,8 @@ class MemoViewController: UIViewController {
 	
 	
 	// - Variables
+    // Attachment model
+    private var attachmentViewModel = MemoAttachmentViewModel()
 	// Attachment collection bottom constraint (keyboard show / hide)
 	private var acBottomCst = NSLayoutConstraint()
 	// Attachment collection right constraint (attachment collection show / hide)
@@ -78,18 +47,13 @@ class MemoViewController: UIViewController {
 	private var isACEditing = false
 	
 	// - Data collcation
-	// Attachments
-	private var attachments: [MemoAttachment] = []
-	// Editing indexpath
-	private var editingIndexes: [IndexPath] = []
-	// Deleting attachments
-	private var deletingAttachments: [MemoAttachment] = []
-
-	// - Prefetch (attachment)
-	// Attachment loading operation queue
-	private let loadingQueue = OperationQueue()
-	// // Loading operations
-	private var loadingOperations: [IndexPath: LoadPreviewAttachmentOperation] = [:]
+//    // Attachments
+//    private var attachments: [MemoAttachment] = []
+//    // Editing indexpath
+//    private var editingIndexes: [IndexPath] = []
+//    // Deleting attachments
+//    private var deletingAttachments: [MemoAttachment] = []
+	
 	
 	// - Core data
 	// Memo ID
@@ -148,11 +112,11 @@ class MemoViewController: UIViewController {
 	private lazy var timeDateCell: UITableViewCell = {
 		let cell = UITableViewCell()
 		// Add date label to time cell
-		dateLabel.translatesAutoresizingMaskIntoConstraints = false
 		cell.contentView.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
 		dateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
-		dateLabel.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor).isActive = true
-		dateLabel.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor).isActive = true
+		dateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
+		dateLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
 		dateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
 		return cell
 	}()
@@ -209,9 +173,6 @@ class MemoViewController: UIViewController {
 		collection.layer.cornerRadius = 4.0
 		collection.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
 		
-		// Delegate, data source, register cell
-		
-		
 		let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnAttrCollection(gesture:)))
 		collection.addGestureRecognizer(longPress)
 		
@@ -261,21 +222,12 @@ extension MemoViewController {
 		rightEdgeSwipe.edges = .right
 		view.addGestureRecognizer(rightEdgeSwipe)
 	}
-	
-	
 } 
 
 
 // MARK: - Private functions
 extension MemoViewController {
 	// MARK: Attachment collection functions
-	// Add new attachment
-	private func addAttachment(attachment: MemoAttachment) {
-		attachments.append(attachment)
-		rightBadgeBtn.updateCount(number: attachments.count)
-		attCollection.reloadData()
-	}
-	
 	// Attachment collection view editing mode
 	private func editAttachment() {
 		isACEditing = true
@@ -286,9 +238,7 @@ extension MemoViewController {
 			self.acContainer.layoutIfNeeded()
 		}
 	}
-	
-	
-	
+    
 	// MARK: Misc functions
 	// Update date label
 	private func updateEditDate(date: Date) {
@@ -325,14 +275,7 @@ extension MemoViewController {
 		
 		return picker
 	}
-	
-	// Convenience function to tint UIBarButtonItem
-//	private func tintBarButtonsColor(buttons: [UIBarButtonItem], color: UIColor) {
-//		for item in buttons {
-//			item.tintColor = color
-//		}
-//	}
-	
+		
 	// Calculate attachment cell size
 	private func calculateCellSize() -> CGSize {
 		// Flow layout
@@ -346,13 +289,13 @@ extension MemoViewController {
 		return CGSize(width: size, height: size)
 	}
 	
-//	// Go to Preview VC
-//	private func previewAttachment(atIndex: Int) {
-//		let previewVC = PreviewPageViewController(attachments: attachments, selectedIndex: atIndex)
-//		let navi = UINavigationController(rootViewController: previewVC)
-//		present(navi, animated: true, completion: nil)
-//	}
-} 
+    // Go to Preview VC
+    private func previewAttachment(_ attachments: [AttachmentModel], atIndex: Int) {
+        let previewVC = PreviewPageViewController(attachments: attachments, selectedIndex: atIndex)
+        let navi = UINavigationController(rootViewController: previewVC)
+        present(navi, animated: true, completion: nil)
+    }
+}
 
 // MARK: - Actions
 extension MemoViewController {
@@ -441,8 +384,9 @@ extension MemoViewController {
 	// Right edge swipe handler (Show attachment collection view)
 	@objc private func rightEdgeSwipeHandler(gesture: UIScreenEdgePanGestureRecognizer) {
 		
-		// Attachment count must greater than 0
-		guard attachments.count > 0 else { return }
+		// Attachment must not empty
+        
+		guard attachmentViewModel.isAttchmentEmpty() == false else { return }
 		
 		if gesture.edges == .right,
 			isACShown == false {
@@ -466,13 +410,7 @@ extension MemoViewController {
 					editAttachment()
 					
 					// Add editing indexpath
-					editingIndexes.append(indexPath)
-					
-					// Selected cell to editing mode
-					let cell = attCollection.cellForItem(at: indexPath) as? AttachmentPreviewCell
-					if let cell = cell {
-						cell.selectCell()
-					}
+					attachmentViewModel.addEditingIndex(attCollection, indexPath)
 				}
 				gesture.state = .ended
 			default:
@@ -492,27 +430,16 @@ extension MemoViewController {
 		}
 		isACEditing = false
 		
-		// Remove all editing attachemnt
-		for indexpath in editingIndexes {
-			let cell = attCollection.cellForItem(at: indexpath) as? AttachmentPreviewCell
-			if let cell = cell, cell.isCellSelected {
-				cell.selectCell()
-			}
-		}
-		editingIndexes.removeAll()
+        // Clear editing attachments
+		attachmentViewModel.clearEditingAttachment(attCollection)
 	}
 	
 	// Delete attachment action
 	@objc private func delAttAction() {
 		print("del att")
-		// Remove selected item(s)
-		for indexpath in editingIndexes {
-			let attachment = attachments[indexpath.row]
-			// Add item to deleting list
-			deletingAttachments.append(attachment)
-			// Remove item from attachments list
-			attachments = attachments.filter { $0.id != attachment.id }
-		}
+        // Delete selected attachments
+        attachmentViewModel.deleteAttachments()
+        
 		self.cancelEditAction()
 		attCollection.reloadData()
 		shouldSave = true
@@ -547,17 +474,24 @@ extension MemoViewController: UITableViewDataSource, UITableViewDelegate {
 extension MemoViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
 	// Number of cell
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return attachments.count
+		return attachmentViewModel.numberOfItems()
 	}
 	
 	// Setup cell
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		<#code#>
+		return attachmentViewModel.updateCell(collectionView, indexPath)
 	}
 	
 	// Select cell
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		<#code#>
+        if isACEditing {
+            // Editing
+            attachmentViewModel.selectCell(collectionView, indexPath)
+        }
+        else {
+            // Normal
+            previewAttachment(attachmentViewModel.attachments(), atIndex: indexPath.row)
+        }
 	}
 	
 	// Cell size
@@ -567,10 +501,13 @@ extension MemoViewController: UICollectionViewDataSource, UICollectionViewDelega
 	
 	// Prefetch data
 	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-		
+		attachmentViewModel.prefetch(indexPaths)
 	}
 	
-	
+    // Cancel prefetch
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        attachmentViewModel.cancelFetch(indexPaths)
+    }
 }
 
 // MARK: - UITextView delegate
@@ -652,11 +589,9 @@ extension MemoViewController: UIImagePickerControllerDelegate, UINavigationContr
 			// Save image to disk and return URL
 			if let imgURL = Helper.cacheImageData(pngData: pngData) {
 				// Create new attachment for URL
-				let id = imgURL.lastPathComponent
-				let newAttach = MemoAttachment(id: id, url: imgURL, type: .image)
-				addAttachment(attachment: newAttach)
-				// Update bage button count
-				rightBadgeBtn.updateCount(number: attachments.count)
+				let filename = imgURL.lastPathComponent
+                let newAttach = AttachmentModel(fileName: filename, directory: imgURL, type: .image)
+                attachmentViewModel.addAttachment(newAttach)
 				shouldSave = true
 				picker.dismiss(animated: true, completion: nil)
 			}

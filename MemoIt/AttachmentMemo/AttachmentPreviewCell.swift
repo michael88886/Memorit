@@ -70,37 +70,37 @@ extension AttachmentPreviewCell {
 // MARK: - Public function
 extension AttachmentPreviewCell {
 	// Update cell
-	func UpdateData(model: AttachmentModel) {
+	func UpdateCell(model: AttachmentModel) {
 		// Set image
-		self.imageView.image = model.image
+		self.imageView.image = model.coverImage
 		
 		// Duration string, if avaliable
-		if let voiceModel = model as? VoiceAttachmentModel {
-			self.timeLabel.text = voiceModel.duration
-			self.timeLabel.isHidden = false
-			self.imageView.backgroundColor = UIColor.white
-		}
-		else {
-			self.imageView.layer.borderColor = UIColor.clear.cgColor
-		}
+        if model.type == .audio {
+            self.timeLabel.text = model.duration
+            self.timeLabel.isHidden = false
+            self.imageView.backgroundColor = UIColor.white
+        }
+        else {
+            self.imageView.layer.borderColor = UIColor.clear.cgColor
+        }
 	}
 	
 	// Select cell
 	func selectCell() {
-		print("select cell ")
-		if !isCellSelected {
-			// Select cell
-			self.selectLayer = createSelectLayer(frame: contentView.frame)
-			layer.addSublayer(self.selectLayer!)
-		}
-		else {
-			// Unselect cell
-			guard let selectLayer = self.selectLayer else { return }
-			selectLayer.removeFromSuperlayer()
-			self.selectLayer = nil
-		}
-		isCellSelected = !isCellSelected
+        isCellSelected = true
+        // Select cell
+        self.selectLayer = createSelectLayer(frame: contentView.frame)
+        layer.addSublayer(self.selectLayer!)
 	}
+    
+    // Deselect Cell
+    func deselectCell() {
+        isCellSelected = false
+        // Deselect cell
+        guard let selectLayer = self.selectLayer else { return }
+        selectLayer.removeFromSuperlayer()
+        self.selectLayer = nil
+    }
 
 }
 

@@ -19,7 +19,7 @@ class PreviewPageViewController: UIPageViewController {
     private lazy var previewItemControllers: [PreviewItemController] = []
     
     // MARK: - Convenience init
-    convenience init(attachments: [MemoAttachment], selectedIndex: Int) {
+    convenience init(attachments: [AttachmentModel], selectedIndex: Int) {
         self.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewController.OptionsKey.interPageSpacing: 10])
         
         // Current index

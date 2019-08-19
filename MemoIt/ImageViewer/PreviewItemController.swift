@@ -11,7 +11,7 @@ import UIKit
 class PreviewItemController: UIViewController {
 
     // MARK: - Properties
-    var attachment: MemoAttachment!
+    var attachment: AttachmentModel
     
     // MARK: - Views
     // - Image view
@@ -21,13 +21,12 @@ class PreviewItemController: UIViewController {
         return imgV
     }()
     
-    init(attachment: MemoAttachment) {
-        super.init(nibName: nil, bundle: nil)
+    init(attachment: AttachmentModel) {
         self.attachment = attachment
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
         fatalError()
     }
     
@@ -37,10 +36,5 @@ class PreviewItemController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
         
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-
 }
 

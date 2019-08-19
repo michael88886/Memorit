@@ -226,11 +226,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 		return viewModel.updateCell(tableView, indexPath)
 	}
 	
-	// Select cell
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
-	}
-	
 	// Cell height
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return UITableView.automaticDimension

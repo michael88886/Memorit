@@ -48,9 +48,9 @@ final class PreviewAudioController: PreviewItemController {
     }()
     
     // MARK: - Override initializer
-    override init(attachment: MemoAttachment) {
+    override init(attachment: AttachmentModel) {
         super.init(attachment: attachment)
-        guard let player = MKAudioPlayer(url: attachment.url) else { fatalError() }
+        guard let player = MKAudioPlayer(url: attachment.directory) else { fatalError() }
         self.audioPlayer = player
         self.audioPlayer.delegate = self
     }
@@ -69,8 +69,8 @@ final class PreviewAudioController: PreviewItemController {
         let size: CGFloat = min(screenW, screenH)
         
         // Image view
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: size).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: size).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -81,24 +81,24 @@ final class PreviewAudioController: PreviewItemController {
         
         // Control button
         controlBtn.layer.cornerRadius = btnSize / 2
-        controlBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(controlBtn)
+        controlBtn.translatesAutoresizingMaskIntoConstraints = false
         controlBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
         controlBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
         controlBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         controlBtn.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         // Time label
-        timeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(timeLabel)
-        timeLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -Padding.p5).isActive = true
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -Padding.p5).isActive = true
         timeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -Padding.p5).isActive = true
         
         // Progress bar
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(progressBar)
-        progressBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p10).isActive = true
-        progressBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p10).isActive = true
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Padding.p10).isActive = true
+        progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Padding.p10).isActive = true
         progressBar.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: -Padding.p5).isActive = true
     }
     
