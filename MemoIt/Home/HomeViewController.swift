@@ -289,8 +289,8 @@ extension HomeViewController: FunctionViewDelegate {
 	
 	func addMemo() {
 		print("Add memo")
-//        let attachVC = MemoViewController()
-//		presentVC(vc: attachVC)
+		navigationController?.pushViewController(MemoViewController(memo: nil), animated: true)
+		functionView.resetOption(animated: false)
 	}
 	
 	func addVoice() {

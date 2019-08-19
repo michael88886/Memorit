@@ -39,14 +39,11 @@ class ListViewController: UIViewController {
 	// Add task view height
 	private let addTaskH: CGFloat = 80
 	
-	
 	// - Data collection
     // View model
 	private var viewModel = ListViewModel()
-
 	// List memo object reference
 	private var memoData: ListMemo?
-	
     
 	// - Variables
 	// Add task view bottom constraint
@@ -56,15 +53,7 @@ class ListViewController: UIViewController {
 	private var shouldSave: Bool = false
 	// Is editing mode flag
 	private var isEditingMode: Bool = false
-	
-	// - Reference
-//	// Current editing cell reference
-//	private var editingCell: ListTableCell?
-//	// Data object reference
-//	private var listData: ListMemo?
-//	// Editing text view reference
-//	private var editingTxView: UITextView?
-	
+		
 
 	// MARK: - Views	
 	// - Title field
