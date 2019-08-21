@@ -58,7 +58,7 @@ extension ListViewModel {
 	// MARK: - Core data functions
 	// Check if should save data
 	func save(title: String?) {
-		if title != nil || taskList.count > 0 || isEditing {
+		if (title != nil && taskList.count > 0) || isEditing {
 			saveData(title)
 		}
 	}

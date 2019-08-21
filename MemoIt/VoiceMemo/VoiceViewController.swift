@@ -59,7 +59,6 @@ final class VoiceViewController: UIViewController {
 	
 
 	// MARK: - Views
-	
 	// Save button
 	private lazy var saveBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Save44"), style: .plain, target: self, action: #selector(saveAction))
 	
@@ -146,7 +145,6 @@ final class VoiceViewController: UIViewController {
 extension VoiceViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		// Prepare control buttons
 		saveBtn.isEnabled = false
 		recordBtn.isEnabled = false

@@ -91,7 +91,7 @@ extension PreviewPageViewController {
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         
         // Left btn
-        let leftBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack"), style: .plain, target: self, action: #selector(dismissController(sender:)))
+        let leftBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack44"), style: .plain, target: self, action: #selector(dismissController(sender:)))
         leftBtn.tintColor = .black
         navigationItem.leftBarButtonItem = leftBtn
     }

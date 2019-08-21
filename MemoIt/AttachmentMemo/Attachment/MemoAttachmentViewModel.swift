@@ -33,6 +33,8 @@ class MemoAttachmentViewModel: NSObject {
     // - Closure
     // Reload collection view
     var reloadCollection: (() -> Void)?
+	// Reload cell at indexpath
+	var reloadCellAtIndexpath: ((IndexPath) -> Void)?
     // Update badge button
     var updateBadgeCount: ((Int) -> Void)?
 }
@@ -98,19 +100,17 @@ extension MemoAttachmentViewModel {
         
         if let model = cacheList.object(forKey: NSNumber(integerLiteral: indexpath.row)) {
             // Exist, feed cell
+			print("exist")
             cell.UpdateCell(model: model)
         }
         else {
+			print("not exist")
             // Not exist
             // Completion closure
             let completion: (AttachmentModel) -> () = { [weak self] model in
                 guard let self = self else { return }
-                // Feed cell
-                cell.UpdateCell(model: model)
-                // Add to cache list
-                self.cacheList.setObject(model, forKey: NSNumber(integerLiteral: indexpath.row))
-                // Remove operation
-                self.loadingOperations.removeValue(forKey: indexpath)
+               
+				self.loadedModel(cell, model, indexpath)
             }
             
             // Check existing operation
@@ -118,12 +118,7 @@ extension MemoAttachmentViewModel {
                 // Found operation
                 if operation.loaded {
                     // Loaded
-                    // Feed cell
-                    cell.UpdateCell(model: operation.attachmentModel!)
-                    // Add to cache list
-                    self.cacheList.setObject(operation.attachmentModel!, forKey: NSNumber(integerLiteral: indexpath.row))
-                    // Remove operation
-                    self.loadingOperations.removeValue(forKey: indexpath)
+					self.loadedModel(cell, operation.attachmentModel!, indexpath)
                 }
                 else {
                     // Loading
@@ -199,7 +194,18 @@ extension MemoAttachmentViewModel {
 
 // MARK: - Private functions
 extension MemoAttachmentViewModel {
-    
+    // Loaded model at indexpath
+	private func loadedModel(_ cell: AttachmentPreviewCell, _ model: AttachmentModel, _ indexpath: IndexPath) {
+		print("loaded")
+		// Feed cell
+		cell.UpdateCell(model: model)
+		// Reload cell
+		self.reloadCellAtIndexpath?(indexpath)
+		// Add to cache list
+		self.cacheList.setObject(model, forKey: NSNumber(integerLiteral: indexpath.row))
+		// Remove operation
+		self.loadingOperations.removeValue(forKey: indexpath)
+	}
     
     
     

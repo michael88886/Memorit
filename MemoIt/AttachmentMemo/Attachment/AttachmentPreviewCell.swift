@@ -41,7 +41,7 @@ final class AttachmentPreviewCell: ImageCell {
 		imageView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 		imageView.contentMode = .scaleAspectFit
 		imageView.clipsToBounds = true
-		imageView.image = #imageLiteral(resourceName: "Pin")
+		imageView.image = #imageLiteral(resourceName: "Attach44")
 		imageView.layer.cornerRadius = cornerRadius
 		imageView.layer.borderWidth = 1
 		imageView.layer.borderColor = borderColor.cgColor

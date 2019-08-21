@@ -19,7 +19,7 @@ class HomeTodoCell: HomeCell {
 	// Unit font
 	private let unitFont = UIFont.systemFont(ofSize: 12, weight: .light)
 	// State font
-	private let taskFont = UIFont.systemFont(ofSize: 34, weight: .thin)
+	private let taskFont = UIFont.systemFont(ofSize: 34, weight: .regular)
 	// Unit label width
 	private let unitW: CGFloat = 44
 	// Task label width

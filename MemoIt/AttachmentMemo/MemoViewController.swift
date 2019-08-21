@@ -221,12 +221,45 @@ extension MemoViewController {
 		let rightEdgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(rightEdgeSwipeHandler(gesture:)))
 		rightEdgeSwipe.edges = .right
 		view.addGestureRecognizer(rightEdgeSwipe)
+		
+		// - Assign attachment view model closures
+		// Reolad collection view
+		attachmentViewModel.reloadCollection = reloadCollection
+		// Reload cell at indexpath
+		attachmentViewModel.reloadCellAtIndexpath = reloadAtIndexpath
+		// Update badge button
+		attachmentViewModel.updateBadgeCount = updateBadgeCount
 	}
 } 
 
 
 // MARK: - Private functions
 extension MemoViewController {
+	// MARK: - Closure functions
+	// Reload collectiom
+	private func reloadCollection() {
+		attCollection.reloadData()
+	}
+	
+	// Reload cell at indexpath
+	private func reloadAtIndexpath(indexpath: IndexPath) {
+		print("reload cell")
+		attCollection.reloadItems(at: [indexpath])
+	}
+	
+	// Update badge button count
+	private func updateBadgeCount(count: Int) {
+		rightBadgeBtn.updateCount(number: count)
+	}
+	
+	// Save audio attachment
+	private func saveAudioAttachment(url: URL) {
+		// Create new attachment
+		let newAttachment = AttachmentModel(fileName: url.lastPathComponent, directory: url, type: .audio)
+		attachmentViewModel.addAttachment(newAttachment)
+		shouldSave = true
+	}
+	
 	// MARK: Attachment collection functions
 	// Attachment collection view editing mode
 	private func editAttachment() {
@@ -307,7 +340,7 @@ extension MemoViewController {
 		// FIXME: - Save
 		
 		// Dismiss VC
-		dismiss(animated: true, completion: nil)
+		navigationController?.popViewController(animated: true)
 	}
 	
 	// Right action (Show / hide attachments)
@@ -591,7 +624,7 @@ extension MemoViewController: UIImagePickerControllerDelegate, UINavigationContr
 				// Create new attachment for URL
 				let filename = imgURL.lastPathComponent
                 let newAttach = AttachmentModel(fileName: filename, directory: imgURL, type: .image)
-                attachmentViewModel.addAttachment(newAttach)
+				attachmentViewModel.addAttachment(newAttach)
 				shouldSave = true
 				picker.dismiss(animated: true, completion: nil)
 			}
@@ -604,13 +637,18 @@ extension MemoViewController: KeyboardAccessoryViewDelegate {
 	func drawing() {
 		// Hide keyboard
 		view.endEditing(true)
-		
+		// To drawing board
+		let drawingVC = DrawingViewController()
+		navigationController?.pushViewController(drawingVC, animated: true)
 	}
 	
 	func recorder() {
 		// Hide keyboard
 		view.endEditing(true)
-		
+		// To voice recorder
+		let voiceVC = VoiceViewController(type: .attachment)
+		voiceVC.saveAudio = saveAudioAttachment
+		navigationController?.pushViewController(voiceVC, animated: true)
 	}
 	
 	func album() {

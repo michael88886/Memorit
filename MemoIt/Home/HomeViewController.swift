@@ -355,6 +355,5 @@ extension HomeViewController {
 		optionOverlay.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
 		optionOverlay.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 		optionOverlay.bottomAnchor.constraint(equalTo: functionView.topAnchor).isActive = true
-		
 	}
 }

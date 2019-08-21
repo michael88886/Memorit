@@ -200,9 +200,10 @@ extension KeyboardAccessoryView {
 	// Keyboard button
 	private func keyboardButton(image: UIImage) -> UIButton {
 		let btn = UIButton(type: .system)
+		btn.imageView?.contentMode = .scaleAspectFit
 		btn.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
 		btn.tintColor = btnTint
-		btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+//		btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
 		btn.layer.cornerRadius = btnCR
 		return btn
 	}

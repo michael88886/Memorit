@@ -42,10 +42,10 @@ class LoadAttachmentOperation: Operation {
         
         switch model.type {
         case .image:
-            let imageURL = model.directory.appendingPathComponent(model.filename)
-            image = UIImage(contentsOfFile: imageURL.path)
+            image = UIImage(contentsOfFile: model.directory.path)
             
         case .audio:
+			image = #imageLiteral(resourceName: "SoundWave44")
             let duraStr = Helper.mediaDuration(url: model.directory)
             model.updateDuration(duration: duraStr)
         }
@@ -56,7 +56,6 @@ class LoadAttachmentOperation: Operation {
             model.updateCover(image: coverImage)
             self.loaded = true
         }
-        
         
         // Completion
         if let complete = completionHandler {
