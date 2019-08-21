@@ -14,7 +14,7 @@
 		2F24A94F22CCDEF60002FACE /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A94E22CCDEF60002FACE /* ListViewModel.swift */; };
 		2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */; };
 		2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95322CE2D850002FACE /* MKPresentationController.swift */; };
-		2F4DB72C230A847F003B7DCE /* MemoAttachmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DB72B230A847F003B7DCE /* MemoAttachmentViewModel.swift */; };
+		2F4DB72C230A847F003B7DCE /* AttachmentMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DB72B230A847F003B7DCE /* AttachmentMemoViewModel.swift */; };
 		2F4DB730230AA75C003B7DCE /* AttachmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DB72F230AA75C003B7DCE /* AttachmentModel.swift */; };
 		2F4DB732230AB1FA003B7DCE /* LoadAttachmentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DB731230AB1FA003B7DCE /* LoadAttachmentOperation.swift */; };
 		2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */; };
@@ -129,7 +129,7 @@
 		2F24A94E22CCDEF60002FACE /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentBottomController.swift; sourceTree = "<group>"; };
 		2F24A95322CE2D850002FACE /* MKPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentationController.swift; sourceTree = "<group>"; };
-		2F4DB72B230A847F003B7DCE /* MemoAttachmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoAttachmentViewModel.swift; sourceTree = "<group>"; };
+		2F4DB72B230A847F003B7DCE /* AttachmentMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentMemoViewModel.swift; sourceTree = "<group>"; };
 		2F4DB72F230AA75C003B7DCE /* AttachmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentModel.swift; sourceTree = "<group>"; };
 		2F4DB731230AB1FA003B7DCE /* LoadAttachmentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAttachmentOperation.swift; sourceTree = "<group>"; };
 		2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAudioPlayer.swift; sourceTree = "<group>"; };
@@ -276,6 +276,7 @@
 				78A980FD22A80507000E0247 /* MemoViewController.swift */,
 				7811ED5823095C460074F7C0 /* MemoTitleCell.swift */,
 				7811ED5A23095C830074F7C0 /* MKMemoview.swift */,
+				2F4DB72B230A847F003B7DCE /* AttachmentMemoViewModel.swift */,
 				783D670A230B855A00536F04 /* DrawingBoard */,
 				783D6706230B849800536F04 /* KeyboardAccessoryView */,
 				783D6707230B84B700536F04 /* Attachment */,
@@ -310,7 +311,6 @@
 			isa = PBXGroup;
 			children = (
 				78834DCB23099711005DE19F /* AttachmentPreviewCell.swift */,
-				2F4DB72B230A847F003B7DCE /* MemoAttachmentViewModel.swift */,
 				2F4DB72F230AA75C003B7DCE /* AttachmentModel.swift */,
 				2F4DB731230AB1FA003B7DCE /* LoadAttachmentOperation.swift */,
 			);
@@ -557,7 +557,7 @@
 				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,
 				2F20B3A522A3947000054053 /* AppDelegate.swift in Sources */,
 				78A980F222A803EF000E0247 /* VoiceMemo+CoreDataClass.swift in Sources */,
-				2F4DB72C230A847F003B7DCE /* MemoAttachmentViewModel.swift in Sources */,
+				2F4DB72C230A847F003B7DCE /* AttachmentMemoViewModel.swift in Sources */,
 				78ADC94422AEAF67004295F8 /* LoadMemoOperation.swift in Sources */,
 				7887163022AD445B008BE38A /* UIHelper.swift in Sources */,
 				786B401222C711A40020A5E3 /* HomeVoiceCell.swift in Sources */,

@@ -17,7 +17,7 @@ class DrawingViewController: UIViewController {
 	// Tool height
 	private let toolSize = CGSize(width: 60, height: 80)
 	// Stack view height
-	private let stackH: CGFloat = 28
+	private let stackH: CGFloat = 24
 	// Drawing colors
 	private let colors = [#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1), #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1), #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)]
 	// Brush sizes
@@ -31,6 +31,9 @@ class DrawingViewController: UIViewController {
 	private var colorGroup = [UIButton]()
 	// Brush size group
 	private var brushGroup = [BrushSizeButton]()
+	
+	// - Save drawing
+	var saveDrawing: ((UIImage) -> Void)?
 	
 	// MARK: - Views
 	// Clear button
@@ -60,7 +63,6 @@ class DrawingViewController: UIViewController {
 		let db = DrawingBoard()
 		db.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 		db.isOpaque = true
-//		db.isUserInteractionEnabled = true
 		
 		// Shadow
 		db.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
@@ -69,8 +71,7 @@ class DrawingViewController: UIViewController {
 		db.layer.shadowOffset = .zero
 		
 		return db
-	}()
-	
+	}()	
 }
 
 // MARK: - Override functions
@@ -85,6 +86,10 @@ extension DrawingViewController {
 		
 		// Select pen tool
 		penView.select()
+		// Select color
+		colorAction(colorGroup.first!)
+		// Select brush size
+		brushSizeAction(brushGroup.first!)
 		
 		// Setup drawing board
 		drawingBoard.drawWidth(wdith: 2.0)
@@ -119,7 +124,12 @@ extension DrawingViewController {
 	
 	// Update brush size
 	private func updateBrushSize(size: CGFloat) {
-		
+		drawingBoard.drawWidth(wdith: size)
+	}
+	
+	// Save drawing
+	private func save(_ image: UIImage) {
+		self.saveDrawing?(image)
 	}
 }
 
@@ -141,6 +151,9 @@ extension DrawingViewController {
 		for btn in colorGroup {
 			if sender === btn {
 				btn.layer.borderColor = UIColor.white.cgColor
+				if let color = sender.backgroundColor {
+					drawingBoard.drawColor(color: color)
+				}
 			}
 			else {
 				btn.layer.borderColor = UIColor.clear.cgColor
@@ -150,6 +163,7 @@ extension DrawingViewController {
 	
 	// MARK: Brush size action
 	@objc private func brushSizeAction(_ sender: BrushSizeButton) {
+		print("brush action")
 		for btn in brushGroup {
 			if sender === btn {
 				btn.select()
@@ -194,7 +208,6 @@ extension DrawingViewController {
 			drawingBoard.drawBrush(brush: .eraser)
 		}
 	}
-	
 }
 
 
@@ -228,11 +241,10 @@ extension DrawingViewController {
 		bottomLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		
 		// Pen
-		
 		view.addSubview(penView)
 		penView.translatesAutoresizingMaskIntoConstraints = false
 		penView.bottomAnchor.constraint(equalTo: bottomLine.topAnchor).isActive = true
-		penView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Padding.p20).isActive = true
+		penView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Padding.p10).isActive = true
 		penView.widthAnchor.constraint(equalToConstant: toolSize.width).isActive = true
 		penView.heightAnchor.constraint(equalToConstant: toolSize.height).isActive = true
 		
@@ -248,26 +260,28 @@ extension DrawingViewController {
 		let brushSizeStack = selectionStack()
 		view.addSubview(brushSizeStack)
 		brushSizeStack.translatesAutoresizingMaskIntoConstraints = false
-		brushSizeStack.bottomAnchor.constraint(equalTo: bottomLine.topAnchor, constant: -Padding.p10).isActive = true
-		brushSizeStack.leadingAnchor.constraint(equalTo: eraserView.trailingAnchor, constant: Padding.p10).isActive = true
+		brushSizeStack.bottomAnchor.constraint(equalTo: bottomLine.topAnchor, constant: -Padding.p5).isActive = true
+		brushSizeStack.leadingAnchor.constraint(equalTo: eraserView.trailingAnchor, constant: Padding.p20).isActive = true
 		brushSizeStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Padding.p10).isActive = true
-		brushSizeStack.heightAnchor.constraint(equalToConstant: stackH).isActive = true
+		brushSizeStack.heightAnchor.constraint(equalToConstant: UIHelper.defaultH).isActive = true
 		
 		// Brush stack - Add Subview
 		for size in brushSizes {
-			let btn = BrushSizeButton(size: size)
+			let btn = BrushSizeButton(brushSize: size)
+			btn.brushSize = updateBrushSize
 			btn.addTarget(self, action: #selector(brushSizeAction(_:)), for: .touchUpInside)
-			btn.layer.cornerRadius = 8.0
 			brushSizeStack.addArrangedSubview(btn)
 			brushGroup.append(btn)
+			btn.translatesAutoresizingMaskIntoConstraints = false
+			btn.heightAnchor.constraint(equalTo: brushSizeStack.heightAnchor).isActive = true
 		}
 		
 		// Color Stack
 		let colorStack = selectionStack()
 		view.addSubview(colorStack)
 		colorStack.translatesAutoresizingMaskIntoConstraints = false
-		colorStack.bottomAnchor.constraint(equalTo: brushSizeStack.topAnchor, constant: -Padding.p20).isActive = true
-		colorStack.leadingAnchor.constraint(equalTo: eraserView.trailingAnchor, constant: Padding.p10).isActive = true
+		colorStack.bottomAnchor.constraint(equalTo: brushSizeStack.topAnchor, constant: -Padding.p10).isActive = true
+		colorStack.leadingAnchor.constraint(equalTo: eraserView.trailingAnchor, constant: Padding.p20).isActive = true
 		colorStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Padding.p10).isActive = true
 		colorStack.heightAnchor.constraint(equalToConstant: stackH).isActive = true
 		
@@ -276,20 +290,20 @@ extension DrawingViewController {
 			let btn = UIButton(type: .custom)
 			btn.backgroundColor = color
 			btn.addTarget(self, action: #selector(colorAction(_:)), for: .touchUpInside)
-			btn.layer.cornerRadius = 8.0
-			btn.layer.borderWidth = 2.0
+			btn.layer.cornerRadius = 6
+			btn.layer.borderWidth = 3.0
 			btn.layer.borderColor = UIColor.clear.cgColor
+			btn.layer.shadowColor = UIColor.black.cgColor
+			btn.layer.shadowOpacity = 0.2
+			btn.layer.shadowRadius = 2
+			btn.layer.shadowOffset = .zero
 			colorStack.addArrangedSubview(btn)
 			colorGroup.append(btn)
 		}
 		
-		
-		
-		
-		
 		// Drawign board
-		
 		drawingBoard.isUserInteractionEnabled = true
+		drawingBoard.saveDrawing = save
 		view.addSubview(drawingBoard)
 		drawingBoard.translatesAutoresizingMaskIntoConstraints = false
 		drawingBoard.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Padding.p20).isActive = true

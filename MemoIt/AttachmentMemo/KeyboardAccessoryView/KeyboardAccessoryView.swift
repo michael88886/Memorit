@@ -377,23 +377,23 @@ extension KeyboardAccessoryView {
 		// Background color
 		backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9725490196, blue: 0.9725490196, alpha: 1)
 		
-		// Attachment button
-		attchBtn.addTarget(self, action: #selector(attachAction), for: .touchUpInside)
-		addSubview(attchBtn)
-		attchBtn.translatesAutoresizingMaskIntoConstraints = false
-		attchBtn.widthAnchor.constraint(equalToConstant: btnW).isActive = true
-		attchBtn.heightAnchor.constraint(equalToConstant: btnH).isActive = true
-		attchBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Padding.p10).isActive = true
-		attchBtn.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-		
 		// Text button
 		textBtn.addTarget(self, action: #selector(textAction), for: .touchUpInside)
 		addSubview(textBtn)
 		textBtn.translatesAutoresizingMaskIntoConstraints = false
 		textBtn.widthAnchor.constraint(equalToConstant: btnW).isActive = true
 		textBtn.heightAnchor.constraint(equalToConstant: btnH).isActive = true
-		textBtn.leadingAnchor.constraint(equalTo: attchBtn.trailingAnchor, constant: Padding.p5).isActive = true
+		textBtn.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Padding.p10).isActive = true
 		textBtn.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		
+		// Attachment button
+		attchBtn.addTarget(self, action: #selector(attachAction), for: .touchUpInside)
+		addSubview(attchBtn)
+		attchBtn.translatesAutoresizingMaskIntoConstraints = false
+		attchBtn.widthAnchor.constraint(equalToConstant: btnW).isActive = true
+		attchBtn.heightAnchor.constraint(equalToConstant: btnH).isActive = true
+		attchBtn.leadingAnchor.constraint(equalTo: textBtn.trailingAnchor, constant: Padding.p5).isActive = true
+		attchBtn.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 		
 		// Select view
 		insertSubview(selectView, at: 0)

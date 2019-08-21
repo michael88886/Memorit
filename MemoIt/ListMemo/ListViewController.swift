@@ -126,10 +126,6 @@ extension ListViewController {
     }
 }
 
-// MARK: - Private function
-extension ListViewController {
-	
-}
 
 // MARK: - Closure functions
 extension ListViewController {    

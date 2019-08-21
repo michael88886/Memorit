@@ -114,8 +114,8 @@ extension DrawingBoard {
 	}
 	
 	// Set draw color
-	func drawColor(color: CGColor) {
-		strokeColor = color
+	func drawColor(color: UIColor) {
+		strokeColor = color.cgColor
 	}
 	
 	

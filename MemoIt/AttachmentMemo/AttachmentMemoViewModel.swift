@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - MemoAttachmentViewModel
-class MemoAttachmentViewModel: NSObject {
+class AttachmentMemoViewModel: NSObject {
     
     // MARK: - Properties
     // - Constants
@@ -17,6 +17,10 @@ class MemoAttachmentViewModel: NSObject {
     static let previewCellId = "PreviewCell"
     
     // - Variables
+	// Memo title
+	private(set) var memoTitle: String = ""
+	// Memo attributeText
+	
     // Attachment list
     private var attachmentList = [AttachmentModel]()
     // Cache list
@@ -37,11 +41,26 @@ class MemoAttachmentViewModel: NSObject {
 	var reloadCellAtIndexpath: ((IndexPath) -> Void)?
     // Update badge button
     var updateBadgeCount: ((Int) -> Void)?
+	// No more attachment
+	var noMoreAttachment: (() -> Void)?
 }
 
 
 // MARK: - Public functions
-extension MemoAttachmentViewModel {
+extension AttachmentMemoViewModel {
+	// MARK: - Save load function
+	func saveMemo() {
+		// Data context
+		let context = Helper.dataContext()
+		
+		
+		
+	}
+	
+	func loadMemo(memo: AttachmentMemo) {
+		
+	}
+	
     // MARK: - Attachment editing functions
     // Add attachment
     func addAttachment(_ attachment: AttachmentModel) {
@@ -70,9 +89,15 @@ extension MemoAttachmentViewModel {
             let attachment = attachmentList[indexpath.row]
             // Add to deleting list
             deletingAttachments.append(attachment)
+			// Remove from cache list
+			cacheList.removeObject(forKey: NSNumber(integerLiteral: indexpath.row))
             // Remove from attachment list
             attachmentList = attachmentList.filter { $0.filename != attachment.filename }
         }
+		
+		if attachmentList.isEmpty {
+			self.noMoreAttachment?()
+		}
     }
     
     // Add editing index
@@ -96,15 +121,13 @@ extension MemoAttachmentViewModel {
     
     // Setup cell
     func updateCell(_ collectionView: UICollectionView, _ indexpath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemoAttachmentViewModel.previewCellId, for: indexpath) as! AttachmentPreviewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AttachmentMemoViewModel.previewCellId, for: indexpath) as! AttachmentPreviewCell
         
         if let model = cacheList.object(forKey: NSNumber(integerLiteral: indexpath.row)) {
             // Exist, feed cell
-			print("exist")
             cell.UpdateCell(model: model)
         }
         else {
-			print("not exist")
             // Not exist
             // Completion closure
             let completion: (AttachmentModel) -> () = { [weak self] model in
@@ -193,7 +216,7 @@ extension MemoAttachmentViewModel {
 
 
 // MARK: - Private functions
-extension MemoAttachmentViewModel {
+extension AttachmentMemoViewModel {
     // Loaded model at indexpath
 	private func loadedModel(_ cell: AttachmentPreviewCell, _ model: AttachmentModel, _ indexpath: IndexPath) {
 		print("loaded")
