@@ -17,9 +17,9 @@ class HomeTodoCell: HomeCell {
 	// Preview table row height
 	private let prevRowH: CGFloat = 24
 	// Unit font
-	private let unitFont = UIFont.systemFont(ofSize: 12, weight: .light)
+	private let unitFont = UIFont.systemFont(ofSize: 12, weight: .regular)
 	// State font
-	private let taskFont = UIFont.systemFont(ofSize: 34, weight: .regular)
+	private let taskFont = UIFont.systemFont(ofSize: 28, weight: .regular)
 	// Unit label width
 	private let unitW: CGFloat = 44
 	// Task label width
@@ -74,6 +74,7 @@ class HomeTodoCell: HomeCell {
 	}
 }
 
+// MARK: - Delegate
 // MARK: - UITableView data source / delegate
 extension HomeTodoCell: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,14 +104,14 @@ extension HomeTodoCell {
 		totalUnitLabel.font = unitFont
 		totalUnitLabel.text = "Task(s)"
 		totalUnitLabel.textColor = labelColor
-		contentView.addSubview(totalUnitLabel)
+		container.addSubview(totalUnitLabel)
 		totalUnitLabel.translatesAutoresizingMaskIntoConstraints = false
-		totalUnitLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: Padding.p40).isActive = true
-		totalUnitLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Padding.p20).isActive = true
+		totalUnitLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: Padding.p40).isActive = true
+		totalUnitLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Padding.p10).isActive = true
 		totalUnitLabel.widthAnchor.constraint(equalToConstant: unitW).isActive = true
 		
 		// Total label
-		contentView.addSubview(totalLabel)
+		container.addSubview(totalLabel)
 		totalLabel.translatesAutoresizingMaskIntoConstraints = false
 		totalLabel.bottomAnchor.constraint(equalTo: totalUnitLabel.bottomAnchor, constant: Padding.p5).isActive = true
 		totalLabel.trailingAnchor.constraint(equalTo: totalUnitLabel.leadingAnchor, constant: -Padding.p10).isActive = true

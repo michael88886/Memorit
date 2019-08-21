@@ -55,7 +55,7 @@ class ListTableCell: UITableViewCell {
 	private lazy var leftBtn: UIButton = {
 		let btn = UIButton(type: .custom)
 		btn.setImage(#imageLiteral(resourceName: "Select_list").withRenderingMode(.alwaysTemplate), for: .normal)
-		btn.tintColor = #colorLiteral(red: 1, green: 0.8974661231, blue: 0.3642727137, alpha: 1)
+		btn.tintColor = #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1)
 		return btn
 	}()
 	

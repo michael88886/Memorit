@@ -109,16 +109,16 @@ extension MemoViewModel {
 		let cell = cellById(tableview, indexpath)
 		
 		if let model = cacheList.object(forKey: NSNumber(integerLiteral: indexpath.row)) {
-			print("in cache")
+//			print("in cache")
 			// Data avaliable, feed cell
 			self.feedCell(cell, model: model)			
 		}
 		else {
-			print("Not in cache")
+//			print("Not in cache")
 			// Completion closure
 			let completionClosure: (MemoModel) -> () = { [weak self] model in
 				guard let self = self else { return }
-				print("UPdate")
+//				print("UPdate")
 				self.feedCell(cell, model: model)
 				// Add loaded data to cache
 				self.cacheList.setObject(model, forKey: NSNumber(integerLiteral: indexpath.row))

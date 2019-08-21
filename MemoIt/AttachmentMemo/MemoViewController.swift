@@ -46,27 +46,6 @@ class MemoViewController: UIViewController {
 	// Attach collection edit mode
 	private var isACEditing = false
 	
-	// - Data collcation
-//    // Attachments
-//    private var attachments: [MemoAttachment] = []
-//    // Editing indexpath
-//    private var editingIndexes: [IndexPath] = []
-//    // Deleting attachments
-//    private var deletingAttachments: [MemoAttachment] = []
-	
-	
-	// - Core data
-	// Memo ID
-	private var memoID: String = Helper.uniqueName()
-	// Memo directory
-	private var memoDir: URL = FileManager.default.temporaryDirectory
-	// Memo object
-	private var memoData: AttachmentMemo?
-	// Edit mode flag
-	private var isEditMode: Bool = false
-	// Save memo flag
-	private var shouldSave = false
-	
 	
 	// MARK: - Views
 	// Right button
@@ -183,7 +162,9 @@ class MemoViewController: UIViewController {
 	// MARK: - Custom init
 	init(memo: AttachmentMemo?) {
 		super.init(nibName: nil, bundle: nil)
-		self.memoData = memo
+		if let data = memo {
+			memoViewModel.loadMemo(memo: data)
+		}
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -232,12 +213,17 @@ extension MemoViewController {
 		// No more attachment, hide attachment collection view
 		memoViewModel.noMoreAttachment = noAttachment
 		
-		if let data = self.memoData {
-			memoViewModel.loadMemo(memo: data)
-		}
+		// - Assign title cell closure
+		titleCell.updateTitle = updateTitle
+		
+		// Set title
+		titleCell.setTitle(title: memoViewModel.memoTitle)
+		// Set text
+		memoView.attributedText = memoViewModel.attributString
+		// Reload attachment collection view
+		attCollection.reloadData()
 	}
-} 
-
+}
 
 // MARK: - Private functions
 extension MemoViewController {
@@ -257,6 +243,7 @@ extension MemoViewController {
 	private func updateBadgeCount(count: Int) {
 		rightBadgeBtn.updateCount(number: count)
 	}
+	
 	// No attachment
 	private func noAttachment() {
 		if isACShown {
@@ -264,13 +251,18 @@ extension MemoViewController {
 		}
 	}
 	
+	// Update title
+	private func updateTitle(title: String?) {
+		memoViewModel.updateMemoTitle(title: title)
+	}
+	
+	
 	// MARK: Save attachment functions
 	// Save audio attachment
 	private func saveAudioAttachment(url: URL) {
 		// Create new attachment
 		let newAttachment = AttachmentModel(fileName: url.lastPathComponent, directory: url, type: .audio)
 		memoViewModel.addAttachment(newAttachment)
-		shouldSave = true
 		if isACShown == false {
 			showAttachmentCollection()
 		}
@@ -283,7 +275,6 @@ extension MemoViewController {
 			let filename = imageURL.lastPathComponent
 			let newAttachment = AttachmentModel(fileName: filename, directory: imageURL, type: .image)
 			memoViewModel.addAttachment(newAttachment)
-			shouldSave = true
 			if isACShown == false {
 				showAttachmentCollection()
 			}
@@ -294,7 +285,6 @@ extension MemoViewController {
 	// Attachment collection view editing mode
 	private func editAttachment() {
 		isACEditing = true
-		print("Attachemtn eidt")
 		// Show attachment editing container
 		acTopCst.constant = -acFuncH
 		UIView.animate(withDuration: 0.3) {
@@ -386,10 +376,9 @@ extension MemoViewController {
 	@objc private func leftAction() {
 		// Hide keyboard
 		self.view.endEditing(true)
-		if shouldSave { 
-			// Save memo
-			memoViewModel.saveMemo()
-		}
+		// Save memo
+		memoViewModel.saveMemo()
+		
 		// Dismiss VC
 		navigationController?.popViewController(animated: true)
 	}
@@ -494,7 +483,6 @@ extension MemoViewController {
 	// MARK: Attachment edit functions
 	// Cancel edit action
 	@objc private func cancelEditAction() {
-		print("cancel edit")
 		// Hide attachment edit container
 		acTopCst.constant = 0
 		UIView.animate(withDuration: 0.2) {
@@ -508,13 +496,11 @@ extension MemoViewController {
 	
 	// Delete attachment action
 	@objc private func delAttAction() {
-		print("del att")
         // Delete selected attachments
         memoViewModel.deleteAttachments()
         
 		self.cancelEditAction()
 		attCollection.reloadData()
-		shouldSave = true
 	}
 } 
 
@@ -631,8 +617,7 @@ extension MemoViewController: UITextViewDelegate {
 			}
 		}
 		
-		// Update flag
-		shouldSave = true
+		memoViewModel.updateAttributeString(attrStr: textView.attributedText)
 	}
 	
 	// Change selection

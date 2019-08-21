@@ -115,7 +115,6 @@ extension HomeViewController {
 		if let editingIndex = self.editingIndex {
 			viewModel.refreshData(editingIndex)
 		}
-		
 		homeTable.reloadData()
 	}
 }
@@ -153,15 +152,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITabl
 		let data = viewModel.dataFromIndex(indexpath: indexPath)
 		switch data.type {
 		case .attach:
-			()
+			guard let attachData = data as? AttachmentMemo else { return }
+			navigationController?.pushViewController(MemoViewController(memo: attachData), animated: true)
+			
 		case .todo:
 			guard let listData = data as? ListMemo else {  return }
 			navigationController?.pushViewController(ListViewController(memo: listData), animated: true)
+		
 		default:
 			self.editingIndex = nil
 		}
 	}
-	
 	
 	// Prefetch
 	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {

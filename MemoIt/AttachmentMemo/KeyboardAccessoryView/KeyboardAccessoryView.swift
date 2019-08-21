@@ -413,7 +413,7 @@ extension KeyboardAccessoryView {
 		sep.widthAnchor.constraint(equalToConstant: 1).isActive = true
 		sep.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
 		sep.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-		sep.leadingAnchor.constraint(equalTo: textBtn.trailingAnchor, constant: Padding.p10).isActive = true
+		sep.leadingAnchor.constraint(equalTo: attchBtn.trailingAnchor, constant: Padding.p10).isActive = true
 		
 		// Sub collection view
 		subCollection.dataSource = self
