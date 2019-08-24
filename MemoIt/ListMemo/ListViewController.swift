@@ -152,14 +152,13 @@ extension ListViewController {
 		// Hide keyboard
 		view.endEditing(true)
 		// Save function
-		viewModel.save(title: titleField.text)
+		viewModel.save()
 		// Dismiss VC
 		navigationController?.popViewController(animated: true)
 	}
     
 	// MARK: - Keyboard Action
 	@objc private func keyboardAction(_ notification: Notification) {
-		print("kb action")
 		// User info
 		guard let userInfo = notification.userInfo else { return }
 		// System keyboard animation duration
@@ -183,6 +182,11 @@ extension ListViewController {
 		UIView.animate(withDuration: duration) { 
 			self.view.layoutIfNeeded()
 		}
+	}
+	
+	// MARK: Title field editing action
+	@objc private func titleEditingAction(_ textField: UITextField) {
+		viewModel.updateTitle(textField.text)
 	}
 }
 
@@ -329,6 +333,7 @@ extension ListViewController {
         navigationController?.isToolbarHidden = true
 		
         // Ttile field
+		titleField.addTarget(self, action: #selector(titleEditingAction(_:)), for: .editingChanged)
 		titleField.delegate = self
         view.addSubview(titleField)
 		titleField.translatesAutoresizingMaskIntoConstraints = false

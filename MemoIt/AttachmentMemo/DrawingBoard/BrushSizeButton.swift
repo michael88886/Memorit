@@ -15,7 +15,7 @@ class BrushSizeButton: UIControl {
 	// Demo view width multiplier
 	private let demo_W: CGFloat = 0.6
 	// Selector width multiplier
-	private let selector_W: CGFloat = 0.4
+	private let selector_W: CGFloat = 0.3
 	// Selector height
 	private let selectorH: CGFloat = 4
 	
@@ -57,7 +57,8 @@ extension BrushSizeButton {
 
 // MARK: - Setup UI
 extension BrushSizeButton {
-	private func setupUI() {		
+	private func setupUI() {
+		
 		// Demo size view
 		let demoView = UIView()
 		demoView.backgroundColor = .black
@@ -81,19 +82,15 @@ extension BrushSizeButton {
 		demoLabel.topAnchor.constraint(equalTo: centerYAnchor, constant: Padding.p2).isActive = true
 		
 		// Selector view
-		selectorView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+		selectorView.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 0.5)
 		selectorView.isUserInteractionEnabled = false
-		selectorView.layer.cornerRadius = selectorH / 2.0
-		selectorView.layer.shadowColor = UIColor.black.cgColor
-		selectorView.layer.shadowOpacity = 0.2
-		selectorView.layer.shadowRadius = 2
-		selectorView.layer.shadowOffset = CGSize(width: 0, height: 1)
+		selectorView.layer.cornerRadius = 8.0
 		selectorView.isHidden = true
 		addSubview(selectorView)
 		selectorView.translatesAutoresizingMaskIntoConstraints = false
-		selectorView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-		selectorView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		selectorView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: selector_W).isActive = true
-		selectorView.heightAnchor.constraint(equalToConstant: selectorH).isActive = true
+		selectorView.topAnchor.constraint(equalTo: topAnchor, constant: Padding.p5).isActive = true
+		selectorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Padding.p5).isActive = true
+		selectorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Padding.p5).isActive = true
+		selectorView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Padding.p5).isActive = true
 	}
 }

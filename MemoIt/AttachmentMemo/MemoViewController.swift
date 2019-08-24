@@ -32,7 +32,7 @@ class MemoViewController: UIViewController {
 	
 	// - Variables
     // Attachment model
-    private var memoViewModel = AttachmentMemoViewModel()
+	private var memoViewModel: AttachmentMemoViewModel
 	// Attachment collection bottom constraint (keyboard show / hide)
 	private var acBottomCst = NSLayoutConstraint()
 	// Attachment collection right constraint (attachment collection show / hide)
@@ -161,10 +161,9 @@ class MemoViewController: UIViewController {
 	
 	// MARK: - Custom init
 	init(memo: AttachmentMemo?) {
+		// Initialize view model
+		memoViewModel = AttachmentMemoViewModel(memo: memo)
 		super.init(nibName: nil, bundle: nil)
-		if let data = memo {
-			memoViewModel.loadMemo(memo: data)
-		}
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -216,12 +215,17 @@ extension MemoViewController {
 		// - Assign title cell closure
 		titleCell.updateTitle = updateTitle
 		
+		// Load data
+		memoViewModel.loadMemo()
+		
 		// Set title
 		titleCell.setTitle(title: memoViewModel.memoTitle)
 		// Set text
 		memoView.attributedText = memoViewModel.attributString
-		// Reload attachment collection view
-		attCollection.reloadData()
+		
+		if memoView.text.isEmpty {
+			memoTable.backgroundView = emptyLabel
+		}
 	}
 }
 
@@ -231,11 +235,12 @@ extension MemoViewController {
 	// Reload collectiom
 	private func reloadCollection() {
 		attCollection.reloadData()
+		
+		
 	}
 	
 	// Reload cell at indexpath
 	private func reloadAtIndexpath(indexpath: IndexPath) {
-		print("reload cell")
 		attCollection.reloadItems(at: [indexpath])
 	}
 	
@@ -618,11 +623,17 @@ extension MemoViewController: UITextViewDelegate {
 		}
 		
 		memoViewModel.updateAttributeString(attrStr: textView.attributedText)
+		
+		if textView.text.isEmpty {
+			memoTable.backgroundView = emptyLabel
+		}
+		else {
+			memoTable.backgroundView = nil
+		}
 	}
 	
 	// Change selection
 	func textViewDidChangeSelection(_ textView: UITextView) {
-		print("change selection")
 		updateKeyboardAccessoryView(textView: textView)
 	}
 }

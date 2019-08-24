@@ -31,10 +31,13 @@ class ListViewModel: NSObject {
 	private let cellH: CGFloat = 44
 	
     // - Variables
+	// Task title
+	private var taskTitle = ""
     // Task list
     private var taskList = [ListItemModel]()
 	// Complete list
 	private var completeList = [ListItemModel]()
+	
 	// List memo object reference
 	private var memoData: ListMemo?
 	// Is editing flag
@@ -49,17 +52,16 @@ class ListViewModel: NSObject {
 	var listTitle: ((String) -> Void)?
 	
 //    // Editing text view
-//	var editingTextView: ((UITextView) -> Void)?	
-	
+//	var editingTextView: ((UITextView) -> Void)?
 }
 
 // MARK: - Public function
 extension ListViewModel {
 	// MARK: - Core data functions
 	// Check if should save data
-	func save(title: String?) {
-		if (title != nil && taskList.count > 0) || isEditing {
-			saveData(title)
+	func save() {
+		if (taskTitle.trimmingCharacters(in: .whitespaces) != "") || (taskList.count > 0) {
+			saveData()
 		}
 	}
 	
@@ -69,7 +71,10 @@ extension ListViewModel {
 		print("Load")
 		
 		// Title
-		self.listTitle?(memo.title)
+		if let title = memo.title {
+			self.listTitle?(title)
+		}
+		
 		// Load tasks
 		if let tasks = memo.listItem, 
 			tasks.count > 0 {
@@ -92,6 +97,13 @@ extension ListViewModel {
 	
 	
 	// MARK: - Model functions
+	// Update title
+	func updateTitle(_ text: String?) {
+		if let titleText = text {
+			self.taskTitle = titleText
+		}
+	}
+	
 	// Add new task
 	func addNewTask(_ task: ListItemModel) {
 		taskList.append(task)
@@ -155,23 +167,20 @@ extension ListViewModel {
 // MARK: - Private function
 extension ListViewModel {
 	// Save data to core data
-	private func saveData(_ title: String?) {
+	private func saveData() {
 		print("Save")
 		// Data context
 		let context = Helper.dataContext()
 		// List object
 		var listObject: ListMemo!
-		// Default title
-		var titleName = "New list"
 		// Color
 		var color: UIColor?
 		
 		// Start core data
 		context.perform {
-			// List title
-			if let listTitle = title, 
-				listTitle.trimmingCharacters(in: .nonBaseCharacters) != "" {
-				titleName = listTitle
+			// Task title
+			if self.taskTitle.trimmingCharacters(in: .whitespaces) == "" {
+				self.taskTitle = "New task"
 			}
 			
 			if self.isEditing {
@@ -190,10 +199,13 @@ extension ListViewModel {
 				// New
 				let entity = NSEntityDescription.entity(forEntityName: "ListMemo", in: context)!
 				listObject = NSManagedObject(entity: entity, insertInto: context) as? ListMemo
+				
+				// Add new memo to memo list
+				Helper.addNewMemoToList(memo: listObject)
 			}
 			
 			// Title
-			listObject.setValue(titleName, forKey: "title")
+			listObject.setValue(self.taskTitle, forKey: "title")
 			// Modify time
 			listObject.setValue(Date(), forKey: "timeModified")
 			// Archived flag

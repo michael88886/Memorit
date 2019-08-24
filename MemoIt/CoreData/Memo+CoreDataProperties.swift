@@ -22,6 +22,7 @@ extension Memo {
     @NSManaged public var color: UIColor!
     @NSManaged public var timeModified: NSDate!
     @NSManaged public var title: String!
+	
     @NSManaged public var category: Category?
     @NSManaged public var label: MemoLabel?
 

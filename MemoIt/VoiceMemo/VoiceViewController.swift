@@ -313,6 +313,9 @@ extension VoiceViewController {
 		// Memo object
 		let memoObject = NSManagedObject(entity: entity!, insertInto: context) as? VoiceMemo
 		
+		// Save to memo list
+		Helper.addNewMemoToList(memo: memoObject!)
+		
 		// Set title
 		memoObject?.setValue(title, forKey: "title")
 		// Set modified time

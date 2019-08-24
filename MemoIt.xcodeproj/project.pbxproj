@@ -59,6 +59,7 @@
 		7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887163222AE5BEC008BE38A /* MemoViewModel.swift */; };
 		789F8EA522D317D80067200A /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F8EA422D317D80067200A /* ColorPickerCell.swift */; };
 		789F8EC722D56E5E0067200A /* UnfocusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */; };
+		78A4D04E230EDD0800F3C6B2 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A4D04D230EDD0800F3C6B2 /* SearchViewCell.swift */; };
 		78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */; };
 		78A980E822A803EF000E0247 /* AttachmentMemo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980DB22A803EE000E0247 /* AttachmentMemo+CoreDataProperties.swift */; };
 		78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980E622A803EE000E0247 /* AttachmentMemo+CoreDataClass.swift */; };
@@ -175,6 +176,7 @@
 		7887163222AE5BEC008BE38A /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
 		789F8EA422D317D80067200A /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
 		789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfocusableTextField.swift; sourceTree = "<group>"; };
+		78A4D04D230EDD0800F3C6B2 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		78A980D822A803ED000E0247 /* ListMemo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListMemo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78A980D922A803ED000E0247 /* ListIem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListIem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -389,12 +391,12 @@
 				2F20B3B022A3947300054053 /* LaunchScreen.storyboard */,
 				2F20B3B322A3947300054053 /* Info.plist */,
 				2F20B3AE22A3947300054053 /* Assets.xcassets */,
+				784507DB22A8E2FD009913D1 /* Extensions.swift */,
 				2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */,
 				780983EC22BA88EA00A8E851 /* MKButton.swift */,
 				780983EF22BA891500A8E851 /* PaddingLabel.swift */,
 				780983EB22BA88EA00A8E851 /* BadgeButton.swift */,
 				78D540D02309602F0067D6D2 /* ImageCell.swift */,
-				784507DB22A8E2FD009913D1 /* Extensions.swift */,
 				786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */,
 				2F24A95322CE2D850002FACE /* MKPresentationController.swift */,
 				2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */,
@@ -436,6 +438,7 @@
 				786B400F22C711A40020A5E3 /* HomeVoiceCell.swift */,
 				786B400C22C711620020A5E3 /* HomeCell.swift */,
 				786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */,
+				78A4D04D230EDD0800F3C6B2 /* SearchViewCell.swift */,
 			);
 			path = HomeTableCell;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				782AFCC2230C2E0700B392EC /* PenView.swift in Sources */,
 				786B401D22C7AA0A0020A5E3 /* StatusView.swift in Sources */,
 				782AFCC8230CC90E00B392EC /* BrushSizeButton.swift in Sources */,
+				78A4D04E230EDD0800F3C6B2 /* SearchViewCell.swift in Sources */,
 				784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */,
 				782AFCC4230C2E1100B392EC /* EraserView.swift in Sources */,
 				78A980F522A803EF000E0247 /* Category+CoreDataProperties.swift in Sources */,
@@ -759,7 +763,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mmk.MemoIt;
+				PRODUCT_BUNDLE_IDENTIFIER = mmk.mc2.memoIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MemoIt/MemoIt-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -782,7 +786,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mmk.MemoIt;
+				PRODUCT_BUNDLE_IDENTIFIER = mmk.mc2.memoIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MemoIt/MemoIt-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

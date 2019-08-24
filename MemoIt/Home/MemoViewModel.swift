@@ -23,25 +23,31 @@ class MemoViewModel: NSObject {
 	let attachID = "AttachCell"
 	let todoID = "TodoCell"
 	let voiceID = "VoiceCell"
+	let searchID = "SearchID"
 	
+	// - Variables
 	// Memo list
-	var memoList = [Memo]()
+	private var memoList = [Memo]()
 	// Cache list
-	var cacheList = NSCache<NSNumber, MemoModel>()
+//	private var cacheList = NSCache<NSNumber, MemoModel>()
 	// Loading opearation queue
 	private let loadingQueue = OperationQueue()
 	// Loading operations
 	private var loadingOperations: [IndexPath: LoadMemoOperation] = [:] 
-	
+	// Search list
+	private(set) var searchList = [Memo]()
+	// Is fetching flag
+	private(set) var isFetching: Bool = false
 	// Fetch result
 	private var fetchResult: NSPersistentStoreAsynchronousResult? = nil
 	
+	// - Closures
 	// Reload table closure
 	var reloadData: (() -> Void)?
-	
+	// Data has been fetched
 	var fetchingData: ((Bool) -> Void)?
-	// Is fetching flag
-	var isFetching: Bool = false
+	// Edit memo
+	var editMemo: ((Memo) -> Void)?
 	
 }
 
@@ -49,8 +55,8 @@ class MemoViewModel: NSObject {
 extension MemoViewModel {
 	// MARK: - Fetch functions
 	@objc func fetchData() {
-        // Clear cache
-        cacheList.removeAllObjects()
+        // Clear data
+		self.memoList.removeAll()
         
 		// Data context
 		let context = Helper.dataContext()
@@ -89,15 +95,112 @@ extension MemoViewModel {
 		fetchResult?.cancel()
 	}
 	
+	func sortData() {
+		print("sort")
+		memoList.sort { (memo, memo1) -> Bool in
+			if let date1 = memo.timeModified as Date?, 
+				let date2 = memo1.timeModified as Date? {
+				return date1.compare(date2) == .orderedDescending
+			}
+			return false
+		}
+	}
+	
 	// Get data from indexpath
 	func dataFromIndex(indexpath: IndexPath) -> Memo {
 		return memoList[indexpath.row]
 	}
 	
-	// Reload item at indexpath
-	func refreshData(_ atIndexpath: IndexPath) {
-		// Remove data from cache list
-		self.cacheList.removeObject(forKey: NSNumber(integerLiteral: atIndexpath.row))
+	// Edit memo
+	func editMemoAt(_ indexpath: IndexPath) {
+		let data = memoList[indexpath.row]
+		self.editMemo?(data)
+	}
+	
+	// Select memo from search list
+	func editFromSearch(_ indexpath: IndexPath) {
+		// Data from search list
+		let data = searchList[indexpath.row]
+		// Data indexpath in memo list
+		var indexpath: IndexPath? = nil
+		// Get indexpath for memo list
+		for (index, d) in memoList.enumerated() {
+			if d == data {
+				indexpath = IndexPath(item: index, section: 0)
+				break
+			}
+		}
+		
+		guard let idpa = indexpath else { return }
+		editMemoAt(idpa)
+	}
+	
+	// Add memo to memo list
+	func addMemoToList(memo: Memo) {
+		memoList.insert(memo, at: 0)
+	}
+	
+	// Delete memo
+	func deleteMemo(_ atIndexpath: IndexPath) {
+		// Get data from memo list
+		let data = memoList[atIndexpath.row]
+		// - Update entity from core data
+		// Get context
+		let context = Helper.dataContext()
+		// Update entity & save
+		context.perform {
+			let objID = data.objectID
+			do {
+				let memoObj = try context.existingObject(with: objID) as? Memo
+				memoObj?.archived = true
+				try context.save()
+			}
+			catch {
+				print("Failed to delete object from core data: \(error.localizedDescription)")
+			}
+		}
+		
+		// Remove from memo list
+		memoList.remove(at: atIndexpath.row)
+		// Reload table
+		self.reloadData?()
+	}
+	
+	// Number of items
+	func numberOfItems() -> Int {
+		return memoList.count
+	}
+	
+	
+	// MARK: - Search function
+	// Reset search result
+	func resetSearchResult() {
+		searchList.removeAll()
+	}
+	
+	// If can perform search
+	func canSearch() -> Bool {
+		return !memoList.isEmpty
+	}
+	
+	// Search memo
+	func searchMemo(text: String) {
+		for memo in memoList {
+			stringMatchResult(text, memo)
+		}
+	}
+	
+	// Number of search result
+	func numberOfSearchResult() -> Int {
+		return searchList.count
+	}
+	
+	// Update search cell
+	func updateSearchCell(_ tableView: UITableView, _ indexpath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: searchID, for: indexpath) as! SearchViewCell
+		let data = searchList[indexpath.row]
+		cell.updateCell(memo: data)
+		return cell
 	}
 }
 
@@ -106,53 +209,42 @@ extension MemoViewModel {
 	// MARK: - Feed table cell functions
 	func updateCell(_ tableview: UITableView, _ indexpath: IndexPath) -> UITableViewCell {
 		// Get correct cell
-		let cell = cellById(tableview, indexpath)
+		let cell = cellById(tableview, indexpath)		
 		
-		if let model = cacheList.object(forKey: NSNumber(integerLiteral: indexpath.row)) {
-//			print("in cache")
-			// Data avaliable, feed cell
-			self.feedCell(cell, model: model)			
+		// Completion closure
+		let completionClosure: (MemoModel) -> () = { [weak self] model in
+			guard let self = self else { return }
+			self.feedCell(cell, model: model)
+			// Remove operation
+			self.loadingOperations.removeValue(forKey: indexpath)
 		}
-		else {
-//			print("Not in cache")
-			// Completion closure
-			let completionClosure: (MemoModel) -> () = { [weak self] model in
-				guard let self = self else { return }
-//				print("UPdate")
-				self.feedCell(cell, model: model)
-				// Add loaded data to cache
-				self.cacheList.setObject(model, forKey: NSNumber(integerLiteral: indexpath.row))
+		
+		// Check existing opeation
+		if let operation = loadingOperations[indexpath] {
+			print("new")
+			// Found opearation
+			if let dataModel = operation.memoModel {
+				// Data loaded
+				feedCell(cell, model: dataModel)
 				// Remove operation
 				self.loadingOperations.removeValue(forKey: indexpath)
 			}
-			
-			// Check existing opeation
-			if let operation = loadingOperations[indexpath] {
-				// Found opearation
-				if let dataModel = operation.memoModel {
-					// Data loaded
-					feedCell(cell, model: dataModel)
-					// Add loaded data to cache
-					self.cacheList.setObject(dataModel, forKey: NSNumber(integerLiteral: indexpath.row))
-					// Remove operation
-					self.loadingOperations.removeValue(forKey: indexpath)
-				}
-				else {
-					// Data not loaded
-					operation.completion = completionClosure
-				}
-			}
 			else {
-				// No opearion yet, create new op
-				let newOP = LoadMemoOperation(memo: memoList[indexpath.row])
-				// Assgin completion hander
-				newOP.completion = completionClosure
-				// Add to operation queue
-				loadingQueue.addOperation(newOP)
-				// Set reference
-				loadingOperations[indexpath] = newOP
+				// Data not loaded
+				operation.completion = completionClosure
 			}
 		}
+		else {
+			// No opearion yet, create new op
+			let newOP = LoadMemoOperation(memo: memoList[indexpath.row])
+			// Assgin completion hander
+			newOP.completion = completionClosure
+			// Add to operation queue
+			loadingQueue.addOperation(newOP)
+			// Set reference
+			loadingOperations[indexpath] = newOP
+		}
+		
 		return cell
 	}
 	
@@ -214,6 +306,75 @@ extension MemoViewModel {
 			if let operation = loadingOperations[indexpath] {
 				operation.cancel()
 				loadingOperations.removeValue(forKey: indexpath)
+			}
+		}
+	}
+}
+
+// MARK: - Private function
+extension MemoViewModel {
+	// String match for search result
+	private func stringMatchResult(_ pattern: String, _ memo: Memo) {
+		var matched = false
+		
+		// Match title
+		if let title = memo.title {
+			matched = containsMatch(of: pattern, inString: title)
+		}
+		
+		
+		if matched {
+			// Title matched, add to search list
+			searchList.append(memo)
+			return
+		}
+		else {
+			// Title not matched, search body
+			let type: MemoType = MemoType(rawValue: memo.type.rawValue)!
+			switch type {
+			case .attach:
+				searchAttahcmentMemo(pattern, memo)
+				
+			case .todo:
+				searchListMemo(pattern, memo)
+				
+			default:
+				()
+			}
+		}
+	}
+	
+	// Contain match
+	private func containsMatch(of pattern: String, inString string: String) -> Bool {
+		guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+			return false
+		}
+		let range = NSRange(string.startIndex..., in: string)
+		return regex.firstMatch(in: string, options: [], range: range) != nil
+	}
+	
+	// Search Attachment memo
+	private func searchAttahcmentMemo(_ pattern: String, _ memo: Memo) {
+		guard let attMemo = memo as? AttachmentMemo else { return }
+		if let body = attMemo.attributedString?.string {
+			if containsMatch(of: pattern, inString: body) {
+				searchList.append(attMemo)
+			}
+		}
+		else {
+			// FIXME: Match label
+		}
+	}
+	
+	// Search list
+	private func searchListMemo(_ pattern: String, _ memo: Memo) {
+		guard let listMemo = memo as? ListMemo else { return }
+		if let listItems = listMemo.listItem, listItems.count > 0 {
+			for item in listItems {
+				if let itm = item as? ListItem, 
+					containsMatch(of: pattern, inString: itm.title) {
+					searchList.append(memo)
+				}
 			}
 		}
 	}

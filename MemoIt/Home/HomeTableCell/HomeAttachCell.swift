@@ -89,10 +89,12 @@ extension HomeAttachCell {
 		prevImageView.clipsToBounds = true
 		prevImageView.isHidden = true
 		prevImageView.layer.cornerRadius = 8.0
+		prevImageView.layer.borderWidth = 1.0
+		prevImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 0.5001605308).cgColor
 		container.addSubview(prevImageView)
 		prevImageView.translatesAutoresizingMaskIntoConstraints = false
 		prevImageView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: Padding.p10).isActive = true
-		prevImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Padding.p10).isActive = true
+		prevImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Padding.p20).isActive = true
 		prevImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -Padding.p10).isActive = true
 		prevImgWCst = prevImageView.widthAnchor.constraint(equalToConstant: 0)
 		prevImgWCst.isActive = true

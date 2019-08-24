@@ -21,7 +21,7 @@ class AttachmentMemoViewModel: NSObject {
 	// Memo title
 	private(set) var memoTitle: String = ""
 	// Memo attributeText
-	private(set) var attributString: NSAttributedString?
+	private(set) var attributString = NSAttributedString()
 	// Memo directory
 	private var memoDir: URL = FileManager.default.temporaryDirectory
 	// Memo ID
@@ -58,6 +58,11 @@ class AttachmentMemoViewModel: NSObject {
     var updateBadgeCount: ((Int) -> Void)?
 	// No more attachment
 	var noMoreAttachment: (() -> Void)?
+	
+	
+	init(memo: AttachmentMemo?) {
+		self.memoData = memo
+	}
 }
 
 
@@ -66,6 +71,8 @@ extension AttachmentMemoViewModel {
 	// MARK: Save load function
 	// Save memo
 	func saveMemo() {
+		print("Save memo: \(shouldSave)")
+		
 		if !shouldSave { return }
 		
 		// Data context
@@ -140,6 +147,9 @@ extension AttachmentMemoViewModel {
 				// New memo
 				let entry = NSEntityDescription.entity(forEntityName: "AttachmentMemo", in: context)!
 				memoObject = NSManagedObject(entity: entry, insertInto: context) as? AttachmentMemo
+				
+				// Add new memo to memo ilst
+				Helper.addNewMemoToList(memo: memoObject)
 			}
 			
 			// Title
@@ -179,31 +189,39 @@ extension AttachmentMemoViewModel {
 			
 			// Refresh context
 			context.refreshAllObjects()
+			
+			print("saved")
 			// Send notification
 			NotificationCenter.default.post(name: .reloadHomeList, object: nil)
 		}
 	}
 	
 	// Load memo
-	func loadMemo(memo: AttachmentMemo) {
-		// Assign object
-		self.memoData = memo
+	func loadMemo() {
+		guard let data = self.memoData else { return }
 		self.isEditMode = true
+
+		// Update memo title
+		if let title = data.title {
+			self.memoTitle = title
+		}
 		
 		// Update memo color
-		self.memoColor = memo.color
+		self.memoColor = data.color
 		
 		// Update file name
-		self.memoID = memo.memoID
+		self.memoID = data.memoID
 		
 		// Update directory
-		self.memoDir = Helper.memoDirectory().appendingPathComponent(memo.memoID)
+		self.memoDir = Helper.memoDirectory().appendingPathComponent(data.memoID)
 		
 		// Attribute text
-		self.attributString = memo.attributedString
+		if let attriStr = data.attributedString {
+			self.attributString = attriStr
+		}
 		
 		// Load attachments
-		guard let atts = memo.attachments else { return }
+		guard let atts = data.attachments else { return }
 		
 		if atts.count > 0 {
 			for att in atts {
@@ -218,6 +236,8 @@ extension AttachmentMemoViewModel {
 				}
 			}
 		}
+		// Reload 
+		self.reloadCollection?()
 	}
 	
 	// MARK: Update memo title
@@ -230,8 +250,10 @@ extension AttachmentMemoViewModel {
 	
 	// MARK: Attribute string function
 	func updateAttributeString(attrStr: NSAttributedString?) {
-		self.attributString = attrStr
-		shouldSave = true
+		if let attriStr = attrStr {
+			self.attributString = attriStr
+			shouldSave = true
+		}
 	}
 	
     // MARK: Attachment editing functions
@@ -395,7 +417,6 @@ extension AttachmentMemoViewModel {
 extension AttachmentMemoViewModel {
     // Loaded model at indexpath
 	private func loadedModel(_ cell: AttachmentPreviewCell, _ model: AttachmentModel, _ indexpath: IndexPath) {
-		print("loaded")
 		// Feed cell
 		cell.UpdateCell(model: model)
 		// Reload cell

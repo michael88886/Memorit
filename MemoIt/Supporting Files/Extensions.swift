@@ -13,8 +13,8 @@ import AVFoundation
 extension Notification.Name {
 	// Norify reload home list
 	static let reloadHomeList = Notification.Name("ReloadHomeList")
-	// Notify home table new item has been added (reload table)
-	static let newItemHomeTable = Notification.Name("NewItemHomeTable")
+	// Notify add new memo to ilst
+	static let addNewMemo = Notification.Name("AddNewMemo")
     // Notify dismiss MKPreseentationBottom controller
     static let dismissMKPresentationBottomVC = Notification.Name("dismissMKPresentationBottomVC")
     
