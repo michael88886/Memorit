@@ -51,8 +51,11 @@ class ListViewModel: NSObject {
 	// List title
 	var listTitle: ((String) -> Void)?
 	
-//    // Editing text view
-//	var editingTextView: ((UITextView) -> Void)?
+	
+	// MARK: -Initializer
+	init(memo: ListMemo?) {
+		self.memoData = memo
+	}
 }
 
 // MARK: - Public function
@@ -66,17 +69,17 @@ extension ListViewModel {
 	}
 	
 	// Load data from core data
-	func loadData(memo: ListMemo) {
-		isEditing = true
-		print("Load")
+	func loadData() {
+		guard let data = self.memoData else { return }
+		self.isEditing = true
 		
 		// Title
-		if let title = memo.title {
+		if let title = data.title {
 			self.listTitle?(title)
 		}
 		
 		// Load tasks
-		if let tasks = memo.listItem, 
+		if let tasks = data.listItem, 
 			tasks.count > 0 {
 			for task in tasks {
 				if let tsk = task as? ListItem {
@@ -89,10 +92,7 @@ extension ListViewModel {
 			}
 		}
 		// Refresh list
-		self.reloadTable?()
-		
-		// Assign memo data
-		self.memoData = memo			
+		self.reloadTable?()			
 	}
 	
 	

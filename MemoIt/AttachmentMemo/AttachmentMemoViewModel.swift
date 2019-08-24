@@ -59,7 +59,7 @@ class AttachmentMemoViewModel: NSObject {
 	// No more attachment
 	var noMoreAttachment: (() -> Void)?
 	
-	
+	// MARK: - Initializer
 	init(memo: AttachmentMemo?) {
 		self.memoData = memo
 	}

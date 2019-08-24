@@ -206,14 +206,19 @@ extension HomeViewController {
 	private func animateLoading() {
 		guard let loadingView = self.loadingView, 
 			let logo = self.logo else { return } 
-		UIView.animateKeyframes(withDuration: 0.8, delay: 0, 
+		UIView.animateKeyframes(withDuration: 1.0, delay: 0, 
 								options: .calculationModeLinear, 
 								animations: { 
 									UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1, animations: { logo.alpha = 0.5 })
 									UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.1, animations: { logo.alpha = 1.0 })
 									UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.1, animations: { logo.alpha = 0.5 })
-									UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.5, animations: { logo.alpha = 1.0 })
-		}, completion: { _ in loadingView.removeFromSuperview() })
+									UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.1, animations: { logo.alpha = 1.0 })
+									UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.1, animations: { logo.alpha = 0.5 })
+									UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.1, animations: { logo.alpha = 1.0 })
+		}, completion: { _ in
+			UIView.animate(withDuration: 1.0, animations: { logo.alpha = 1.0 }, 
+						   completion: { _ in  loadingView.removeFromSuperview()})
+		})
 		
 //		UIView.animate(withDuration: 0.1, 
 //					   delay: 0, 

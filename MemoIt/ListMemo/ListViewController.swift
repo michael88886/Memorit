@@ -41,7 +41,7 @@ class ListViewController: UIViewController {
 	
 	// - Data collection
     // View model
-	private var viewModel = ListViewModel()
+	private var viewModel: ListViewModel
 	// List memo object reference
 	private var memoData: ListMemo?
     
@@ -88,16 +88,8 @@ class ListViewController: UIViewController {
 	
 	// MARK: - Custom init
 	init(memo: ListMemo?) {
+		viewModel = ListViewModel(memo: memo)
 		super.init(nibName: nil, bundle: nil)
-		
-		// Assign closure function
-		viewModel.reloadTable = reloadTable
-		viewModel.reloadCell = reloadCell
-		
-		if let listMemo = memo {
-			// View model load data
-			viewModel.loadData(memo: listMemo)
-		}
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -109,11 +101,6 @@ class ListViewController: UIViewController {
 extension ListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Assign view model closures
-        viewModel.reloadTable = reloadTable
-		viewModel.reloadCell = reloadCell
-		
         // Keyboard show / hide notification
         // - Keyboard will show
         NotificationCenter.default.addObserver(self,
@@ -123,6 +110,14 @@ extension ListViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardAction(_:)),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+		
+		// Assign view model closures
+		viewModel.reloadTable = reloadTable
+		viewModel.reloadCell = reloadCell
+		viewModel.listTitle = setListTitle
+		
+		// Load data
+		viewModel.loadData()
     }
 }
 
@@ -142,6 +137,11 @@ extension ListViewController {
 	// Add new task
 	private func addNewTask(task: ListItemModel) {
 		viewModel.addNewTask(task)
+	}
+	
+	// Set list title
+	private func setListTitle(title: String) {
+		titleField.text = title
 	}
 }
 
