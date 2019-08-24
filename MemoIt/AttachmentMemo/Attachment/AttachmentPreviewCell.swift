@@ -37,18 +37,17 @@ final class AttachmentPreviewCell: ImageCell {
 	// MARK: - Override UI
 	override func setupUI() {
 		super.setupUI()
+		
+		backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1)
+		layer.cornerRadius = cornerRadius
+		
 		// Image view
-		imageView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-		imageView.contentMode = .scaleAspectFit
 		imageView.clipsToBounds = true
 		imageView.image = #imageLiteral(resourceName: "Attach44")
-		imageView.layer.cornerRadius = cornerRadius
-		imageView.layer.borderWidth = 1
-		imageView.layer.borderColor = borderColor.cgColor
 		
 		// Time label
-		timeLabel.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(timeLabel)
+		timeLabel.translatesAutoresizingMaskIntoConstraints = false
 		timeLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -Padding.p5).isActive = true
 		timeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -Padding.p5).isActive = true
 		timeLabel.isHidden = true
@@ -59,9 +58,8 @@ final class AttachmentPreviewCell: ImageCell {
 extension AttachmentPreviewCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
+		imageView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
 		imageView.image = #imageLiteral(resourceName: "Attach44")
-		imageView.backgroundColor = .clear
-		imageView.layer.borderColor = borderColor.cgColor
 		timeLabel.text = ""
 		timeLabel.isHidden = true
 	}

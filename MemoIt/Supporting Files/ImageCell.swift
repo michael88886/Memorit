@@ -28,8 +28,6 @@ class ImageCell: UICollectionViewCell {
 	func setupUI() {
 		// Image view
 		imageView.contentMode = .scaleAspectFit
-		
-		// Image view
 		contentView.addSubview(imageView)
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Padding.p5).isActive = true

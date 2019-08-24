@@ -219,15 +219,6 @@ extension HomeViewController {
 			UIView.animate(withDuration: 1.0, animations: { logo.alpha = 1.0 }, 
 						   completion: { _ in  loadingView.removeFromSuperview()})
 		})
-		
-//		UIView.animate(withDuration: 0.1, 
-//					   delay: 0, 
-//					   options: [.curveEaseOut, .autoreverse, .repeat], 
-//					   animations: { logo.alpha = 0.5 }, 
-//					   completion: { _ in logo.alpha = 1.0 })
-//		DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { 
-//			
-//		}
 	}
 }
 
@@ -240,11 +231,14 @@ extension HomeViewController {
 	
 	// Reload home table
 	@objc private func reloadTable() {
-		print("reload home table")
+		// Sort memo by modified time
 		viewModel.sortData()
+		// Must have this line, or tableview not scroll to the top after reload
+		homeTable.setContentOffset(CGPoint(x: 0, y: -headerH), animated: false)
 		homeTable.reloadData()
-		homeTable.scrollsToTop = true
-		print("content offset: \(homeTable.contentOffset)")
+		// Play the magic here
+		homeTable.layoutIfNeeded()
+		homeTable.setContentOffset(CGPoint(x: 0, y: -headerH), animated: false)
 	}
 	
 	// Show / hide keyboard
@@ -280,7 +274,6 @@ extension HomeViewController {
 			viewModel.addMemoToList(memo: memo)
 		}
 	}
-	
 }
 
 // MARK: - Delegates
@@ -406,7 +399,6 @@ extension HomeViewController: UISearchBarDelegate {
 		
 		// Set flag
 		isSearching = true
-		
 		
 		// Disable home table scroll
 		homeTable.isScrollEnabled = false

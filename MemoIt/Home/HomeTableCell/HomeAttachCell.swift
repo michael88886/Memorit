@@ -10,6 +10,10 @@ import UIKit
 
 class HomeAttachCell: HomeCell {
 	// MARK: - Properties
+	// - Constant
+	// Preview image size
+	private let pvImgSize: CGFloat = 70
+	
 	// - Variables
 	// Preview width constraint
 	private var prevImgWCst = NSLayoutConstraint()
@@ -36,7 +40,7 @@ class HomeAttachCell: HomeCell {
 		// Reset preview image width constraint
 		if prevImageView.isHidden == false {
 			prevImgWCst.constant = 0
-			prevImageView.isHidden = false
+			prevImageView.isHidden = true
 			prevImageView.image = nil
 			contentView.layoutIfNeeded()
 		}
@@ -55,7 +59,7 @@ class HomeAttachCell: HomeCell {
 		// Preview image
 		if attachModel.haveAttachment {
 			// Update preview image width
-			prevImgWCst.constant = prevImageView.bounds.height
+			prevImgWCst.constant = pvImgSize
 			prevImageView.isHidden = false
 			prevImageView.image = attachModel.prevImage
 			contentView.layoutIfNeeded()
@@ -93,9 +97,9 @@ extension HomeAttachCell {
 		prevImageView.layer.borderColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 0.5001605308).cgColor
 		container.addSubview(prevImageView)
 		prevImageView.translatesAutoresizingMaskIntoConstraints = false
-		prevImageView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: Padding.p10).isActive = true
+		prevImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant:  -Padding.p10).isActive = true
 		prevImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Padding.p20).isActive = true
-		prevImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -Padding.p10).isActive = true
+		prevImageView.heightAnchor.constraint(equalToConstant: pvImgSize).isActive = true
 		prevImgWCst = prevImageView.widthAnchor.constraint(equalToConstant: 0)
 		prevImgWCst.isActive = true
 		

@@ -96,7 +96,6 @@ extension MemoViewModel {
 	}
 	
 	func sortData() {
-		print("sort")
 		memoList.sort { (memo, memo1) -> Bool in
 			if let date1 = memo.timeModified as Date?, 
 				let date2 = memo1.timeModified as Date? {
@@ -221,7 +220,6 @@ extension MemoViewModel {
 		
 		// Check existing opeation
 		if let operation = loadingOperations[indexpath] {
-			print("new")
 			// Found opearation
 			if let dataModel = operation.memoModel {
 				// Data loaded

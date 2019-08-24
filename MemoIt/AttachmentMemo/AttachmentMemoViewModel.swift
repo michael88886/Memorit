@@ -71,8 +71,6 @@ extension AttachmentMemoViewModel {
 	// MARK: Save load function
 	// Save memo
 	func saveMemo() {
-		print("Save memo: \(shouldSave)")
-		
 		if !shouldSave { return }
 		
 		// Data context
