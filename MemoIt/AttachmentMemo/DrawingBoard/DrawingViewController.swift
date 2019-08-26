@@ -131,6 +131,19 @@ extension DrawingViewController {
 	private func save(_ image: UIImage) {
 		self.saveDrawing?(image)
 	}
+	
+	// Drawing image avaliable
+	private func drawimgImageAvaliable(enable: Bool) {
+		print("img: \(enable)")
+		clearBtn.isEnabled = enable
+		undoBtn.isEnabled = enable
+	}
+	
+	// Drawing cache avaliable
+	private func drawingCacheAvaliable(enable: Bool) {
+		print("cache: \(enable)")
+		redoBtn.isEnabled = enable
+	}
 }
 
 
@@ -163,7 +176,6 @@ extension DrawingViewController {
 	
 	// MARK: Brush size action
 	@objc private func brushSizeAction(_ sender: BrushSizeButton) {
-		print("brush action")
 		for btn in brushGroup {
 			if sender === btn {
 				btn.select()
@@ -177,16 +189,19 @@ extension DrawingViewController {
 	// MARK: Drawing board action
 	// Clear all action
 	@objc private func clearAll() {
+		print("celear all")
 		drawingBoard.clearAllDraw()
 	}
 	
 	// Undo action
 	@objc private func undo() {
+		print("undo")
 		drawingBoard.undoDraw()
 	}
 	
 	// Redo action
 	@objc private func redo() {
+		print("redo")
 		drawingBoard.redoDraw()
 	}
 	
@@ -303,6 +318,8 @@ extension DrawingViewController {
 		
 		// Drawign board
 		drawingBoard.isUserInteractionEnabled = true
+		drawingBoard.drawingImageEmpty = drawimgImageAvaliable
+		drawingBoard.drawingCacheEmpty = drawingCacheAvaliable
 		drawingBoard.saveDrawing = save
 		view.addSubview(drawingBoard)
 		drawingBoard.translatesAutoresizingMaskIntoConstraints = false
