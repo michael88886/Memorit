@@ -44,7 +44,7 @@ class AboutViewController: UIViewController {
 		view.addSubview(credit)
 		credit.translatesAutoresizingMaskIntoConstraints = false
 		credit.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-		credit.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Padding.p40).isActive = true
+		credit.topAnchor.constraint(equalTo: view.topAnchor, constant: Padding.p40).isActive = true
 	}
 	
 	override func viewDidLoad() {

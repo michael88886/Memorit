@@ -128,6 +128,7 @@ extension BinViewController: UITableViewDelegate, UITableViewDataSource, UITable
 		let action = UIContextualAction(style: .normal, title: "") { 
 			(action, _, success) in
 			self.viewModel.restoreData(indexPath)
+			NotificationCenter.default.post(name: .reFetchData, object: nil)
 			success(true)
 		}
 		action.image = #imageLiteral(resourceName: "UndoBtn")

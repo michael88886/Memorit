@@ -11,6 +11,8 @@ import AVFoundation
 
 // Notification.Name
 extension Notification.Name {
+	// Notify re-fetch data
+	static let reFetchData = Notification.Name("ReFetchData")
 	// Norify reload home list
 	static let reloadHomeList = Notification.Name("ReloadHomeList")
 	// Notify add new memo to ilst
