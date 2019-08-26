@@ -100,6 +100,8 @@ extension HomeViewController {
 		viewModel.editMemo = editMemo
 		
 		// Notification observer
+		// Re-fetch data
+		NotificationCenter.default.addObserver(self, selector: #selector(reFetchData), name: .reFetchData, object: nil)
 		// Add new memo
 		NotificationCenter.default.addObserver(self, selector: #selector(addNewMemo(_:)), name: .addNewMemo, object: nil)
 		// Refresh Table
@@ -224,6 +226,13 @@ extension HomeViewController {
 
 // MARK: - Actions
 extension HomeViewController {
+	// Refetch data
+	@objc private func reFetchData() {
+		DispatchQueue.main.async {
+			self.viewModel.fetchData()
+		}
+	}
+	
 	// Cancel option aciton
 	@objc private func cancelOptionAction() {
 		functionView.resetOption(animated: true)

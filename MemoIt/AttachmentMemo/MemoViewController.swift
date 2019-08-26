@@ -130,7 +130,7 @@ class MemoViewController: UIViewController {
 	private lazy var acFunctionContainer = UIView()
 	
 	// - Delete attachment button
-	private lazy var delAttBtn = UIHelper.button(icon: #imageLiteral(resourceName: "Bin32"), tint: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1))
+	private lazy var delAttBtn = UIHelper.button(icon: #imageLiteral(resourceName: "Bin44"), tint: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1))
 	
 	// - Cancel edit button
 	private lazy var cancelEditBtn = UIHelper.button(icon: #imageLiteral(resourceName: "Cross44"), tint: #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1))
