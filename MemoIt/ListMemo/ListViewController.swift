@@ -76,10 +76,17 @@ class ListViewController: UIViewController {
 		table.separatorStyle = .none
 		table.rowHeight = UITableView.automaticDimension
 		table.keyboardDismissMode = .interactive
-		table.dataSource = self
-		table.delegate = self
-		table.register(ListTableCell.self, forCellReuseIdentifier: ListViewModel.listCellID)
 		return table
+	}()
+	
+	// - Empty note label
+	private lazy var emptyLabel: UILabel = {
+		let label = UILabel()
+		label.textAlignment = .center
+		label.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+		label.font = UIFont.preferredFont(forTextStyle: .title1)
+		label.text = "Empty list"
+		return label
 	}()
 	
 	// Add task view
@@ -118,6 +125,13 @@ extension ListViewController {
 		
 		// Load data
 		viewModel.loadData()
+		
+		// Set title
+		titleField.text = viewModel.taskTitle
+		
+		if viewModel.numberOfItems() < 1 {
+			listTable.backgroundView = emptyLabel
+		}
     }
 }
 
@@ -127,6 +141,13 @@ extension ListViewController {
     // Reload table
     private func reloadTable() {
         listTable.reloadData()
+		
+		if viewModel.numberOfItems() < 1 {
+			listTable.backgroundView = emptyLabel
+		}
+		else {
+			listTable.backgroundView = nil
+		}
     }
     
 	// Reload cell
@@ -245,11 +266,16 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 							if (String(describing: sbv).range(of: "UIImageView") != nil) {
 								if let imageView = sbv as? UIImageView {
 									// Tweak: Delete button must be different size as other button to get different tint color
-									if imageView.image?.size == #imageLiteral(resourceName: "Bin32").size {
-										imageView.tintColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
-									} 	
-									else {
-										imageView.tintColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+									if let image = imageView.image {
+										if let data = image.pngData(),
+											let binData = #imageLiteral(resourceName: "Bin44").pngData() {
+											if data == binData {
+												imageView.tintColor = #colorLiteral(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1)
+											}
+											else {
+												imageView.tintColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+											}
+										}										
 									}
 								}
 							}
@@ -291,7 +317,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 				self.viewModel.removeTask(indexPath)
 				success(true)
 			}
-			action.image = #imageLiteral(resourceName: "Bin32")
+			action.image = #imageLiteral(resourceName: "Bin44")
 			action.backgroundColor = .white
 			return UISwipeActionsConfiguration(actions: [action])			
 		}
@@ -363,7 +389,9 @@ extension ListViewController {
 		addTaskBtmCst.isActive = true
         
         // List table
-//		listTable.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+		listTable.dataSource = self
+		listTable.delegate = self
+		listTable.register(ListTableCell.self, forCellReuseIdentifier: ListViewModel.listCellID)
         view.addSubview(listTable)
 		listTable.translatesAutoresizingMaskIntoConstraints = false
         listTable.topAnchor.constraint(equalTo: sep.bottomAnchor, constant: Padding.p20).isActive = true

@@ -32,7 +32,7 @@ class ListViewModel: NSObject {
 	
     // - Variables
 	// Task title
-	private var taskTitle = ""
+	private(set) var taskTitle = ""
     // Task list
     private var taskList = [ListItemModel]()
 	// Complete list

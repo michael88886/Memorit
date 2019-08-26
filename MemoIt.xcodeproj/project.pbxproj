@@ -30,6 +30,8 @@
 		780E5F0022AA588F00B7AFF5 /* FunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */; };
 		7811ED5923095C460074F7C0 /* MemoTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811ED5823095C460074F7C0 /* MemoTitleCell.swift */; };
 		7811ED5B23095C830074F7C0 /* MKMemoview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811ED5A23095C830074F7C0 /* MKMemoview.swift */; };
+		7812E625231345C9006A4316 /* BinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812E624231345C9006A4316 /* BinViewController.swift */; };
+		7812E62823139561006A4316 /* BinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812E62723139561006A4316 /* BinViewModel.swift */; };
 		782AFCC0230C241B00B392EC /* DrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCBF230C241B00B392EC /* DrawingBoard.swift */; };
 		782AFCC2230C2E0700B392EC /* PenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC1230C2E0700B392EC /* PenView.swift */; };
 		782AFCC4230C2E1100B392EC /* EraserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC3230C2E1100B392EC /* EraserView.swift */; };
@@ -39,6 +41,7 @@
 		784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D922A8E288009913D1 /* ListDetailViewController.swift */; };
 		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
 		784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */; };
+		78485DDE231284A4003695DE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78485DDD231284A4003695DE /* AboutViewController.swift */; };
 		784D630D22E4A10400D55C0E /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784D630C22E4A10400D55C0E /* AddTaskView.swift */; };
 		784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6322A8B71500F1818C /* ListTableCell.swift */; };
 		786B3FFF22C4EFFE0020A5E3 /* HomeCellTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */; };
@@ -82,6 +85,7 @@
 		78A9810022A8050E000E0247 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FF22A8050E000E0247 /* ListViewController.swift */; };
 		78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9810122A80515000E0247 /* VoiceViewController.swift */; };
 		78ADC94422AEAF67004295F8 /* LoadMemoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADC94322AEAF67004295F8 /* LoadMemoOperation.swift */; };
+		78B5AE9F23117EC2007EF7FF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B5AE9E23117EC2007EF7FF /* SettingViewController.swift */; };
 		78C7B04F22F72D0B0016BFBA /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */; };
 		78D540D12309602F0067D6D2 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D540D02309602F0067D6D2 /* ImageCell.swift */; };
 		78D540D3230966400067D6D2 /* KeyboardAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D540D2230966400067D6D2 /* KeyboardAccessoryView.swift */; };
@@ -145,6 +149,8 @@
 		780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionView.swift; sourceTree = "<group>"; };
 		7811ED5823095C460074F7C0 /* MemoTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTitleCell.swift; sourceTree = "<group>"; };
 		7811ED5A23095C830074F7C0 /* MKMemoview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMemoview.swift; sourceTree = "<group>"; };
+		7812E624231345C9006A4316 /* BinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinViewController.swift; sourceTree = "<group>"; };
+		7812E62723139561006A4316 /* BinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinViewModel.swift; sourceTree = "<group>"; };
 		782AFCBF230C241B00B392EC /* DrawingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoard.swift; sourceTree = "<group>"; };
 		782AFCC1230C2E0700B392EC /* PenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenView.swift; sourceTree = "<group>"; };
 		782AFCC3230C2E1100B392EC /* EraserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserView.swift; sourceTree = "<group>"; };
@@ -155,6 +161,7 @@
 		784507DB22A8E2FD009913D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
+		78485DDD231284A4003695DE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		784D630C22E4A10400D55C0E /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		784FBA6322A8B71500F1818C /* ListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableCell.swift; sourceTree = "<group>"; };
 		786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellTitleView.swift; sourceTree = "<group>"; };
@@ -199,6 +206,7 @@
 		78A980FF22A8050E000E0247 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		78A9810122A80515000E0247 /* VoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceViewController.swift; sourceTree = "<group>"; };
 		78ADC94322AEAF67004295F8 /* LoadMemoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMemoOperation.swift; sourceTree = "<group>"; };
+		78B5AE9E23117EC2007EF7FF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		78D540D02309602F0067D6D2 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		78D540D2230966400067D6D2 /* KeyboardAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryView.swift; sourceTree = "<group>"; };
@@ -240,6 +248,7 @@
 				7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */,
 				2F20B3A422A3947000054053 /* AppDelegate.swift */,
 				78A980F722A803FB000E0247 /* CoreData */,
+				7812E62123134485006A4316 /* Setting */,
 				780E5EFC22AA549D00B7AFF5 /* Home */,
 				780E5EFB22AA549200B7AFF5 /* AttachmentMemo */,
 				784FBA6522A8B71900F1818C /* ListMemo */,
@@ -298,6 +307,17 @@
 				7887163A22AE7FB6008BE38A /* PreviewModels */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		7812E62123134485006A4316 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				78B5AE9E23117EC2007EF7FF /* SettingViewController.swift */,
+				7812E624231345C9006A4316 /* BinViewController.swift */,
+				7812E62723139561006A4316 /* BinViewModel.swift */,
+				78485DDD231284A4003695DE /* AboutViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		783D6706230B849800536F04 /* KeyboardAccessoryView */ = {
@@ -542,12 +562,15 @@
 				78A980F322A803EF000E0247 /* ListIem+CoreDataProperties.swift in Sources */,
 				78A980F822A8044A000E0247 /* MemoIt.xcdatamodeld in Sources */,
 				786B401822C711F30020A5E3 /* TodoModel.swift in Sources */,
+				7812E625231345C9006A4316 /* BinViewController.swift in Sources */,
 				2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */,
 				78A980F622A803EF000E0247 /* Memo+CoreDataClass.swift in Sources */,
+				78B5AE9F23117EC2007EF7FF /* SettingViewController.swift in Sources */,
 				780E5EF722A9523300B7AFF5 /* PreviewImageController.swift in Sources */,
 				7811ED5B23095C830074F7C0 /* MKMemoview.swift in Sources */,
 				2F24A94F22CCDEF60002FACE /* ListViewModel.swift in Sources */,
 				786B400D22C711620020A5E3 /* HomeCell.swift in Sources */,
+				7812E62823139561006A4316 /* BinViewModel.swift in Sources */,
 				784507D822A8DF3F009913D1 /* Helper.swift in Sources */,
 				7887162D22AD443A008BE38A /* CalendarHelper.swift in Sources */,
 				78A980F022A803EF000E0247 /* MemoLabel+CoreDataClass.swift in Sources */,
@@ -555,6 +578,7 @@
 				786B401B22C711F30020A5E3 /* VoiceModel.swift in Sources */,
 				2F4DB730230AA75C003B7DCE /* AttachmentModel.swift in Sources */,
 				2F4DB732230AB1FA003B7DCE /* LoadAttachmentOperation.swift in Sources */,
+				78485DDE231284A4003695DE /* AboutViewController.swift in Sources */,
 				78A980EA22A803EF000E0247 /* ListMemo+CoreDataProperties.swift in Sources */,
 				78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */,
 				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,

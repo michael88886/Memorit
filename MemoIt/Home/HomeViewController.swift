@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
 	private let headerHmin: CGFloat = 90
 	// Header maximum stretch height
 	private let headerHmax: CGFloat = UIScreen.main.bounds.height
+	// About pop over size
+	private let aboutPopSize = CGSize(width: 320, height: 320)
 	
 	// - Variables
 	// Header view height constraint
@@ -106,8 +108,6 @@ extension HomeViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardAction(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 		// Hide keyboard
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardAction(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-				
-		
 		
 		// Fetch data
 		viewModel.fetchData()
@@ -333,7 +333,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITabl
 				self.viewModel.deleteMemo(indexPath)
 				success(true)
 			}
-			action.image = #imageLiteral(resourceName: "Bin32")
+			action.image = #imageLiteral(resourceName: "Bin44")
 			action.backgroundColor = .white
 			return UISwipeActionsConfiguration(actions: [action])
 		}
@@ -443,10 +443,26 @@ extension HomeViewController: UISearchBarDelegate {
 extension HomeViewController: FunctionViewDelegate {
 	func menuAction() {
 		print("Menu action")
+		
+		let navi = UINavigationController(rootViewController: SettingViewController())
+		present(navi, animated: true, completion: nil)
 	}
 	
 	func moreAction() {
 		print("More action")
+		
+		let aboutVC = AboutViewController()
+		aboutVC.modalPresentationStyle = .popover
+		
+		// Pop over
+		if let aboutPopOver = aboutVC.popoverPresentationController {
+			aboutPopOver.delegate = self
+			aboutPopOver.permittedArrowDirections = .init(rawValue: 0) // 0 = No arrow
+			aboutPopOver.sourceView = self.view
+			aboutPopOver.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+			aboutVC.preferredContentSize = aboutPopSize
+		}
+		present(aboutVC, animated: true, completion: nil)
 	}
 	
 	func showOption() {
@@ -503,6 +519,17 @@ extension HomeViewController: FunctionViewDelegate {
 		print("Add todo")
 		navigationController?.pushViewController(ListViewController(memo: nil), animated: true)
 		functionView.resetOption(animated: false)
+	}
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+extension HomeViewController: UIPopoverPresentationControllerDelegate {
+	func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+		return true
+	}
+	
+	func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+		return .none
 	}
 }
 

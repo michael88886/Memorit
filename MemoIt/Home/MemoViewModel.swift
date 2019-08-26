@@ -54,7 +54,7 @@ class MemoViewModel: NSObject {
 // MARK: - Public functions
 extension MemoViewModel {
 	// MARK: - Fetch functions
-	@objc func fetchData() {
+	func fetchData() {
         // Clear data
 		self.memoList.removeAll()
         
@@ -65,7 +65,7 @@ extension MemoViewModel {
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timeModified", ascending: false)]
 		fetchRequest.predicate = NSPredicate(format: "archived == %@", NSNumber(value: false))
 		
-		// Astnchronous fetch
+		// Asynchronous fetch
 		let asyncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { (asychronousFetchResult) in
 			guard let result = asychronousFetchResult.finalResult else { return }
 			// Call back main queue
@@ -79,7 +79,7 @@ extension MemoViewModel {
 			}
 		}
 		
-		// Execte feteching
+		// Execute feteching
 		do {
 			self.isFetching = true
 			self.fetchingData?(true)
@@ -330,14 +330,9 @@ extension MemoViewModel {
 			// Title not matched, search body
 			let type: MemoType = MemoType(rawValue: memo.type.rawValue)!
 			switch type {
-			case .attach:
-				searchAttahcmentMemo(pattern, memo)
-				
-			case .todo:
-				searchListMemo(pattern, memo)
-				
-			default:
-				()
+			case .attach: searchAttahcmentMemo(pattern, memo)
+			case .todo:   searchListMemo(pattern, memo)
+			default: ()
 			}
 		}
 	}

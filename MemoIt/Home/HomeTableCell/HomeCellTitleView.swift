@@ -52,7 +52,7 @@ class HomeCellTitleView: UIView {
 				iconView.tintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
 			case .voice:
 				iconView.image = #imageLiteral(resourceName: "SoundWave44").withRenderingMode(.alwaysTemplate)
-				iconView.tintColor = #colorLiteral(red: 1, green: 0.3176470588, blue: 0.2980392157, alpha: 1)
+				iconView.tintColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
 			}
 		}
 		
