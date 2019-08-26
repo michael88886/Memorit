@@ -10,38 +10,6 @@ import UIKit
 import AVFoundation
 import CoreData
 
-// Memo attachment type
-enum AttachmentType: String {
-	case image
-	case audio
-	
-	var id: String {
-		return self.rawValue
-	}
-}
-
-struct MemoAttachment {
-	var id: String
-	var url: URL
-	var type: AttachmentType
-}
-
-class AttachmentModel {
-	// Cover image
-	var image: UIImage
-	init(image: UIImage) {
-		self.image = image
-	}
-}
-
-class VoiceAttachmentModel: AttachmentModel {	
-	// Duration string
-	var duration: String
-	init(image: UIImage, duration: String) {
-		self.duration = duration
-		super.init(image: image)
-	}
-}
 
 private enum TableRow: Int {
 	case timeRow = 0
@@ -50,15 +18,21 @@ private enum TableRow: Int {
 }
 
 class MemoViewController: UIViewController {
-
 	// MARK: - Properties
 	// - Constants
+	// Preview cell ID
+	private let previewCellID: String = "PreviewCell"
 	// Default bar button color
 	private let btnTintColor: UIColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
 	// Date label font
 	private let dateFont: UIFont = UIFont.systemFont(ofSize:12, weight: .regular)
 	// Attachment collection width
 	private let acWidth: CGFloat = UIScreen.main.bounds.width * 0.4
+	
+	
+	// - Variables
+    // Attachment model
+	private var memoViewModel: AttachmentMemoViewModel
 	// Attachment collection bottom constraint (keyboard show / hide)
 	private var acBottomCst = NSLayoutConstraint()
 	// Attachment collection right constraint (attachment collection show / hide)
@@ -67,42 +41,12 @@ class MemoViewController: UIViewController {
 	private var acFuncH: CGFloat = 44
 	// Attachment function container top constraint
 	private var acTopCst = NSLayoutConstraint()
-
-	// - Attachment collection view
-	// Preview cell ID
-	private let previewCellID: String = "PreviewCell"
 	// Attach collection showing flag
 	private var isACShown: Bool = false
 	// Attach collection edit mode
 	private var isACEditing = false
 	
-	// - Data collcation
-	// Attachments
-	private var attachments: [MemoAttachment] = []
-	// Editing indexpath
-	private var editingIndexes: [IndexPath] = []
-	// Deleting attachments
-	private var deletingAttachments: [MemoAttachment] = []
-
-	// - Prefetch (attachment)
-	// Attachment loading operation queue
-	private let loadingQueue = OperationQueue()
-	// // Loading operations
-	private var loadingOperations: [IndexPath: LoadPreviewAttachmentOperation] = [:]
 	
-	// - Core data
-	// Memo ID
-	private var memoID: String = Helper.uniqueName()
-	// Memo directory
-	private var memoDir: URL = FileManager.default.temporaryDirectory
-	// Memo object
-	private var memoData: AttachmentMemo?
-	// Edit mode flag
-	private var isEditMode: Bool = false
-	// Save memo flag
-	private var shouldSave = false
-	
-	/*
 	// MARK: - Views
 	// Right button
 	private lazy var rightBadgeBtn: BadgeButton = {
@@ -132,11 +76,9 @@ class MemoViewController: UIViewController {
 		table.estimatedRowHeight = 44
 		table.rowHeight = UITableView.automaticDimension
 		table.separatorStyle = .none
-		table.dataSource = self
-		table.delegate = self
 		return table
 	}()
-
+	
 	// - Date label
 	private lazy var dateLabel: UILabel = {
 		let label = UIHelper.label(font: dateFont, textColor: #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1))
@@ -149,11 +91,11 @@ class MemoViewController: UIViewController {
 	private lazy var timeDateCell: UITableViewCell = {
 		let cell = UITableViewCell()
 		// Add date label to time cell
-		dateLabel.translatesAutoresizingMaskIntoConstraints = false
 		cell.contentView.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
 		dateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
-		dateLabel.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor).isActive = true
-		dateLabel.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor).isActive = true
+		dateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
+		dateLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
 		dateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
 		return cell
 	}()
@@ -175,9 +117,9 @@ class MemoViewController: UIViewController {
 		memoView.translatesAutoresizingMaskIntoConstraints = false
 		cell.contentView.addSubview(memoView)
 		memoView.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
-		memoView.leftAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.leftAnchor, constant: UIHelper.Padding.p20).isActive = true
-		memoView.rightAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.rightAnchor, constant: -UIHelper.Padding.p20).isActive = true
-		memoView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -UIHelper.Padding.p5).isActive = true
+		memoView.leadingAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.leadingAnchor, constant: Padding.p20).isActive = true
+		memoView.trailingAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.trailingAnchor, constant: -Padding.p20).isActive = true
+		memoView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -Padding.p5).isActive = true
 		return cell
 	}()
 	
@@ -188,18 +130,10 @@ class MemoViewController: UIViewController {
 	private lazy var acFunctionContainer = UIView()
 	
 	// - Delete attachment button
-	private lazy var delAttBtn: UIButton = {
-		let btn = UIHelper.button(icon: #imageLiteral(resourceName: "Bin"), tint: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1))
-		btn.addTarget(self, action: #selector(delAttAction), for: .touchUpInside)
-		return btn
-	}()
+	private lazy var delAttBtn = UIHelper.button(icon: #imageLiteral(resourceName: "Bin32"), tint: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1))
 	
 	// - Cancel edit button
-	private lazy var cancelEditBtn: UIButton = {
-		let btn = UIHelper.button(icon: #imageLiteral(resourceName: "Cross"), tint: #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1))
-		btn.addTarget(self, action: #selector(cancelEditAction), for: .touchUpInside)
-		return btn
-	}()
+	private lazy var cancelEditBtn = UIHelper.button(icon: #imageLiteral(resourceName: "Cross44"), tint: #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1))
 	
 	// - Attachment collection view
 	private lazy var attCollection:UICollectionView = {
@@ -218,36 +152,240 @@ class MemoViewController: UIViewController {
 		collection.layer.cornerRadius = 4.0
 		collection.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
 		
-		// Delegate, data source, register cell
-		collection.dataSource = self
-		collection.delegate = self
-		collection.prefetchDataSource = self
-		collection.register(AttachmentPreviewCell.self, forCellWithReuseIdentifier: previewCellID)
-		
 		let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnAttrCollection(gesture:)))
 		collection.addGestureRecognizer(longPress)
 		
 		return collection
 	}()
 	
-	// MARK: - Convenience init
-	convenience init(memo: AttachmentMemo?) {
-		self.init()
-		self.memoData = memo
+	
+	// MARK: - Custom init
+	init(memo: AttachmentMemo?) {
+		// Initialize view model
+		memoViewModel = AttachmentMemoViewModel(memo: memo)
+		super.init(nibName: nil, bundle: nil)
 	}
-
-  */
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError()
+	}
 }
 
-/*
+// MARK: - Override functions
+extension MemoViewController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		// - Add notification observer
+		// Show keyboard
+		NotificationCenter.default.addObserver(self,
+											   selector: #selector(keyboardAction(_:)),
+											   name: UIResponder.keyboardWillShowNotification, object: nil)
+		
+		// Hide keyboard
+		NotificationCenter.default.addObserver(self,
+											   selector: #selector(keyboardAction(_:)),
+											   name: UIResponder.keyboardWillHideNotification, object: nil)
+	
+		// - Add Gestures
+		// Tap gesture on memo table
+		let tap = UITapGestureRecognizer(target: self, action: #selector(tapOnTable(gesture:)))
+		tap.delegate = self
+		memoTable.addGestureRecognizer(tap)
+		
+		// Swipe right gesture
+		let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeRightHandler(gesture:)))
+		swipeRight.direction = .right
+		view.addGestureRecognizer(swipeRight)
+		
+		// Right edge swipe gesture
+		let rightEdgeSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(rightEdgeSwipeHandler(gesture:)))
+		rightEdgeSwipe.edges = .right
+		view.addGestureRecognizer(rightEdgeSwipe)
+		
+		// - Assign attachment view model closures
+		// Reolad collection view
+		memoViewModel.reloadCollection = reloadCollection
+		// Reload cell at indexpath
+		memoViewModel.reloadCellAtIndexpath = reloadAtIndexpath
+		// Update badge button
+		memoViewModel.updateBadgeCount = updateBadgeCount
+		// No more attachment, hide attachment collection view
+		memoViewModel.noMoreAttachment = noAttachment
+		
+		// - Assign title cell closure
+		titleCell.updateTitle = updateTitle
+		
+		// Load data
+		memoViewModel.loadMemo()
+		
+		// Set title
+		titleCell.setTitle(title: memoViewModel.memoTitle)
+		// Set text
+		memoView.attributedText = memoViewModel.attributString
+		
+		if memoView.text.isEmpty {
+			memoTable.backgroundView = emptyLabel
+		}
+	}
+}
+
 // MARK: - Private functions
-extension MemoViewController {} 
+extension MemoViewController {
+	// MARK: Closure functions
+	// Reload collectiom
+	private func reloadCollection() {
+		attCollection.reloadData()
+		
+		
+	}
+	
+	// Reload cell at indexpath
+	private func reloadAtIndexpath(indexpath: IndexPath) {
+		attCollection.reloadItems(at: [indexpath])
+	}
+	
+	// Update badge button count
+	private func updateBadgeCount(count: Int) {
+		rightBadgeBtn.updateCount(number: count)
+	}
+	
+	// No attachment
+	private func noAttachment() {
+		if isACShown {
+			hideAttachmentCollection()
+		}
+	}
+	
+	// Update title
+	private func updateTitle(title: String?) {
+		memoViewModel.updateMemoTitle(title: title)
+	}
+	
+	
+	// MARK: Save attachment functions
+	// Save audio attachment
+	private func saveAudioAttachment(url: URL) {
+		// Create new attachment
+		let newAttachment = AttachmentModel(fileName: url.lastPathComponent, directory: url, type: .audio)
+		memoViewModel.addAttachment(newAttachment)
+		if isACShown == false {
+			showAttachmentCollection()
+		}
+	}
+	
+	// Save image attachment
+	private func saveImageAttachment(image: UIImage) {
+		guard let imageData = image.pngData() else { return }
+		if let imageURL = Helper.cacheImageData(pngData: imageData) {
+			let filename = imageURL.lastPathComponent
+			let newAttachment = AttachmentModel(fileName: filename, directory: imageURL, type: .image)
+			memoViewModel.addAttachment(newAttachment)
+			if isACShown == false {
+				showAttachmentCollection()
+			}
+		}
+	}
+	
+	// MARK: Attachment collection functions
+	// Attachment collection view editing mode
+	private func editAttachment() {
+		isACEditing = true
+		// Show attachment editing container
+		acTopCst.constant = -acFuncH
+		UIView.animate(withDuration: 0.3) {
+			self.acContainer.layoutIfNeeded()
+		}
+	}
+	
+	// Show attachment collection
+	private func showAttachmentCollection() {
+		acRightCst.constant = 0
+		UIView.animate(withDuration: 0.2, animations: {
+			self.view.layoutIfNeeded()
+		}) { (finished) in
+			self.isACShown = true
+		}
+	}
+	
+	// Hide attachment collection
+	private func hideAttachmentCollection() {
+		acRightCst.constant = acWidth
+		UIView.animate(withDuration: 0.2, animations: {
+			self.view.layoutIfNeeded()
+		}) { (finished) in
+			self.isACShown = false
+		}
+	}
+	
+	// MARK: Misc functions
+	// Update date label
+	private func updateEditDate(date: Date) {
+		dateLabel.text = String(format: "Edited: %@", CalendarHelper.dateToString(date: date, format: .memoTime))
+	}
+	
+	// Update keyboard accessory view state
+	private func updateKeyboardAccessoryView(textView: UITextView) {
+		if let accView = textView.inputAccessoryView {
+			guard accView.isKind(of: KeyboardAccessoryView.self) else { return }
+			let kbView = accView as! KeyboardAccessoryView
+			kbView.updateState(attribute: textView.typingAttributes)
+		}
+	}
+	
+	// Image picker view controller
+	private func imagePicker(type: UIImagePickerController.SourceType) -> UIImagePickerController {
+		let picker = UIImagePickerController ()
+		picker.sourceType = type
+		picker.delegate = self
+		
+		switch picker.sourceType {
+		case .camera:
+			picker.cameraFlashMode = .auto
+			picker.cameraCaptureMode = .photo
+			picker.showsCameraControls = true
+			
+		case .photoLibrary:
+			picker.allowsEditing = true
+			
+		default:
+			()
+		}
+		
+		return picker
+	}
+		
+	// Calculate attachment cell size
+	private func calculateCellSize() -> CGSize {
+		// Flow layout
+		let layout = attCollection.collectionViewLayout as! UICollectionViewFlowLayout
+		// Left, right padding
+		let padding = layout.minimumLineSpacing * 2
+		// Cell size
+		var size = attCollection.frame.width - padding
+		// Minimum cell size is 0
+		if size < 0 { size = 0 }
+		return CGSize(width: size, height: size)
+	}
+	
+    // Go to Preview VC
+    private func previewAttachment(_ attachments: [AttachmentModel], atIndex: Int) {
+        let previewVC = PreviewPageViewController(attachments: attachments, selectedIndex: atIndex)
+        let navi = UINavigationController(rootViewController: previewVC)
+        present(navi, animated: true, completion: nil)
+    }
+}
 
 // MARK: - Actions
 extension MemoViewController {
 	// Left action (Save and exit)
-	@objc private func leftACtion() {
+	@objc private func leftAction() {
+		// Hide keyboard
+		self.view.endEditing(true)
+		// Save memo
+		memoViewModel.saveMemo()
 		
+		// Dismiss VC
+		navigationController?.popViewController(animated: true)
 	}
 	
 	// Right action (Show / hide attachments)
@@ -267,19 +405,107 @@ extension MemoViewController {
 			self.isACShown = !self.isACShown
 		}
 	}
-} 
-
-// MARK: - Override functions
-extension MemoViewController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	
+	// MARK: Keyboard actions
+	@objc private func keyboardAction(_ notification: Notification) {
+		guard let userInfo = notification.userInfo else { return }
 		
-		// Do any additional setup after loading the view.
+		// Get system keyboard showing duration
+		let duration: TimeInterval = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
+		
+		if notification.name == UIResponder.keyboardWillShowNotification {
+			// SHow keyboard
+			// Get keyboard height
+			let rectValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+			let keyboardHeight = rectValue.cgRectValue.size.height
+			
+			// Adjust memo table bottom constraint
+			acBottomCst.constant = -keyboardHeight + view.safeAreaInsets.bottom
+		}
+		else {
+			// hide keyboard
+			// Reset memo table bottom constraint
+			acBottomCst.constant = 0
+		}
+		
+		UIView.animate(withDuration: duration) {
+			self.view.layoutIfNeeded()
+		}
 	}
 	
-	override func loadView() {
-		super.loadView()
+	// MARK: Gesture handler functions
+	// Handle tap gesture on tableview (Focus on text view)
+	@objc private func tapOnTable(gesture: UITapGestureRecognizer) {
+		// Touch point in memo table view
+		let point = gesture.location(in: memoTable)
+		// Index path for tocuh point
+		let indexpath = memoTable.indexPathForRow(at: point)
+		// If touch point is not on a cell
+		if indexpath == nil && !memoView.isFirstResponder {
+			memoView.becomeFirstResponder()
+		}
+	}
+	
+	// Swipe right handler (Hide attachment collection view)
+	@objc private func swipeRightHandler(gesture: UISwipeGestureRecognizer) {
+		if gesture.direction == .right,
+			isACShown == true {
+			hideAttachmentCollection()
+		}
+	}
+	
+	// Right edge swipe handler (Show attachment collection view)
+	@objc private func rightEdgeSwipeHandler(gesture: UIScreenEdgePanGestureRecognizer) {
+		// Attachment must not empty
+		guard memoViewModel.isAttchmentEmpty() == false else { return }
 		
+		if gesture.edges == .right,
+			isACShown == false {
+			showAttachmentCollection()
+		}
+	}
+	
+	// Handle long press gesture on attachment collection (Edit in attachment collection view)
+	@objc private func longPressOnAttrCollection(gesture: UILongPressGestureRecognizer) {
+		let point = gesture.location(in: attCollection)
+		if let indexPath = attCollection.indexPathForItem(at: point) {
+			switch gesture.state {
+			case .began:
+				if !isACEditing {
+					// Show attachment editing container
+					editAttachment()
+					
+					// Add editing indexpath
+					memoViewModel.addEditingIndex(attCollection, indexPath)
+				}
+				gesture.state = .ended
+			default:
+				()
+			}
+		}
+	}
+	
+	// MARK: Attachment edit functions
+	// Cancel edit action
+	@objc private func cancelEditAction() {
+		// Hide attachment edit container
+		acTopCst.constant = 0
+		UIView.animate(withDuration: 0.2) {
+			self.acContainer.layoutIfNeeded()
+		}
+		isACEditing = false
+		
+        // Clear editing attachments
+		memoViewModel.clearEditingAttachment(attCollection)
+	}
+	
+	// Delete attachment action
+	@objc private func delAttAction() {
+        // Delete selected attachments
+        memoViewModel.deleteAttachments()
+        
+		self.cancelEditAction()
+		attCollection.reloadData()
 	}
 } 
 
@@ -305,10 +531,309 @@ extension MemoViewController: UITableViewDataSource, UITableViewDelegate {
 		}
 		return UITableViewCell()
 	}
-	
-	
-	
-	
 }
-*/
-// MARK: - 
+
+// MARK: - CollectionView data source / delegate
+extension MemoViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
+	// Number of cell
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return memoViewModel.numberOfItems()
+	}
+	
+	// Setup cell
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		return memoViewModel.updateCell(collectionView, indexPath)
+	}
+	
+	// Select cell
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isACEditing {
+            // Editing
+            memoViewModel.selectCell(collectionView, indexPath)
+        }
+        else {
+            // Normal
+            previewAttachment(memoViewModel.attachments(), atIndex: indexPath.row)
+        }
+	}
+	
+	// Cell size
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return calculateCellSize()
+	}
+	
+	// Prefetch data
+	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+		memoViewModel.prefetch(indexPaths)
+	}
+	
+    // Cancel prefetch
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        memoViewModel.cancelFetch(indexPaths)
+    }
+}
+
+// MARK: - UITextView delegate
+extension MemoViewController: UITextViewDelegate {
+	// Should begin edit
+	func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+		// Remove empty label for text editing
+		memoTable.backgroundView = nil
+		
+		// Input accessory view
+		let width = UIScreen.main.bounds.width
+		let height: CGFloat = 44.0
+		let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height))
+		let accBar = KeyboardAccessoryView(frame: frame)
+		accBar.delegate = self
+		textView.inputAccessoryView = accBar
+		return true
+	}
+	
+	// Begin edit
+	func textViewDidBeginEditing(_ textView: UITextView) {
+		updateKeyboardAccessoryView(textView: textView)
+	}
+	
+	// End edit
+	func textViewDidEndEditing(_ textView: UITextView) {
+		// Remove input view
+		textView.inputView = nil
+		
+		// Show empty label, if text is empty
+		if memoView.text.isEmpty {
+			memoTable.backgroundView = emptyLabel
+		}
+	}
+	
+	// Editing
+	func textViewDidChange(_ textView: UITextView) {
+		let size = textView.bounds.size
+		let newSize = textView.sizeThatFits(CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
+		// Resize the cell only when cell's size has changed
+		if size.height != newSize.height {
+			UIView.setAnimationsEnabled(false)
+			memoTable.beginUpdates()
+			memoTable.endUpdates()
+			UIView.setAnimationsEnabled(true)
+			
+			if let thisIndexPath = memoTable.indexPath(for: contentCell) {
+				memoTable.scrollToRow(at: thisIndexPath, at: .bottom, animated: true)
+			}
+		}
+		
+		memoViewModel.updateAttributeString(attrStr: textView.attributedText)
+		
+		if textView.text.isEmpty {
+			memoTable.backgroundView = emptyLabel
+		}
+		else {
+			memoTable.backgroundView = nil
+		}
+	}
+	
+	// Change selection
+	func textViewDidChangeSelection(_ textView: UITextView) {
+		updateKeyboardAccessoryView(textView: textView)
+	}
+}
+
+// MARK: - UIGestureRecognizer delegate
+extension MemoViewController: UIGestureRecognizerDelegate {
+	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+		return true
+	}
+}
+
+// MARK: - UIImagePickerViewController delegate
+extension MemoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+		let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+		if let image = pickedImage {
+			// Normailise image orientation
+			let finalImage = Helper.normailzeOrientation(image: image)
+			// Save image
+			saveImageAttachment(image: finalImage)
+			picker.dismiss(animated: true, completion: nil)
+		}
+	}
+}
+
+// MARK: - KeyboardAccessoryView delegate
+extension MemoViewController: KeyboardAccessoryViewDelegate {
+	func drawing() {
+		// Hide keyboard
+		view.endEditing(true)
+		// To drawing board
+		let drawingVC = DrawingViewController()
+		drawingVC.saveDrawing = saveImageAttachment
+		navigationController?.pushViewController(drawingVC, animated: true)
+	}
+	
+	func recorder() {
+		// Hide keyboard
+		view.endEditing(true)
+		// To voice recorder
+		let voiceVC = VoiceViewController(type: .attachment)
+		voiceVC.saveAudio = saveAudioAttachment
+		navigationController?.pushViewController(voiceVC, animated: true)
+	}
+	
+	func album() {
+		let picker = imagePicker(type: .photoLibrary)
+		present(picker, animated: true, completion: nil)
+	}
+	
+	func camera() {
+		let picker = imagePicker(type: .camera)
+		present(picker, animated: true, completion: nil)
+	}
+	
+	func boldText(activate: Bool) {
+		memoView.boldtext(isBold: activate)
+	}
+	
+	func italicText(activate: Bool) {
+		memoView.italicText(isItalic: activate)
+	}
+	
+	func underlineText(activate: Bool) {
+		memoView.underlineText(isUnderline: activate)
+	}
+	
+	func strikeThoughText(activate: Bool) {
+		memoView.strikeThroughText(isStrikeThrough: activate)
+	}
+}
+
+
+// MARK: - Setup UI
+extension MemoViewController {
+	override func loadView() {
+		super.loadView()
+		// Backgroud color
+		view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+		
+		// Navigation bar
+		navigationController?.setNavigationBarHidden(false, animated: false)
+		navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1),
+																   NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)]
+		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+		navigationController?.navigationBar.shadowImage = UIImage()
+		
+		// Navigation buttons
+		// - Left button
+		let leftBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack44"), style: .plain, target: self, action: #selector(leftAction))
+		leftBtn.tintColor = btnTintColor
+		navigationItem.leftBarButtonItem = leftBtn
+		
+		// - Right button
+		let rightBtn = UIBarButtonItem(customView: rightBadgeBtn)
+		navigationItem.rightBarButtonItem = rightBtn
+		
+		// Title
+		title = "Memo"
+		
+		// Hide tool bar
+		navigationController?.isToolbarHidden = true
+		
+		// Navigation separator
+		let naviSep = UIHelper.separator(withColor: #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
+		view.addSubview(naviSep)
+		naviSep.translatesAutoresizingMaskIntoConstraints = false
+		naviSep.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+		naviSep.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Padding.p20).isActive = true
+		naviSep.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Padding.p20).isActive = true
+		naviSep.heightAnchor.constraint(equalToConstant: 1).isActive = true
+		
+		// Attachment container
+		acContainer.clipsToBounds = true
+		view.addSubview(acContainer)
+		acContainer.translatesAutoresizingMaskIntoConstraints = false
+		acContainer.topAnchor.constraint(equalTo: naviSep.bottomAnchor, constant: Padding.p5).isActive = true
+		acContainer.widthAnchor.constraint(equalToConstant: acWidth).isActive = true
+		acRightCst = acContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: acWidth)
+		acRightCst.isActive = true
+		acBottomCst = acContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+		acBottomCst.isActive = true
+		
+		// Attachment title
+		let acTitle = UILabel()
+		acTitle.textColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
+		acTitle.textAlignment = .center
+		acTitle.font = UIFont.preferredFont(forTextStyle: .body)
+		acTitle.text = "Attachments"
+		acContainer.addSubview(acTitle)
+		acTitle.translatesAutoresizingMaskIntoConstraints = false
+		acTitle.topAnchor.constraint(equalTo: acContainer.topAnchor).isActive = true
+		acTitle.centerXAnchor.constraint(equalTo: acContainer.centerXAnchor).isActive = true
+		
+		// Attachment function container
+		//        acFunctionContainer.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+		acContainer.addSubview(acFunctionContainer)
+		acFunctionContainer.translatesAutoresizingMaskIntoConstraints = false
+		acFunctionContainer.leadingAnchor.constraint(equalTo: acContainer.leadingAnchor).isActive = true
+		acFunctionContainer.trailingAnchor.constraint(equalTo: acContainer.trailingAnchor).isActive = true
+		acFunctionContainer.heightAnchor.constraint(equalToConstant: acFuncH).isActive = true
+		acTopCst = acFunctionContainer.topAnchor.constraint(equalTo: acContainer.bottomAnchor)
+		acTopCst.isActive = true
+		
+		// Attachment function separator
+		let sepFunc = UIHelper.separator(withColor: #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1))
+		acFunctionContainer.addSubview(sepFunc)
+		sepFunc.translatesAutoresizingMaskIntoConstraints = false
+		sepFunc.widthAnchor.constraint(equalTo: acFunctionContainer.widthAnchor, multiplier: 0.9).isActive = true
+		sepFunc.heightAnchor.constraint(equalToConstant: 1).isActive = true
+		sepFunc.centerXAnchor.constraint(equalTo: acFunctionContainer.centerXAnchor).isActive = true
+		sepFunc.topAnchor.constraint(equalTo: acFunctionContainer.topAnchor).isActive = true
+		
+		// Attachment delete button
+		delAttBtn.addTarget(self, action: #selector(delAttAction), for: .touchUpInside)
+		acFunctionContainer.addSubview(delAttBtn)
+		delAttBtn.translatesAutoresizingMaskIntoConstraints = false
+		delAttBtn.topAnchor.constraint(equalTo: sepFunc.bottomAnchor).isActive = true
+		delAttBtn.leadingAnchor.constraint(equalTo: acFunctionContainer.leadingAnchor).isActive = true
+		delAttBtn.trailingAnchor.constraint(equalTo: acFunctionContainer.centerXAnchor).isActive = true
+		delAttBtn.bottomAnchor.constraint(equalTo: acFunctionContainer.bottomAnchor).isActive = true
+		
+		// Attachment edit button
+		cancelEditBtn.addTarget(self, action: #selector(cancelEditAction), for: .touchUpInside)
+		acFunctionContainer.addSubview(cancelEditBtn)
+		cancelEditBtn.translatesAutoresizingMaskIntoConstraints = false
+		cancelEditBtn.topAnchor.constraint(equalTo: sepFunc.bottomAnchor).isActive = true
+		cancelEditBtn.leadingAnchor.constraint(equalTo: acFunctionContainer.centerXAnchor).isActive = true
+		cancelEditBtn.trailingAnchor.constraint(equalTo: acFunctionContainer.trailingAnchor).isActive = true
+		cancelEditBtn.bottomAnchor.constraint(equalTo: acFunctionContainer.bottomAnchor).isActive = true
+		
+		// Attachment collection view
+		attCollection.dataSource = self
+		attCollection.delegate = self
+		attCollection.prefetchDataSource = self
+		attCollection.register(AttachmentPreviewCell.self, forCellWithReuseIdentifier: previewCellID)
+		acContainer.addSubview(attCollection)
+		attCollection.translatesAutoresizingMaskIntoConstraints = false
+		attCollection.topAnchor.constraint(equalTo: acTitle.bottomAnchor).isActive = true
+		attCollection.leadingAnchor.constraint(equalTo: acContainer.leadingAnchor).isActive = true
+		attCollection.trailingAnchor.constraint(equalTo: acContainer.trailingAnchor).isActive = true
+		attCollection.bottomAnchor.constraint(equalTo: acFunctionContainer.topAnchor).isActive = true
+		
+		// Separator
+		let sep = UIHelper.separator(withColor: #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1))
+		view.addSubview(sep)
+		sep.translatesAutoresizingMaskIntoConstraints = false
+		sep.widthAnchor.constraint(equalToConstant: 1).isActive = true
+		sep.heightAnchor.constraint(equalTo: attCollection.heightAnchor, multiplier: 0.9).isActive = true
+		sep.leadingAnchor.constraint(equalTo: attCollection.leadingAnchor).isActive = true
+		sep.centerYAnchor.constraint(equalTo: attCollection.centerYAnchor).isActive = true
+		
+		// Memo table view
+		memoTable.dataSource = self
+		memoTable.delegate = self
+		view.addSubview(memoTable)
+		memoTable.translatesAutoresizingMaskIntoConstraints = false
+		memoTable.topAnchor.constraint(equalTo: naviSep.bottomAnchor, constant: Padding.p5).isActive = true
+		memoTable.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+		memoTable.trailingAnchor.constraint(equalTo: attCollection.leadingAnchor).isActive = true
+		memoTable.bottomAnchor.constraint(equalTo: attCollection.bottomAnchor).isActive = true
+	}
+}

@@ -69,7 +69,7 @@ final class PreviewImageController: PreviewItemController {
         imageView.addGestureRecognizer(doubleTap)
         
         // - Load image
-        imageView.image = UIImage(contentsOfFile: attachment.url.path)
+        imageView.image = UIImage(contentsOfFile: attachment.directory.path)
     }
     
     // MARK: - Public functions

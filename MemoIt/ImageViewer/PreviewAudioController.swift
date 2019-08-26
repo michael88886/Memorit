@@ -23,7 +23,7 @@ final class PreviewAudioController: PreviewItemController {
     // - Control button
     private var controlBtn: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "Play64"), for: .normal)
         button.addTarget(self, action: #selector(playAction), for: .touchUpInside)
         return button
     }()
@@ -47,10 +47,11 @@ final class PreviewAudioController: PreviewItemController {
         return label
     }()
     
+	
     // MARK: - Override initializer
-    override init(attachment: MemoAttachment) {
+    override init(attachment: AttachmentModel) {
         super.init(attachment: attachment)
-        guard let player = MKAudioPlayer(url: attachment.url) else { fatalError() }
+        guard let player = MKAudioPlayer(url: attachment.directory) else { fatalError() }
         self.audioPlayer = player
         self.audioPlayer.delegate = self
     }
@@ -59,56 +60,17 @@ final class PreviewAudioController: PreviewItemController {
         super.init(coder: aDecoder)
         fatalError()
     }
-    
-    // MARK: - Override functions
-    override func loadView() {
-        super.loadView()
-        
-        let screenW = UIScreen.main.bounds.width
-        let screenH = UIScreen.main.bounds.height
-        let size: CGFloat = min(screenW, screenH)
-        
-        // Image view
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(imageView)
-        imageView.widthAnchor.constraint(equalToConstant: size).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: size).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        imageView.backgroundColor = .white
-        imageView.image = #imageLiteral(resourceName: "SoundWave").withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        
-        // Control button
-        controlBtn.layer.cornerRadius = btnSize / 2
-        controlBtn.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(controlBtn)
-        controlBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
-        controlBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
-        controlBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        controlBtn.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        // Time label
-        timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(timeLabel)
-        timeLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -Padding.p5).isActive = true
-        timeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -Padding.p5).isActive = true
-        
-        // Progress bar
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(progressBar)
-        progressBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Padding.p10).isActive = true
-        progressBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Padding.p10).isActive = true
-        progressBar.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: -Padding.p5).isActive = true
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Setup duration label
-        let durationStr: String = Helper.convertTimeToString(time: audioPlayer.duration)
-        timeLabel.text = String(format: "00:00:00 / %@", durationStr)
-    }
+}
+
+// MARK: - Override functions
+extension PreviewAudioController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		// Setup duration label
+		let durationStr: String = Helper.convertTimeToString(time: audioPlayer.duration)
+		timeLabel.text = String(format: "00:00:00 / %@", durationStr)
+	}
 }
 
 // MARK: - Private functions
@@ -135,15 +97,15 @@ extension PreviewAudioController {
 // MARK: - MKAudioPlayerDelegate
 extension PreviewAudioController: MKAudioPlayerDelegate {
     func play() {
-        controlBtn.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
+        controlBtn.setImage(#imageLiteral(resourceName: "Pause64"), for: .normal)
     }
     
     func pause() {
-        controlBtn.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
+        controlBtn.setImage(#imageLiteral(resourceName: "Play64"), for: .normal)
     }
     
     func stop(player: AVAudioPlayer) {
-        controlBtn.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
+        controlBtn.setImage(#imageLiteral(resourceName: "Play64"), for: .normal)
         // Last update UI
         let duraStr = Helper.convertTimeToString(time: player.duration)
         timeLabel.text = String(format: "%@ / %@", duraStr, duraStr)
@@ -153,4 +115,48 @@ extension PreviewAudioController: MKAudioPlayerDelegate {
     func update(player: AVAudioPlayer) {
         progress(player: player)
     }
+}
+
+// MARK: - Setup UI
+extension PreviewAudioController {
+	override func loadView() {
+		super.loadView()
+		
+		let screenW = UIScreen.main.bounds.width
+		let screenH = UIScreen.main.bounds.height
+		let size: CGFloat = min(screenW, screenH)
+		
+		// Image view
+		view.addSubview(imageView)
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.widthAnchor.constraint(equalToConstant: size).isActive = true
+		imageView.heightAnchor.constraint(equalToConstant: size).isActive = true
+		imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+		imageView.backgroundColor = .white
+		imageView.image = #imageLiteral(resourceName: "SoundWave44").withRenderingMode(.alwaysTemplate)
+		imageView.tintColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+		
+		// Control button
+		controlBtn.layer.cornerRadius = btnSize / 2
+		view.addSubview(controlBtn)
+		controlBtn.translatesAutoresizingMaskIntoConstraints = false
+		controlBtn.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
+		controlBtn.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
+		controlBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		controlBtn.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+		
+		// Time label
+		view.addSubview(timeLabel)
+		timeLabel.translatesAutoresizingMaskIntoConstraints = false
+		timeLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -Padding.p5).isActive = true
+		timeLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -Padding.p5).isActive = true
+		
+		// Progress bar
+		view.addSubview(progressBar)
+		progressBar.translatesAutoresizingMaskIntoConstraints = false
+		progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Padding.p10).isActive = true
+		progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Padding.p10).isActive = true
+		progressBar.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: -Padding.p5).isActive = true
+	}
 }

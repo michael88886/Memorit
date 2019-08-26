@@ -46,10 +46,13 @@ class HomeCellTitleView: UIView {
 			switch type {
 			case .attach:
 				iconView.image = #imageLiteral(resourceName: "Attach44").withRenderingMode(.alwaysTemplate)
+				iconView.tintColor = #colorLiteral(red: 1, green: 0.8039215686, blue: 0, alpha: 1)
 			case .todo:
 				iconView.image = #imageLiteral(resourceName: "CheckBox44").withRenderingMode(.alwaysTemplate)
+				iconView.tintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
 			case .voice:
 				iconView.image = #imageLiteral(resourceName: "SoundWave44").withRenderingMode(.alwaysTemplate)
+				iconView.tintColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
 			}
 		}
 		
@@ -61,6 +64,8 @@ class HomeCellTitleView: UIView {
 		titleLabel.text = ""
 		dateLabel.text = ""
 		timeLabel.text = ""
+		iconView.image = nil
+		iconView.tintColor = UIHelper.defaultTint
 	}
 }
 
@@ -82,6 +87,8 @@ extension HomeCellTitleView {
 		
 		// Icon
 		iconView.tintColor = UIHelper.defaultTint
+		iconView.backgroundColor = .white
+		iconView.layer.cornerRadius = 4.0
 		iconView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(iconView)
 		iconView.widthAnchor.constraint(equalToConstant: iconSize).isActive = true

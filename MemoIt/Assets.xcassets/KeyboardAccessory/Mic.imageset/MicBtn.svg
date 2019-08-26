@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Mic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 44 44" style="enable-background:new 0 0 44 44;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#4D4D4D;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#4D4D4D;stroke-width:2;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#4D4D4D;stroke-width:1.4;stroke-linecap:round;stroke-miterlimit:10;}
+</style>
+<title>MicBtn</title>
+<path class="st0" d="M32.8,21.8c0,6-4.8,10.8-10.8,10.8s-10.8-4.8-10.8-10.8"/>
+<line class="st0" x1="22" y1="32.8" x2="22" y2="36.2"/>
+<line class="st0" x1="18.5" y1="37" x2="25.5" y2="37"/>
+<path class="st1" d="M22,7L22,7c3.7,0,6.7,3,6.7,6.7l0,0V22c0,3.7-3,6.7-6.7,6.7l0,0l0,0c-3.7,0-6.7-3-6.7-6.7l0,0v-8.3
+	C15.3,10,18.3,7,22,7L22,7z"/>
+<line class="st2" x1="20.5" y1="12.7" x2="25.5" y2="12.7"/>
+<line class="st2" x1="20.5" y1="16.2" x2="25.5" y2="16.2"/>
+<line class="st2" x1="20.5" y1="19.7" x2="25.5" y2="19.7"/>
+</svg>

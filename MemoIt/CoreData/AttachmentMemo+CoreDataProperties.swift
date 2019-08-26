@@ -17,7 +17,7 @@ extension AttachmentMemo {
         return NSFetchRequest<AttachmentMemo>(entityName: "AttachmentMemo")
     }
 
-    @NSManaged public var attributedString: NSAttributedString!
+    @NSManaged public var attributedString: NSAttributedString?
     @NSManaged public var memoID: String!
     @NSManaged public var attachments: NSOrderedSet?
 

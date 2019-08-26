@@ -59,7 +59,6 @@ final class VoiceViewController: UIViewController {
 	
 
 	// MARK: - Views
-	
 	// Save button
 	private lazy var saveBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "Save44"), style: .plain, target: self, action: #selector(saveAction))
 	
@@ -75,7 +74,7 @@ final class VoiceViewController: UIViewController {
 		title.delegate = self
 		
 		// Under line
-		let line = UIHelper.separator(withColor: #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1))
+		let line = UIHelper.separator(withColor: #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1))
 		line.translatesAutoresizingMaskIntoConstraints = false
 		title.addSubview(line)
 		line.heightAnchor.constraint(equalToConstant: 1).isActive = true
@@ -141,6 +140,47 @@ final class VoiceViewController: UIViewController {
 	}
 	
 }
+
+// MARK: - Override functions
+extension VoiceViewController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		// Prepare control buttons
+		saveBtn.isEnabled = false
+		recordBtn.isEnabled = false
+		playBtn.isEnabled = false
+		
+		switch self.recorderType {
+		case .attachment:
+			titleField.isHidden = true
+		case .voiceMemo:
+			titleField.isHidden = false
+		}
+		
+		// Get microphone permission
+		switch session.recordPermission {
+		case .granted:
+			setupSession()
+			
+		case .denied:
+			noPermission()
+			
+		case .undetermined:
+			session.requestRecordPermission { (granted) in
+				if granted {
+					self.setupSession()
+				}
+				else {
+					self.noPermission()
+				}
+			}
+			
+		default:
+			noPermission()
+		}
+	}
+}
+
 
 // MARK: - Private funcitons
 extension VoiceViewController {
@@ -273,6 +313,9 @@ extension VoiceViewController {
 		// Memo object
 		let memoObject = NSManagedObject(entity: entity!, insertInto: context) as? VoiceMemo
 		
+		// Save to memo list
+		Helper.addNewMemoToList(memo: memoObject!)
+		
 		// Set title
 		memoObject?.setValue(title, forKey: "title")
 		// Set modified time
@@ -297,7 +340,7 @@ extension VoiceViewController {
 		context.refreshAllObjects()
 		
 		// Post notification
-		NotificationCenter.default.post(name: .newItemHomeTable, object: nil)
+		NotificationCenter.default.post(name: .reloadHomeList, object: nil)
 	}
 	
 	// MARK: - Misc functions
@@ -420,40 +463,58 @@ extension VoiceViewController {
 	}
 }
 
-// MARK: - Override functions
-extension VoiceViewController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
+// MARK: - Delegates
+// MARK: - UITextField delegate
+extension VoiceViewController: UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		return true
+	}
+}
+
+// MARK: - AVAudioPlayer delegate
+extension VoiceViewController: MKAudioPlayerDelegate {
+	func play() {
+		titleField.resignFirstResponder()
 		
-		// Prepare control buttons
-		saveBtn.isEnabled = false
+		playBtn.setImage(#imageLiteral(resourceName: "Pause64"), for: .normal)
 		recordBtn.isEnabled = false
-		playBtn.isEnabled = false
-		titleField.isHidden = true
-		
-		// Get microphone permission
-		switch session.recordPermission {
-		case .granted:
-			setupSession()
-			
-		case .denied:
-			noPermission()
-			
-		case .undetermined:
-			session.requestRecordPermission { (granted) in
-				if granted {
-					self.setupSession()
-				}
-				else {
-					self.noPermission()
-				}
-			}
-			
-		default:
-			noPermission()
-		}
+		saveBtn.isEnabled = false
+		titleField.isEnabled = false
+		// Update label
+		stateLabel.text = "Playing..."
 	}
 	
+	func pause() {
+		playBtn.setImage(#imageLiteral(resourceName: "Play64"), for: .normal)
+		recordBtn.isEnabled = true
+		saveBtn.isEnabled = true
+		titleField.isEnabled = true
+	}
+	
+	func stop(player: AVAudioPlayer) {
+		playBtn.setImage(#imageLiteral(resourceName: "Play64"), for: .normal)
+		recordBtn.isEnabled = true
+		saveBtn.isEnabled = true
+		titleField.isEnabled = true
+		waveView.update(withLevel: 0)
+	}
+	
+	func update(player: AVAudioPlayer) {
+		let normalizedValue = pow(10, CGFloat(player.averagePower(forChannel: 0))/60)
+		let currTime = player.currentTime
+		
+		player.updateMeters()
+		// Update wave view
+		waveView.update(withLevel: normalizedValue)
+		
+		// Update time label
+		updateTimeLabel(time: currTime)
+	}
+}
+
+// MARK: - Setup UI
+extension VoiceViewController {
 	override func loadView() {
 		super.loadView()
 		// Navigation bar
@@ -536,55 +597,5 @@ extension VoiceViewController {
 		view.addSubview(hint)
 		hint.bottomAnchor.constraint(equalTo: recordBtn.topAnchor, constant: -Padding.p20).isActive = true
 		hint.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-	}
-}
-
-// MARK: - Delegates
-// MARK: - UITextField delegate
-extension VoiceViewController: UITextFieldDelegate {
-	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		textField.resignFirstResponder()
-		return true
-	}
-}
-
-// MARK: - AVAudioPlayer delegate
-extension VoiceViewController: MKAudioPlayerDelegate {
-	func play() {
-		titleField.resignFirstResponder()
-		
-		playBtn.setImage(#imageLiteral(resourceName: "Pause64"), for: .normal)
-		recordBtn.isEnabled = false
-		saveBtn.isEnabled = false
-		titleField.isEnabled = false
-		// Update label
-		stateLabel.text = "Playing..."
-	}
-	
-	func pause() {
-		playBtn.setImage(#imageLiteral(resourceName: "Play64"), for: .normal)
-		recordBtn.isEnabled = true
-		saveBtn.isEnabled = true
-		titleField.isEnabled = true
-	}
-	
-	func stop(player: AVAudioPlayer) {
-		playBtn.setImage(#imageLiteral(resourceName: "Play64"), for: .normal)
-		recordBtn.isEnabled = true
-		saveBtn.isEnabled = true
-		titleField.isEnabled = true
-		waveView.update(withLevel: 0)
-	}
-	
-	func update(player: AVAudioPlayer) {
-		let normalizedValue = pow(10, CGFloat(player.averagePower(forChannel: 0))/60)
-		let currTime = player.currentTime
-		
-		player.updateMeters()
-		// Update wave view
-		waveView.update(withLevel: normalizedValue)
-		
-		// Update time label
-		updateTimeLabel(time: currTime)
 	}
 }

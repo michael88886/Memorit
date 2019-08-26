@@ -12,11 +12,11 @@ class AttachModel: MemoModel {
 	//MARK: - Properties
 	// - Constants
 	// Preview image size
-	let prevImageSize = CGSize(width: 80, height: 80)
+//	let prevImageSize = CGSize(width: 80, height: 80)
 	
 	// - Variables
 	// Preview text
-	var prevText: NSAttributedString
+	var prevText: NSAttributedString?
 	// Preview image
 	var prevImage: UIImage?
 	// Have attachment flag

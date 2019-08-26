@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18G87" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
     <entity name="Attachment" representedClassName="Attachment" syncable="YES">
         <attribute name="attachID" attributeType="String" syncable="YES"/>
         <attribute name="attachType" attributeType="String" syncable="YES"/>
-        <relationship name="attachmentMemo" maxCount="1" deletionRule="Nullify" destinationEntity="AttachmentMemo" inverseName="attachments" inverseEntity="AttachmentMemo" syncable="YES"/>
+        <relationship name="attachmentMemo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AttachmentMemo" inverseName="attachments" inverseEntity="AttachmentMemo" syncable="YES"/>
     </entity>
     <entity name="AttachmentMemo" representedClassName="AttachmentMemo" parentEntity="Memo" syncable="YES">
-        <attribute name="attributedString" attributeType="Transformable" customClassName="NSAttributedString" syncable="YES"/>
+        <attribute name="attributedString" optional="YES" attributeType="Transformable" customClassName="NSAttributedString" syncable="YES"/>
         <attribute name="memoID" attributeType="String" syncable="YES"/>
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Attachment" inverseName="attachmentMemo" inverseEntity="Attachment" syncable="YES"/>
     </entity>
@@ -20,7 +20,7 @@
         <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="reminder" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
-        <relationship name="listMemo" maxCount="1" deletionRule="Nullify" destinationEntity="ListMemo" inverseName="listItem" inverseEntity="ListMemo" syncable="YES"/>
+        <relationship name="listMemo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListMemo" inverseName="listItem" inverseEntity="ListMemo" syncable="YES"/>
     </entity>
     <entity name="ListMemo" representedClassName="ListMemo" parentEntity="Memo" syncable="YES">
         <relationship name="listItem" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ListItem" inverseName="listMemo" inverseEntity="ListItem" syncable="YES"/>
@@ -42,13 +42,13 @@
         <attribute name="memoID" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Attachment" positionX="368.8984375" positionY="-107.58203125" width="128" height="90"/>
-        <element name="AttachmentMemo" positionX="166.52734375" positionY="-80.640625" width="128" height="90"/>
-        <element name="Category" positionX="-279.796875" positionY="92.828125" width="128" height="90"/>
-        <element name="ListItem" positionX="405.0546875" positionY="98.296875" width="128" height="120"/>
-        <element name="ListMemo" positionX="170.05859375" positionY="99.33984375" width="128" height="58"/>
-        <element name="Memo" positionX="-52.50390625" positionY="80.55078125" width="128" height="150"/>
-        <element name="MemoLabel" positionX="-69.92578125" positionY="266.5" width="128" height="75"/>
-        <element name="VoiceMemo" positionX="167.79296875" positionY="248.484375" width="128" height="60"/>
+        <element name="Attachment" positionX="25.69921875" positionY="98.97265625" width="128" height="88"/>
+        <element name="AttachmentMemo" positionX="31.67578125" positionY="-48.66796875" width="128" height="90"/>
+        <element name="Category" positionX="-5.33203125" positionY="-307.6171875" width="128" height="90"/>
+        <element name="ListItem" positionX="388.57421875" positionY="-5.59375" width="128" height="120"/>
+        <element name="ListMemo" positionX="352.09375" positionY="-124.765625" width="128" height="58"/>
+        <element name="Memo" positionX="180.7734375" positionY="-304.515625" width="128" height="150"/>
+        <element name="MemoLabel" positionX="-23.71484375" positionY="-184.9296875" width="128" height="75"/>
+        <element name="VoiceMemo" positionX="201.5078125" positionY="17.8203125" width="128" height="60"/>
     </elements>
 </model>

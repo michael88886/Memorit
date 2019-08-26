@@ -11,6 +11,15 @@
 		2F20B3AF22A3947300054053 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3AE22A3947300054053 /* Assets.xcassets */; };
 		2F20B3B222A3947300054053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F20B3B022A3947300054053 /* LaunchScreen.storyboard */; };
 		2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F20B3B922A39F5000054053 /* HomeViewController.swift */; };
+		2F24A94F22CCDEF60002FACE /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A94E22CCDEF60002FACE /* ListViewModel.swift */; };
+		2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */; };
+		2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F24A95322CE2D850002FACE /* MKPresentationController.swift */; };
+		2F4DB72C230A847F003B7DCE /* AttachmentMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DB72B230A847F003B7DCE /* AttachmentMemoViewModel.swift */; };
+		2F4DB730230AA75C003B7DCE /* AttachmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DB72F230AA75C003B7DCE /* AttachmentModel.swift */; };
+		2F4DB732230AB1FA003B7DCE /* LoadAttachmentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DB731230AB1FA003B7DCE /* LoadAttachmentOperation.swift */; };
+		2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */; };
+		7807C7D222F8362100387353 /* MKCalendarView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7807C7D122F8361700387353 /* MKCalendarView.framework */; };
+		7807C7D322F8362100387353 /* MKCalendarView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7807C7D122F8361700387353 /* MKCalendarView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		780983ED22BA88EA00A8E851 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EB22BA88EA00A8E851 /* BadgeButton.swift */; };
 		780983EE22BA88EA00A8E851 /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EC22BA88EA00A8E851 /* MKButton.swift */; };
 		780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780983EF22BA891500A8E851 /* PaddingLabel.swift */; };
@@ -19,12 +28,21 @@
 		780E5EF822A9523300B7AFF5 /* PreviewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EF422A9523300B7AFF5 /* PreviewItemController.swift */; };
 		780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EF522A9523300B7AFF5 /* PreviewAudioController.swift */; };
 		780E5F0022AA588F00B7AFF5 /* FunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */; };
+		7811ED5923095C460074F7C0 /* MemoTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811ED5823095C460074F7C0 /* MemoTitleCell.swift */; };
+		7811ED5B23095C830074F7C0 /* MKMemoview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811ED5A23095C830074F7C0 /* MKMemoview.swift */; };
+		7812E625231345C9006A4316 /* BinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812E624231345C9006A4316 /* BinViewController.swift */; };
+		7812E62823139561006A4316 /* BinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812E62723139561006A4316 /* BinViewModel.swift */; };
+		782AFCC0230C241B00B392EC /* DrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCBF230C241B00B392EC /* DrawingBoard.swift */; };
+		782AFCC2230C2E0700B392EC /* PenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC1230C2E0700B392EC /* PenView.swift */; };
+		782AFCC4230C2E1100B392EC /* EraserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC3230C2E1100B392EC /* EraserView.swift */; };
+		782AFCC8230CC90E00B392EC /* BrushSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC7230CC90E00B392EC /* BrushSizeButton.swift */; };
+		783D6709230B855600536F04 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783D6708230B855600536F04 /* DrawingViewController.swift */; };
 		784507D822A8DF3F009913D1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D722A8DF3F009913D1 /* Helper.swift */; };
 		784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D922A8E288009913D1 /* ListDetailViewController.swift */; };
 		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
-		784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */; };
 		784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */; };
-		7849C54622B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7849C54522B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift */; };
+		78485DDE231284A4003695DE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78485DDD231284A4003695DE /* AboutViewController.swift */; };
+		784D630D22E4A10400D55C0E /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784D630C22E4A10400D55C0E /* AddTaskView.swift */; };
 		784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784FBA6322A8B71500F1818C /* ListTableCell.swift */; };
 		786B3FFF22C4EFFE0020A5E3 /* HomeCellTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */; };
 		786B400D22C711620020A5E3 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B400C22C711620020A5E3 /* HomeCell.swift */; };
@@ -37,10 +55,14 @@
 		786B401B22C711F30020A5E3 /* VoiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401722C711F30020A5E3 /* VoiceModel.swift */; };
 		786B401D22C7AA0A0020A5E3 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401C22C7AA0A0020A5E3 /* StatusView.swift */; };
 		786B401F22C8D31C0020A5E3 /* MKCircleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */; };
+		78834DCC23099711005DE19F /* AttachmentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78834DCB23099711005DE19F /* AttachmentPreviewCell.swift */; };
 		7887162D22AD443A008BE38A /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162C22AD443A008BE38A /* CalendarHelper.swift */; };
 		7887163022AD445B008BE38A /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162E22AD445A008BE38A /* UIHelper.swift */; };
 		7887163122AD445B008BE38A /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162F22AD445B008BE38A /* Padding.swift */; };
 		7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887163222AE5BEC008BE38A /* MemoViewModel.swift */; };
+		789F8EA522D317D80067200A /* ColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F8EA422D317D80067200A /* ColorPickerCell.swift */; };
+		789F8EC722D56E5E0067200A /* UnfocusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */; };
+		78A4D04E230EDD0800F3C6B2 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A4D04D230EDD0800F3C6B2 /* SearchViewCell.swift */; };
 		78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */; };
 		78A980E822A803EF000E0247 /* AttachmentMemo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980DB22A803EE000E0247 /* AttachmentMemo+CoreDataProperties.swift */; };
 		78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980E622A803EE000E0247 /* AttachmentMemo+CoreDataClass.swift */; };
@@ -63,7 +85,44 @@
 		78A9810022A8050E000E0247 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A980FF22A8050E000E0247 /* ListViewController.swift */; };
 		78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9810122A80515000E0247 /* VoiceViewController.swift */; };
 		78ADC94422AEAF67004295F8 /* LoadMemoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADC94322AEAF67004295F8 /* LoadMemoOperation.swift */; };
+		78B5AE9F23117EC2007EF7FF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B5AE9E23117EC2007EF7FF /* SettingViewController.swift */; };
+		78C7B04F22F72D0B0016BFBA /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */; };
+		78D540D12309602F0067D6D2 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D540D02309602F0067D6D2 /* ImageCell.swift */; };
+		78D540D3230966400067D6D2 /* KeyboardAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D540D2230966400067D6D2 /* KeyboardAccessoryView.swift */; };
+		78D540D5230966680067D6D2 /* KeyboardAccessoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D540D4230966680067D6D2 /* KeyboardAccessoryCell.swift */; };
+		78E2889B22F4673600634EEF /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E2889A22F4673600634EEF /* ColorPickerView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7807C7D022F8361700387353 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 78C7B05F22F7A8F80016BFBA;
+			remoteInfo = MKCalendarView;
+		};
+		7807C7D422F8362100387353 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 78C7B05E22F7A8F80016BFBA;
+			remoteInfo = MKCalendarView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7811EA5022F7C42700966957 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7807C7D322F8362100387353 /* MKCalendarView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2F20B3A122A3947000054053 /* MemoIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +131,14 @@
 		2F20B3B122A3947300054053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F20B3B322A3947300054053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F20B3B922A39F5000054053 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		2F24A94E22CCDEF60002FACE /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentBottomController.swift; sourceTree = "<group>"; };
+		2F24A95322CE2D850002FACE /* MKPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPresentationController.swift; sourceTree = "<group>"; };
+		2F4DB72B230A847F003B7DCE /* AttachmentMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentMemoViewModel.swift; sourceTree = "<group>"; };
+		2F4DB72F230AA75C003B7DCE /* AttachmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentModel.swift; sourceTree = "<group>"; };
+		2F4DB731230AB1FA003B7DCE /* LoadAttachmentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAttachmentOperation.swift; sourceTree = "<group>"; };
+		2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAudioPlayer.swift; sourceTree = "<group>"; };
+		7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MKCalendarView.xcodeproj; path = MKCalendarView/MKCalendarView.xcodeproj; sourceTree = "<group>"; };
 		780983EB22BA88EA00A8E851 /* BadgeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		780983EC22BA88EA00A8E851 /* MKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKButton.swift; sourceTree = "<group>"; };
 		780983EF22BA891500A8E851 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -80,13 +147,22 @@
 		780E5EF422A9523300B7AFF5 /* PreviewItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewItemController.swift; sourceTree = "<group>"; };
 		780E5EF522A9523300B7AFF5 /* PreviewAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewAudioController.swift; sourceTree = "<group>"; };
 		780E5EFF22AA588F00B7AFF5 /* FunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionView.swift; sourceTree = "<group>"; };
+		7811ED5823095C460074F7C0 /* MemoTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTitleCell.swift; sourceTree = "<group>"; };
+		7811ED5A23095C830074F7C0 /* MKMemoview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMemoview.swift; sourceTree = "<group>"; };
+		7812E624231345C9006A4316 /* BinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinViewController.swift; sourceTree = "<group>"; };
+		7812E62723139561006A4316 /* BinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinViewModel.swift; sourceTree = "<group>"; };
+		782AFCBF230C241B00B392EC /* DrawingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoard.swift; sourceTree = "<group>"; };
+		782AFCC1230C2E0700B392EC /* PenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenView.swift; sourceTree = "<group>"; };
+		782AFCC3230C2E1100B392EC /* EraserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserView.swift; sourceTree = "<group>"; };
+		782AFCC7230CC90E00B392EC /* BrushSizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushSizeButton.swift; sourceTree = "<group>"; };
+		783D6708230B855600536F04 /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		784507D722A8DF3F009913D1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		784507D922A8E288009913D1 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		784507DB22A8E2FD009913D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MKAudioPlayer.swift; path = "/Users/mkmk/Desktop/Projects/MemoIt/MemoIt/Supporting Files/MKAudioPlayer.swift"; sourceTree = "<absolute>"; };
 		784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
-		7849C54522B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPreviewAttachmentOpeartion.swift; sourceTree = "<group>"; };
+		78485DDD231284A4003695DE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		784D630C22E4A10400D55C0E /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		784FBA6322A8B71500F1818C /* ListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableCell.swift; sourceTree = "<group>"; };
 		786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellTitleView.swift; sourceTree = "<group>"; };
 		786B400C22C711620020A5E3 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
@@ -99,11 +175,15 @@
 		786B401722C711F30020A5E3 /* VoiceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceModel.swift; sourceTree = "<group>"; };
 		786B401C22C7AA0A0020A5E3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCircleProgress.swift; sourceTree = "<group>"; };
+		78834DCB23099711005DE19F /* AttachmentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentPreviewCell.swift; sourceTree = "<group>"; };
 		7887162922AA9843008BE38A /* MemoIt-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MemoIt-Bridging-Header.h"; sourceTree = "<group>"; };
 		7887162C22AD443A008BE38A /* CalendarHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		7887162E22AD445A008BE38A /* UIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		7887162F22AD445B008BE38A /* Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
 		7887163222AE5BEC008BE38A /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
+		789F8EA422D317D80067200A /* ColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerCell.swift; sourceTree = "<group>"; };
+		789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnfocusableTextField.swift; sourceTree = "<group>"; };
+		78A4D04D230EDD0800F3C6B2 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		78A7C1EA22A3AA6100ADBFBA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		78A980D822A803ED000E0247 /* ListMemo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListMemo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78A980D922A803ED000E0247 /* ListIem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListIem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -126,6 +206,12 @@
 		78A980FF22A8050E000E0247 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		78A9810122A80515000E0247 /* VoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceViewController.swift; sourceTree = "<group>"; };
 		78ADC94322AEAF67004295F8 /* LoadMemoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMemoOperation.swift; sourceTree = "<group>"; };
+		78B5AE9E23117EC2007EF7FF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		78D540D02309602F0067D6D2 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		78D540D2230966400067D6D2 /* KeyboardAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryView.swift; sourceTree = "<group>"; };
+		78D540D4230966680067D6D2 /* KeyboardAccessoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryCell.swift; sourceTree = "<group>"; };
+		78E2889A22F4673600634EEF /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7807C7D222F8362100387353 /* MKCalendarView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,8 +245,10 @@
 		2F20B3A322A3947000054053 /* MemoIt */ = {
 			isa = PBXGroup;
 			children = (
+				7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */,
 				2F20B3A422A3947000054053 /* AppDelegate.swift */,
 				78A980F722A803FB000E0247 /* CoreData */,
+				7812E62123134485006A4316 /* Setting */,
 				780E5EFC22AA549D00B7AFF5 /* Home */,
 				780E5EFB22AA549200B7AFF5 /* AttachmentMemo */,
 				784FBA6522A8B71900F1818C /* ListMemo */,
@@ -171,6 +260,14 @@
 				7887162922AA9843008BE38A /* MemoIt-Bridging-Header.h */,
 			);
 			path = MemoIt;
+			sourceTree = "<group>";
+		};
+		7807C7CD22F8361600387353 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7807C7D122F8361700387353 /* MKCalendarView.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		780E5EFA22A9523900B7AFF5 /* ImageViewer */ = {
@@ -188,7 +285,12 @@
 			isa = PBXGroup;
 			children = (
 				78A980FD22A80507000E0247 /* MemoViewController.swift */,
-				7849C54522B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift */,
+				7811ED5823095C460074F7C0 /* MemoTitleCell.swift */,
+				7811ED5A23095C830074F7C0 /* MKMemoview.swift */,
+				2F4DB72B230A847F003B7DCE /* AttachmentMemoViewModel.swift */,
+				783D670A230B855A00536F04 /* DrawingBoard */,
+				783D6706230B849800536F04 /* KeyboardAccessoryView */,
+				783D6707230B84B700536F04 /* Attachment */,
 			);
 			path = AttachmentMemo;
 			sourceTree = "<group>";
@@ -205,6 +307,48 @@
 				7887163A22AE7FB6008BE38A /* PreviewModels */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		7812E62123134485006A4316 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				78B5AE9E23117EC2007EF7FF /* SettingViewController.swift */,
+				7812E624231345C9006A4316 /* BinViewController.swift */,
+				7812E62723139561006A4316 /* BinViewModel.swift */,
+				78485DDD231284A4003695DE /* AboutViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		783D6706230B849800536F04 /* KeyboardAccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				78D540D2230966400067D6D2 /* KeyboardAccessoryView.swift */,
+				78D540D4230966680067D6D2 /* KeyboardAccessoryCell.swift */,
+			);
+			path = KeyboardAccessoryView;
+			sourceTree = "<group>";
+		};
+		783D6707230B84B700536F04 /* Attachment */ = {
+			isa = PBXGroup;
+			children = (
+				78834DCB23099711005DE19F /* AttachmentPreviewCell.swift */,
+				2F4DB72F230AA75C003B7DCE /* AttachmentModel.swift */,
+				2F4DB731230AB1FA003B7DCE /* LoadAttachmentOperation.swift */,
+			);
+			path = Attachment;
+			sourceTree = "<group>";
+		};
+		783D670A230B855A00536F04 /* DrawingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				783D6708230B855600536F04 /* DrawingViewController.swift */,
+				782AFCBF230C241B00B392EC /* DrawingBoard.swift */,
+				782AFCC1230C2E0700B392EC /* PenView.swift */,
+				782AFCC3230C2E1100B392EC /* EraserView.swift */,
+				782AFCC7230CC90E00B392EC /* BrushSizeButton.swift */,
+			);
+			path = DrawingBoard;
 			sourceTree = "<group>";
 		};
 		784507DD22A8E432009913D1 /* VoiceMemo */ = {
@@ -228,9 +372,13 @@
 			isa = PBXGroup;
 			children = (
 				78A980FF22A8050E000E0247 /* ListViewController.swift */,
+				784D630C22E4A10400D55C0E /* AddTaskView.swift */,
 				786B401C22C7AA0A0020A5E3 /* StatusView.swift */,
 				784FBA6322A8B71500F1818C /* ListTableCell.swift */,
 				784507D922A8E288009913D1 /* ListDetailViewController.swift */,
+				2F24A94E22CCDEF60002FACE /* ListViewModel.swift */,
+				78E2889A22F4673600634EEF /* ColorPickerView.swift */,
+				78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */,
 			);
 			path = ListMemo;
 			sourceTree = "<group>";
@@ -263,12 +411,17 @@
 				2F20B3B022A3947300054053 /* LaunchScreen.storyboard */,
 				2F20B3B322A3947300054053 /* Info.plist */,
 				2F20B3AE22A3947300054053 /* Assets.xcassets */,
+				784507DB22A8E2FD009913D1 /* Extensions.swift */,
+				2FBF6C2A22CB928F0049AF99 /* MKAudioPlayer.swift */,
 				780983EC22BA88EA00A8E851 /* MKButton.swift */,
 				780983EF22BA891500A8E851 /* PaddingLabel.swift */,
 				780983EB22BA88EA00A8E851 /* BadgeButton.swift */,
-				784507DB22A8E2FD009913D1 /* Extensions.swift */,
-				784507DE22A8E6CA009913D1 /* MKAudioPlayer.swift */,
+				78D540D02309602F0067D6D2 /* ImageCell.swift */,
 				786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */,
+				2F24A95322CE2D850002FACE /* MKPresentationController.swift */,
+				2F24A95222CE2D850002FACE /* MKPresentBottomController.swift */,
+				789F8EA422D317D80067200A /* ColorPickerCell.swift */,
+				789F8EC622D56E5E0067200A /* UnfocusableTextField.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -305,6 +458,7 @@
 				786B400F22C711A40020A5E3 /* HomeVoiceCell.swift */,
 				786B400C22C711620020A5E3 /* HomeCell.swift */,
 				786B3FFE22C4EFFE0020A5E3 /* HomeCellTitleView.swift */,
+				78A4D04D230EDD0800F3C6B2 /* SearchViewCell.swift */,
 			);
 			path = HomeTableCell;
 			sourceTree = "<group>";
@@ -319,10 +473,12 @@
 				2F20B39D22A3947000054053 /* Sources */,
 				2F20B39E22A3947000054053 /* Frameworks */,
 				2F20B39F22A3947000054053 /* Resources */,
+				7811EA5022F7C42700966957 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7807C7D522F8362100387353 /* PBXTargetDependency */,
 			);
 			name = MemoIt;
 			productName = MemoIt;
@@ -356,12 +512,28 @@
 			mainGroup = 2F20B39822A3947000054053;
 			productRefGroup = 2F20B3A222A3947000054053 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7807C7CD22F8361600387353 /* Products */;
+					ProjectRef = 7807C7CC22F8361600387353 /* MKCalendarView.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				2F20B3A022A3947000054053 /* MemoIt */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7807C7D122F8361700387353 /* MKCalendarView.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MKCalendarView.framework;
+			remoteRef = 7807C7D022F8361700387353 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2F20B39F22A3947000054053 /* Resources */ = {
@@ -381,6 +553,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				786B401122C711A40020A5E3 /* HomeTodoCell.swift in Sources */,
+				782AFCC0230C241B00B392EC /* DrawingBoard.swift in Sources */,
+				7811ED5923095C460074F7C0 /* MemoTitleCell.swift in Sources */,
 				78A980E822A803EF000E0247 /* AttachmentMemo+CoreDataProperties.swift in Sources */,
 				786B401F22C8D31C0020A5E3 /* MKCircleProgress.swift in Sources */,
 				786B401A22C711F30020A5E3 /* MemoModel.swift in Sources */,
@@ -388,56 +562,88 @@
 				78A980F322A803EF000E0247 /* ListIem+CoreDataProperties.swift in Sources */,
 				78A980F822A8044A000E0247 /* MemoIt.xcdatamodeld in Sources */,
 				786B401822C711F30020A5E3 /* TodoModel.swift in Sources */,
+				7812E625231345C9006A4316 /* BinViewController.swift in Sources */,
+				2F24A95422CE2D850002FACE /* MKPresentBottomController.swift in Sources */,
 				78A980F622A803EF000E0247 /* Memo+CoreDataClass.swift in Sources */,
+				78B5AE9F23117EC2007EF7FF /* SettingViewController.swift in Sources */,
 				780E5EF722A9523300B7AFF5 /* PreviewImageController.swift in Sources */,
+				7811ED5B23095C830074F7C0 /* MKMemoview.swift in Sources */,
+				2F24A94F22CCDEF60002FACE /* ListViewModel.swift in Sources */,
 				786B400D22C711620020A5E3 /* HomeCell.swift in Sources */,
+				7812E62823139561006A4316 /* BinViewModel.swift in Sources */,
 				784507D822A8DF3F009913D1 /* Helper.swift in Sources */,
 				7887162D22AD443A008BE38A /* CalendarHelper.swift in Sources */,
 				78A980F022A803EF000E0247 /* MemoLabel+CoreDataClass.swift in Sources */,
 				784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */,
 				786B401B22C711F30020A5E3 /* VoiceModel.swift in Sources */,
+				2F4DB730230AA75C003B7DCE /* AttachmentModel.swift in Sources */,
+				2F4DB732230AB1FA003B7DCE /* LoadAttachmentOperation.swift in Sources */,
+				78485DDE231284A4003695DE /* AboutViewController.swift in Sources */,
 				78A980EA22A803EF000E0247 /* ListMemo+CoreDataProperties.swift in Sources */,
 				78A980E922A803EF000E0247 /* AttachmentMemo+CoreDataClass.swift in Sources */,
 				784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */,
 				2F20B3A522A3947000054053 /* AppDelegate.swift in Sources */,
 				78A980F222A803EF000E0247 /* VoiceMemo+CoreDataClass.swift in Sources */,
+				2F4DB72C230A847F003B7DCE /* AttachmentMemoViewModel.swift in Sources */,
 				78ADC94422AEAF67004295F8 /* LoadMemoOperation.swift in Sources */,
 				7887163022AD445B008BE38A /* UIHelper.swift in Sources */,
 				786B401222C711A40020A5E3 /* HomeVoiceCell.swift in Sources */,
 				786B401322C711A40020A5E3 /* HomeAttachCell.swift in Sources */,
-				7849C54622B677F30097F147 /* LoadPreviewAttachmentOpeartion.swift in Sources */,
 				78A980FC22A804AA000E0247 /* Attachment+CoreDataProperties.swift in Sources */,
 				784FBA6422A8B71500F1818C /* ListTableCell.swift in Sources */,
 				78A980FE22A80507000E0247 /* MemoViewController.swift in Sources */,
 				780E5F0022AA588F00B7AFF5 /* FunctionView.swift in Sources */,
+				782AFCC2230C2E0700B392EC /* PenView.swift in Sources */,
 				786B401D22C7AA0A0020A5E3 /* StatusView.swift in Sources */,
+				782AFCC8230CC90E00B392EC /* BrushSizeButton.swift in Sources */,
+				78A4D04E230EDD0800F3C6B2 /* SearchViewCell.swift in Sources */,
 				784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */,
+				782AFCC4230C2E1100B392EC /* EraserView.swift in Sources */,
 				78A980F522A803EF000E0247 /* Category+CoreDataProperties.swift in Sources */,
+				78834DCC23099711005DE19F /* AttachmentPreviewCell.swift in Sources */,
 				780983ED22BA88EA00A8E851 /* BadgeButton.swift in Sources */,
 				786B401922C711F30020A5E3 /* AttachModel.swift in Sources */,
+				78C7B04F22F72D0B0016BFBA /* DatePickerView.swift in Sources */,
+				789F8EC722D56E5E0067200A /* UnfocusableTextField.swift in Sources */,
 				78A980EB22A803EF000E0247 /* VoiceMemo+CoreDataProperties.swift in Sources */,
 				78A980F422A803EF000E0247 /* Category+CoreDataClass.swift in Sources */,
 				2F20B3BA22A39F5100054053 /* HomeViewController.swift in Sources */,
 				780E5EF822A9523300B7AFF5 /* PreviewItemController.swift in Sources */,
-				784507DF22A8E6CA009913D1 /* MKAudioPlayer.swift in Sources */,
+				789F8EA522D317D80067200A /* ColorPickerCell.swift in Sources */,
 				78A9810022A8050E000E0247 /* ListViewController.swift in Sources */,
 				780E5EF622A9523300B7AFF5 /* PreviewPageViewController.swift in Sources */,
+				78D540D5230966680067D6D2 /* KeyboardAccessoryCell.swift in Sources */,
 				780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */,
 				78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */,
 				78A980EF22A803EF000E0247 /* ListMemo+CoreDataClass.swift in Sources */,
 				7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */,
+				78D540D3230966400067D6D2 /* KeyboardAccessoryView.swift in Sources */,
+				783D6709230B855600536F04 /* DrawingViewController.swift in Sources */,
 				7887163122AD445B008BE38A /* Padding.swift in Sources */,
 				780983EE22BA88EA00A8E851 /* MKButton.swift in Sources */,
 				78A980EE22A803EF000E0247 /* ListIem+CoreDataClass.swift in Sources */,
 				78A980F122A803EF000E0247 /* MemoLabel+CoreDataProperties.swift in Sources */,
 				786B3FFF22C4EFFE0020A5E3 /* HomeCellTitleView.swift in Sources */,
 				78A9810222A80515000E0247 /* VoiceViewController.swift in Sources */,
+				2FBF6C2B22CB928F0049AF99 /* MKAudioPlayer.swift in Sources */,
 				780E5EF922A9523300B7AFF5 /* PreviewAudioController.swift in Sources */,
+				78E2889B22F4673600634EEF /* ColorPickerView.swift in Sources */,
 				78A980FB22A804AA000E0247 /* Attachment+CoreDataClass.swift in Sources */,
+				2F24A95522CE2D850002FACE /* MKPresentationController.swift in Sources */,
+				784D630D22E4A10400D55C0E /* AddTaskView.swift in Sources */,
+				78D540D12309602F0067D6D2 /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7807C7D522F8362100387353 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MKCalendarView;
+			targetProxy = 7807C7D422F8362100387353 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2F20B3B022A3947300054053 /* LaunchScreen.storyboard */ = {
@@ -570,6 +776,7 @@
 		2F20B3B722A3947300054053 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -580,7 +787,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mmk.MemoIt;
+				PRODUCT_BUNDLE_IDENTIFIER = mmk.mc2.memoIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MemoIt/MemoIt-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -592,6 +799,7 @@
 		2F20B3B822A3947300054053 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -602,7 +810,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mmk.MemoIt;
+				PRODUCT_BUNDLE_IDENTIFIER = mmk.mc2.memoIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MemoIt/MemoIt-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

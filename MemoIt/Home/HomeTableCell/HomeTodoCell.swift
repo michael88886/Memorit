@@ -15,26 +15,26 @@ class HomeTodoCell: HomeCell {
 	// Preview list cell ID
 	private let prevCellID = "PrevListCell"
 	// Preview table row height
-	private let prevRowH: CGFloat = 28
-	// Progress font size
-	private let pgFontSize: CGFloat = 20
-	//
+	private let prevRowH: CGFloat = 24
+	// Unit font
+	private let unitFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+	// State font
+	private let taskFont = UIFont.systemFont(ofSize: 28, weight: .regular)
+	// Unit label width
+	private let unitW: CGFloat = 44
+	// Task label width
+	private let taskW: CGFloat = 40
+	// Text color
+	private let labelColor: UIColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
 	
 	// - Variables
 	// Once flag
 	private var once: Bool = true
 	// Item list
-	private var itemList = [(color: UIColor, title: String)]()
+	private var itemList = [(color: UIColor, title: String, isDone: Bool)]()
+	
 	
 	// MARK: - Views
-	// Progress container
-	private lazy var progressView: MKCircleProgress = {
-		let pv = MKCircleProgress()
-		pv.trackColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).withAlphaComponent(0.3)
-		pv.textSize = 20
-		return pv
-	}()
-	
 	// List table
 	private lazy var listTable: UITableView = {
 		let table = UITableView(frame: .zero, style: .plain)
@@ -44,74 +44,88 @@ class HomeTodoCell: HomeCell {
 		table.allowsSelection = false
 		table.showsVerticalScrollIndicator = false
 		table.isUserInteractionEnabled = false
-		table.dataSource = self
-		table.delegate = self
-		table.register(UITableViewCell.self, forCellReuseIdentifier: prevCellID)
 		return table
 	}() 
 	
-	
+	// Total tasks label
+	private lazy var totalLabel: UILabel = {
+		let lb = UILabel()
+		lb.font = taskFont
+		lb.textAlignment = .right
+		lb.textColor = labelColor
+		return lb
+	}()
 	
 	// MARK: - OVerride function
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		progressView.resetProgress()
 		itemList.removeAll()
 		listTable.reloadData()
 	}
 	
 	override func feedCell(model: MemoModel) {
 		super.feedCell(model: model)
-		print("Feed todo cell:  \(model)")
 		// Todo model
 		guard let todoModel = model as? TodoModel else { return }
 		itemList = todoModel.listItems
-		progressView.setProgress(value: todoModel.percent)
-//		listTable.reloadData()
-//		progressView.setProgress(value: 0.6)
-//		progressView.animationProgress(progress: todoModel.percent)
-	}
-	
-}
-
-
-// MARK: - Cell UI
-extension HomeTodoCell {
-	override func setup() {
-		super.setup()
+		listTable.reloadData()
 		
-		// Progress view
-		progressView.translatesAutoresizingMaskIntoConstraints = false
-		container.addSubview(progressView)		
-		progressView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: Padding.p10).isActive = true
-		progressView.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -Padding.p20).isActive = true
-		progressView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -Padding.p10).isActive = true
-		progressView.widthAnchor.constraint(equalTo: progressView.heightAnchor).isActive = true
-		
-		// List table
-		listTable.translatesAutoresizingMaskIntoConstraints = false
-		container.addSubview(listTable)
-		listTable.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: Padding.p10).isActive = true
-		listTable.leftAnchor.constraint(equalTo: container.leftAnchor, constant: Padding.p20).isActive = true
-		listTable.rightAnchor.constraint(equalTo: progressView.leftAnchor, constant: -Padding.p20).isActive = true
-		listTable.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -Padding.p10).isActive = true
+		totalLabel.text = String(todoModel.totalTasks)
 	}
 }
 
-
-// UITableView data source / delegate
+// MARK: - Delegate
+// MARK: - UITableView data source / delegate
 extension HomeTodoCell: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return itemList.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
 		let cell = tableView.dequeueReusableCell(withIdentifier: prevCellID, for: indexPath)
 		let data = itemList[indexPath.row]
-		let itemStr = String(format: "• %@", data.title)
+		var sign = "•"
+		if data.isDone == true { sign = "✓" }
+		let itemStr = String(format: "%@ %@", sign, data.title)
 		cell.textLabel?.text = itemStr
 		cell.textLabel?.textColor = #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)
 		return cell
+	}
+}
+
+
+// MARK: - Setup UI
+extension HomeTodoCell {
+	override func setup() {
+		super.setup()
+		
+		// Totol unit label
+		let totalUnitLabel = UILabel()
+		totalUnitLabel.font = unitFont
+		totalUnitLabel.text = "Task(s)"
+		totalUnitLabel.textColor = labelColor
+		container.addSubview(totalUnitLabel)
+		totalUnitLabel.translatesAutoresizingMaskIntoConstraints = false
+		totalUnitLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: Padding.p40).isActive = true
+		totalUnitLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Padding.p10).isActive = true
+		totalUnitLabel.widthAnchor.constraint(equalToConstant: unitW).isActive = true
+		
+		// Total label
+		container.addSubview(totalLabel)
+		totalLabel.translatesAutoresizingMaskIntoConstraints = false
+		totalLabel.bottomAnchor.constraint(equalTo: totalUnitLabel.bottomAnchor, constant: Padding.p5).isActive = true
+		totalLabel.trailingAnchor.constraint(equalTo: totalUnitLabel.leadingAnchor, constant: -Padding.p10).isActive = true
+		totalLabel.widthAnchor.constraint(equalToConstant: taskW).isActive = true
+		
+		// List table
+		listTable.dataSource = self
+		listTable.delegate = self
+		listTable.register(UITableViewCell.self, forCellReuseIdentifier: prevCellID)
+		container.addSubview(listTable)
+		listTable.translatesAutoresizingMaskIntoConstraints = false
+		listTable.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: Padding.p5).isActive = true
+		listTable.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Padding.p10).isActive = true
+		listTable.trailingAnchor.constraint(equalTo: totalLabel.leadingAnchor, constant: -Padding.p10).isActive = true
+		listTable.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -Padding.p10).isActive = true
 	}
 }

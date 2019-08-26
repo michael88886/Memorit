@@ -63,6 +63,12 @@ class Helper {
 		}
 	}
 	
+	// Add new memo object to memo list
+	static func addNewMemoToList(memo: Memo) {
+		let userInfo: [String : Memo] = ["Memo" : memo]
+		NotificationCenter.default.post(name: .addNewMemo, object: nil, userInfo: userInfo)
+	}
+	
 	// MARK: - Misc funcitons	
 	// Unique name
 	static func uniqueName() -> String {

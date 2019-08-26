@@ -13,11 +13,11 @@ class TodoModel: MemoModel {
 	// Maximum items
 	let maxItem: Int = 3
 	
-	// Finish percentage
-	var percent: CGFloat = 0
+	// Total tasks
+	var totalTasks: Int = 0
 	
 	// Preview list items
-	lazy var listItems = [(color: UIColor, title: String)]()
+	lazy var listItems = [(color: UIColor, title: String, isDone: Bool)]()
 	
 	// MARK: - Custom init
 	init(memo: ListMemo) {

@@ -54,8 +54,9 @@ class HeaderView: UIView {
 		// Text field
 		let textfield = sb.value(forKey: "searchField") as? UITextField
 		if let textfield = textfield {
+			// Setup text view
 			textfield.borderStyle = .none
-			textfield.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7)
+			textfield.backgroundColor = .clear//#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7)
 			textfield.clipsToBounds = true
 			textfield.layer.cornerRadius = 8  //textfield.frame.height / 4
 			
@@ -136,10 +137,23 @@ extension HeaderView {
 		// Search bar
 		searchbar.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(searchbar)
-		searchbar.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
 		searchbar.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor).isActive = true
-		searchbar.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+		searchbar.leftAnchor.constraint(equalTo: leftAnchor, constant: Padding.p10).isActive = true
+		searchbar.rightAnchor.constraint(equalTo: rightAnchor, constant: -Padding.p10).isActive = true
 		searchbar.heightAnchor.constraint(equalToConstant: searchBarH).isActive = true
+		
+		
+		// Background view
+		let blurEffect = UIBlurEffect(style: .regular)
+		let bgV = UIVisualEffectView(effect: blurEffect)
+		bgV.layer.cornerRadius = 8
+		bgV.layer.masksToBounds = true
+		bgV.translatesAutoresizingMaskIntoConstraints = false
+		insertSubview(bgV, belowSubview: searchbar)
+		bgV.topAnchor.constraint(equalTo: searchbar.topAnchor).isActive = true
+		bgV.leftAnchor.constraint(equalTo: searchbar.leftAnchor).isActive = true
+		bgV.rightAnchor.constraint(equalTo: searchbar.rightAnchor).isActive = true
+		bgV.bottomAnchor.constraint(equalTo: searchbar.bottomAnchor).isActive = true
 	}
 }
 

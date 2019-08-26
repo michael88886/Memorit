@@ -19,7 +19,7 @@ class PreviewPageViewController: UIPageViewController {
     private lazy var previewItemControllers: [PreviewItemController] = []
     
     // MARK: - Convenience init
-    convenience init(attachments: [MemoAttachment], selectedIndex: Int) {
+    convenience init(attachments: [AttachmentModel], selectedIndex: Int) {
         self.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewController.OptionsKey.interPageSpacing: 10])
         
         // Current index
@@ -91,7 +91,7 @@ extension PreviewPageViewController {
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         
         // Left btn
-        let leftBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack"), style: .plain, target: self, action: #selector(dismissController(sender:)))
+        let leftBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "NaviBack44"), style: .plain, target: self, action: #selector(dismissController(sender:)))
         leftBtn.tintColor = .black
         navigationItem.leftBarButtonItem = leftBtn
     }

@@ -23,7 +23,10 @@ class MemoModel {
 	
 	// Initialise
 	init(memo: Memo) {
-		self.title = memo.title
+		if let title = memo.title {
+			self.title = title
+		} 
+		 
 		self.date = memo.timeModified as Date
 		self.color = memo.color
 		self.label = memo.label?.name
