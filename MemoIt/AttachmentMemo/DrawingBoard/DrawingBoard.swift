@@ -127,6 +127,7 @@ extension DrawingBoard {
 	
 	// Clear all
 	func clearAllDraw() {
+		print("sss")
 		self.image = nil
 		images.removeAll()
 		cacheImage.removeAll()
@@ -185,6 +186,7 @@ extension DrawingBoard {
 	
 	// Valiadate control buttons
 	private func validateButton() {
+		print("validate button")
 		// If images array empty
 		self.drawingImageEmpty?(images.count > 0)
 		// If cache image array empty
