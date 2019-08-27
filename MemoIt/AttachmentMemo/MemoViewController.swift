@@ -114,8 +114,8 @@ class MemoViewController: UIViewController {
 	private lazy var contentCell: UITableViewCell = {
 		let cell = UITableViewCell()
 		// Add memo view
-		memoView.translatesAutoresizingMaskIntoConstraints = false
 		cell.contentView.addSubview(memoView)
+		memoView.translatesAutoresizingMaskIntoConstraints = false
 		memoView.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
 		memoView.leadingAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.leadingAnchor, constant: Padding.p20).isActive = true
 		memoView.trailingAnchor.constraint(equalTo: cell.contentView.safeAreaLayoutGuide.trailingAnchor, constant: -Padding.p20).isActive = true

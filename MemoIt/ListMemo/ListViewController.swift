@@ -70,7 +70,7 @@ class ListViewController: UIViewController {
 	private lazy var listTable: UITableView = {
 		let table = UITableView(frame: CGRect.zero, style: .plain)
 		table.backgroundColor = .clear
-		table.allowsSelection = false
+		table.allowsSelection = true
 		table.allowsMultipleSelection = false
 		table.isMultipleTouchEnabled = false
 		table.separatorStyle = .none
@@ -117,6 +117,9 @@ extension ListViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardAction(_:)),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+		// - Reload list table
+		NotificationCenter.default.addObserver(self, selector: #selector(reloadItem(_:)), name: .reloadListTable, object: nil)
+		
 		
 		// Assign view model closures
 		viewModel.reloadTable = reloadTable
@@ -168,6 +171,14 @@ extension ListViewController {
 
 // MARK: - Actions
 extension ListViewController {
+	// Reload item at index path
+	@objc private func reloadItem(_ notification: Notification) {
+		guard let userInfo = notification.userInfo else { return }
+		if let data = userInfo["data"] as? ListItemModel {
+			viewModel.updateItem(data)
+		}
+	}
+	
 	// Back button action
 	@objc private func backAction() {
 		// Hide keyboard
@@ -245,6 +256,12 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 	// Setup cell
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		return viewModel.updateCell(tableView, indexPath)
+	}
+	
+	// Select cell
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let data = viewModel.editItem(indexPath)
+		navigationController?.pushViewController(ListDetailViewController(data: data), animated: true)
 	}
 	
 	// Cell height

@@ -17,6 +17,8 @@ extension Notification.Name {
 	static let reloadHomeList = Notification.Name("ReloadHomeList")
 	// Notify add new memo to ilst
 	static let addNewMemo = Notification.Name("AddNewMemo")
+	// Notify reload list table
+	static let reloadListTable = Notification.Name("ReloadListTable")
     // Notify dismiss MKPreseentationBottom controller
     static let dismissMKPresentationBottomVC = Notification.Name("dismissMKPresentationBottomVC")
     

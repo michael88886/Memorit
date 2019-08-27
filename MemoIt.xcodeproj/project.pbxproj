@@ -32,13 +32,13 @@
 		7811ED5B23095C830074F7C0 /* MKMemoview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811ED5A23095C830074F7C0 /* MKMemoview.swift */; };
 		7812E625231345C9006A4316 /* BinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812E624231345C9006A4316 /* BinViewController.swift */; };
 		7812E62823139561006A4316 /* BinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812E62723139561006A4316 /* BinViewModel.swift */; };
+		7812E62C2314E2A2006A4316 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812E62B2314E2A2006A4316 /* ListDetailViewController.swift */; };
 		782AFCC0230C241B00B392EC /* DrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCBF230C241B00B392EC /* DrawingBoard.swift */; };
 		782AFCC2230C2E0700B392EC /* PenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC1230C2E0700B392EC /* PenView.swift */; };
 		782AFCC4230C2E1100B392EC /* EraserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC3230C2E1100B392EC /* EraserView.swift */; };
 		782AFCC8230CC90E00B392EC /* BrushSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AFCC7230CC90E00B392EC /* BrushSizeButton.swift */; };
 		783D6709230B855600536F04 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783D6708230B855600536F04 /* DrawingViewController.swift */; };
 		784507D822A8DF3F009913D1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D722A8DF3F009913D1 /* Helper.swift */; };
-		784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507D922A8E288009913D1 /* ListDetailViewController.swift */; };
 		784507DC22A8E2FD009913D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784507DB22A8E2FD009913D1 /* Extensions.swift */; };
 		784507E522A8EBAB009913D1 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */; };
 		78485DDE231284A4003695DE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78485DDD231284A4003695DE /* AboutViewController.swift */; };
@@ -53,7 +53,6 @@
 		786B401922C711F30020A5E3 /* AttachModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401522C711F30020A5E3 /* AttachModel.swift */; };
 		786B401A22C711F30020A5E3 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401622C711F30020A5E3 /* MemoModel.swift */; };
 		786B401B22C711F30020A5E3 /* VoiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401722C711F30020A5E3 /* VoiceModel.swift */; };
-		786B401D22C7AA0A0020A5E3 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401C22C7AA0A0020A5E3 /* StatusView.swift */; };
 		786B401F22C8D31C0020A5E3 /* MKCircleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */; };
 		78834DCC23099711005DE19F /* AttachmentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78834DCB23099711005DE19F /* AttachmentPreviewCell.swift */; };
 		7887162D22AD443A008BE38A /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7887162C22AD443A008BE38A /* CalendarHelper.swift */; };
@@ -151,13 +150,13 @@
 		7811ED5A23095C830074F7C0 /* MKMemoview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMemoview.swift; sourceTree = "<group>"; };
 		7812E624231345C9006A4316 /* BinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinViewController.swift; sourceTree = "<group>"; };
 		7812E62723139561006A4316 /* BinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinViewModel.swift; sourceTree = "<group>"; };
+		7812E62B2314E2A2006A4316 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		782AFCBF230C241B00B392EC /* DrawingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoard.swift; sourceTree = "<group>"; };
 		782AFCC1230C2E0700B392EC /* PenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenView.swift; sourceTree = "<group>"; };
 		782AFCC3230C2E1100B392EC /* EraserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserView.swift; sourceTree = "<group>"; };
 		782AFCC7230CC90E00B392EC /* BrushSizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushSizeButton.swift; sourceTree = "<group>"; };
 		783D6708230B855600536F04 /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		784507D722A8DF3F009913D1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		784507D922A8E288009913D1 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		784507DB22A8E2FD009913D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		784507E322A8EBAB009913D1 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		784507E422A8EBAB009913D1 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
@@ -173,7 +172,6 @@
 		786B401522C711F30020A5E3 /* AttachModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachModel.swift; sourceTree = "<group>"; };
 		786B401622C711F30020A5E3 /* MemoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		786B401722C711F30020A5E3 /* VoiceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceModel.swift; sourceTree = "<group>"; };
-		786B401C22C7AA0A0020A5E3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		786B401E22C8D31C0020A5E3 /* MKCircleProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCircleProgress.swift; sourceTree = "<group>"; };
 		78834DCB23099711005DE19F /* AttachmentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentPreviewCell.swift; sourceTree = "<group>"; };
 		7887162922AA9843008BE38A /* MemoIt-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MemoIt-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -373,12 +371,11 @@
 			children = (
 				78A980FF22A8050E000E0247 /* ListViewController.swift */,
 				784D630C22E4A10400D55C0E /* AddTaskView.swift */,
-				786B401C22C7AA0A0020A5E3 /* StatusView.swift */,
 				784FBA6322A8B71500F1818C /* ListTableCell.swift */,
-				784507D922A8E288009913D1 /* ListDetailViewController.swift */,
 				2F24A94E22CCDEF60002FACE /* ListViewModel.swift */,
 				78E2889A22F4673600634EEF /* ColorPickerView.swift */,
 				78C7B04E22F72D0B0016BFBA /* DatePickerView.swift */,
+				7812E62B2314E2A2006A4316 /* ListDetailViewController.swift */,
 			);
 			path = ListMemo;
 			sourceTree = "<group>";
@@ -594,10 +591,8 @@
 				78A980FE22A80507000E0247 /* MemoViewController.swift in Sources */,
 				780E5F0022AA588F00B7AFF5 /* FunctionView.swift in Sources */,
 				782AFCC2230C2E0700B392EC /* PenView.swift in Sources */,
-				786B401D22C7AA0A0020A5E3 /* StatusView.swift in Sources */,
 				782AFCC8230CC90E00B392EC /* BrushSizeButton.swift in Sources */,
 				78A4D04E230EDD0800F3C6B2 /* SearchViewCell.swift in Sources */,
-				784507DA22A8E288009913D1 /* ListDetailViewController.swift in Sources */,
 				782AFCC4230C2E1100B392EC /* EraserView.swift in Sources */,
 				78A980F522A803EF000E0247 /* Category+CoreDataProperties.swift in Sources */,
 				78834DCC23099711005DE19F /* AttachmentPreviewCell.swift in Sources */,
@@ -614,6 +609,7 @@
 				780E5EF622A9523300B7AFF5 /* PreviewPageViewController.swift in Sources */,
 				78D540D5230966680067D6D2 /* KeyboardAccessoryCell.swift in Sources */,
 				780983F022BA891500A8E851 /* PaddingLabel.swift in Sources */,
+				7812E62C2314E2A2006A4316 /* ListDetailViewController.swift in Sources */,
 				78A7C1EB22A3AA6100ADBFBA /* HeaderView.swift in Sources */,
 				78A980EF22A803EF000E0247 /* ListMemo+CoreDataClass.swift in Sources */,
 				7887163322AE5BEC008BE38A /* MemoViewModel.swift in Sources */,
