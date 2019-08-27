@@ -26,8 +26,6 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Request access camera</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Request access location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Request access microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
