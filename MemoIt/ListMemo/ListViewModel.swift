@@ -40,6 +40,8 @@ class ListViewModel: NSObject {
 	
 	// List memo object reference
 	private var memoData: ListMemo?
+	// Editing indexpath
+	private var editingIndexpath: IndexPath?
 	// Is editing flag
 	private var isEditing = false
 	
@@ -95,6 +97,18 @@ extension ListViewModel {
 		self.reloadTable?()			
 	}
 	
+	func editItem(_ indexpath: IndexPath) -> ListItemModel {
+		self.editingIndexpath = indexpath
+		return taskList[indexpath.row]
+	}
+	
+	func updateItem(_ data: ListItemModel) {
+		guard let indexpath = self.editingIndexpath else { return }
+		taskList[indexpath.row].title = data.title
+		taskList[indexpath.row].color = data.color
+		taskList[indexpath.row].reminder = data.reminder
+		self.reloadTable?()
+	}
 	
 	// MARK: - Model functions
 	// Update title

@@ -67,7 +67,7 @@ final class VoiceViewController: UIViewController {
 		let title = UITextField()
 		//        title.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 		title.borderStyle = .none
-		title.font = UIFont.systemFont(ofSize: 18)
+		title.font = UIFont.systemFont(ofSize: 24)
 		title.textColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
 		title.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 		title.attributedPlaceholder = NSAttributedString(string: "Audio title ...", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6642242074, green: 0.6642400622, blue: 0.6642315388, alpha: 1)])

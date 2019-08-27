@@ -67,6 +67,10 @@ class HomeVoiceCell: HomeCell {
 			let player = MKAudioPlayer(url: url) else { return }
 		player.delegate = self
 		self.player = player
+		
+		// Update duration text
+		let duraStr = Helper.convertTimeToString(time: player.duration)
+		durationLabel.text = String(format: "00:00:00 / %@", duraStr)
 	}
 	
 }

@@ -104,6 +104,8 @@ extension ListTableCell {
 		textView.text = ""
 		// Reset reminder group height constraint
 		reminderHCst.constant = 0
+		// Reset color view color
+		colorView.backgroundColor = .clear
 	}
 }
 
