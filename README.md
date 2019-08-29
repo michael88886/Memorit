@@ -1,4 +1,8 @@
 # Memorit - Notes, todo, voice record and more...
+
+[logo]: https://github.com/michael88886/Memorit/blob/master/Logo%402x.png
+
+
 ## App store
 https://apps.apple.com/us/app/memorit/id1477609767?ls=1
 
