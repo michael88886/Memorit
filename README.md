@@ -1,5 +1,8 @@
 # Memorit
 
+App store
+https://apps.apple.com/us/app/memorit/id1477609767?ls=1
+
 Memorit - Notes, todo, voice record and more...
 
 
