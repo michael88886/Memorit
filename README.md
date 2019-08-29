@@ -1,6 +1,6 @@
 # Memorit - Notes, todo, voice record and more...
 
-![](https://github.com/michael88886/Memorit/blob/master/Logo%402x.png "")
+![](https://github.com/michael88886/Memorit/blob/master/Banner-Github.png "")
 
 
 **App store**
