@@ -1,4 +1,3 @@
-# Memorit - Notes, todo, voice record and more...
 
 ![](https://github.com/michael88886/Memorit/blob/master/Banner-Github.png "")
 
