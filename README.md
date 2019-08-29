@@ -3,7 +3,7 @@
 ![](https://github.com/michael88886/Memorit/blob/master/Logo%402x.png "")
 
 
-## App store
+**App store**
 [Link](https://apps.apple.com/us/app/memorit/id1477609767?ls=1)
 
 
